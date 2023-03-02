@@ -1,0 +1,582 @@
+{
+	"name": "pEngi",
+	"base_class": "engineer",
+	"profession": "engineer",
+	"attributes": [
+		["power", 2381],
+		["precision", 1961],
+		["ferocity", 961],
+		["vitality", 1400]
+	],
+	"weapons": [{
+		"type": "rifle",
+		"position": "two_handed",
+		"set": "set_1"
+	}],
+	"permanent_effects": [
+		"QUICKNESS",
+		"ALACRITY",
+		"FURY",
+		"RESOLUTION",
+		"VIGOR",
+		"MIGHT",
+		"MIGHT",
+		"MIGHT",
+		"MIGHT",
+		"MIGHT",
+		"MIGHT",
+		"MIGHT",
+		"MIGHT",
+		"MIGHT",
+		"MIGHT",
+		"MIGHT",
+		"MIGHT",
+		"MIGHT",
+		"MIGHT",
+		"MIGHT",
+		"MIGHT",
+		"MIGHT",
+		"MIGHT",
+		"MIGHT",
+		"MIGHT",
+		"MIGHT",
+		"MIGHT",
+		"MIGHT",
+		"MIGHT",
+		"MIGHT"
+	],
+	"permanent_unique_effects": [{
+			"unique_effect_key": "Air Sigil",
+			"skill_triggers": [{
+				"condition": {
+					"depends_on_skill_off_cooldown": "Lightning Strike",
+					"only_applies_on_strikes": true,
+					"weapon_set": "set_1"
+				},
+				"skill_key": "Lightning Strike"
+			}]
+		},
+		{
+			"unique_effect_key": "Superior Sharpening Stone",
+			"attribute_conversions": [{
+				"from": "precision",
+				"to": "power",
+				"multiplier": 0.03
+			}, {
+				"from": "ferocity",
+				"to": "power",
+				"multiplier": 0.06
+			}]
+		}, {
+			"unique_effect_key": "Cilantro Lime Sous-Vide Steak",
+			"attribute_modifiers": [{
+				"attribute": "power",
+				"addend": 100
+			}, {
+				"attribute": "ferocity",
+				"addend": 70
+			}]
+		}, {
+			"unique_effect_key": "Mighty Infusions",
+			"attribute_modifiers": [{
+				"attribute": "power",
+				"addend": 90
+			}]
+		}, {
+			"unique_effect_key": "Scholar Rune",
+			"attribute_modifiers": [{
+				"attribute": "power",
+				"addend": 175
+			}, {
+				"attribute": "ferocity",
+				"addend": 225
+			}, {
+				"attribute": "outgoing_strike_damage_multiplier",
+				"multiplier": 1.05
+			}]
+		}, {
+			"unique_effect_key": "Force Sigil",
+			"attribute_modifiers": [{
+				"attribute": "outgoing_strike_damage_multiplier_add_group",
+				"addend": 0.05
+			}]
+		}, {
+			"unique_effect_key": "Sharpshooter Edges",
+			"unchained_skill_triggers": [{
+				"condition": {
+					"only_applies_on_strikes": true
+				},
+				"skill_key": "Sharpshooter Bleeding Proc"
+			}]
+		},
+		{
+			"unique_effect_key": "High Caliber",
+			"attribute_modifiers": [{
+				"attribute": "critical_chance_multiplier",
+				"addend": 0.15
+			}]
+		}, {
+			"unique_effect_key": "Hematic Focus",
+			"attribute_modifiers": [{
+				"condition": {
+					"effect_on_target": "BLEEDING"
+				},
+				"attribute": "critical_chance_multiplier",
+				"addend": 0.15
+			}]
+		}, {
+			"unique_effect_key": "No Scope",
+			"attribute_conversions": [{
+				"condition": {
+					"effect_on_source": "FURY"
+				},
+				"from": "ferocity",
+				"to": "ferocity",
+				"multiplier": 0,
+				"addend": 150
+			}]
+		},
+		{
+			"unique_effect_key": "Serrated Steel",
+			"attribute_modifiers": [{
+				"attribute": "bleeding_duration_multiplier",
+				"addend": 0.33
+			}]
+		},
+		{
+			"unique_effect_key": "Modified Ammunition",
+			"attribute_modifiers": [{
+				"condition": {
+					"effect_on_target": "BURNING"
+				},
+				"attribute": "outgoing_strike_damage_multiplier",
+				"multiplier": 1.2
+			}]
+		},
+		{
+			"unique_effect_key": "Glass Cannon",
+			"attribute_modifiers": [{
+				"attribute": "outgoing_strike_damage_multiplier",
+				"multiplier": 1.1
+			}]
+		},
+		{
+			"unique_effect_key": "Aim-Assisted Rocket",
+			"skill_triggers": [{
+				"condition": {
+					"only_applies_on_strikes": true,
+					"depends_on_skill_off_cooldown": "Aim-Assisted Rocket Proc"
+				},
+				"skill_key": "Aim-Assisted Rocket Proc"
+			}]
+		},
+		{
+			"unique_effect_key": "Shaped Charge",
+			"attribute_modifiers": [{
+				"attribute": "outgoing_strike_damage_multiplier",
+				"multiplier": 1.125
+			}]
+		},
+		{
+			"unique_effect_key": "Big Boomer",
+			"attribute_modifiers": [{
+				"attribute": "outgoing_strike_damage_multiplier",
+				"multiplier": 1.15
+			}]
+		},
+		{
+			"unique_effect_key": "Takedown Round",
+			"attribute_modifiers": [{
+				"attribute": "outgoing_strike_damage_multiplier",
+				"multiplier": 1.1
+			}]
+		},
+		{
+			"unique_effect_key": "Excessive Energy",
+			"attribute_modifiers": [{
+				"condition": {
+					"effect_on_source": "VIGOR"
+				},
+				"attribute": "outgoing_strike_damage_multiplier_add_group",
+				"addend": 0.1
+			}]
+		},
+		{
+			"unique_effect_key": "Surprise Shot Workaround",
+			"skill_triggers": [{
+				"condition": {
+					"depends_on_skill_off_cooldown": "Surprise Shot",
+					"only_applies_on_strikes": true
+				},
+				"skill_key": "Surprise Shot"
+			}]
+		}
+	],
+	"skills": [{
+			"skill_key": "Weapon Swap",
+			"weapon_type": "empty_handed",
+			"cast_duration": [0, 0],
+			"cooldown": [0, 0]
+		}, {
+			"skill_key": "Lightning Strike",
+			"weapon_type": "empty_handed",
+			"damage_coefficient": 1.1,
+			"cast_duration": [0, 0],
+			"strike_on_tick_list": [
+				[0],
+				[0]
+			],
+			"cooldown": [3000, 3000],
+			"can_critical_strike": false
+		},
+		{
+			"skill_key": "Sharpshooter Bleeding Proc",
+			"ammo": 50000,
+			"cast_duration": [0, 0],
+			"pulse_on_tick_list": [
+				[0],
+				[0]
+			],
+			"on_pulse_effect_applications": [{
+				"effect": "BLEEDING",
+				"num_stacks": 1,
+				"base_duration_ms": 1000,
+				"direction": "OUTGOING"
+			}]
+		},
+		{
+			"skill_key": "Aim-Assisted Rocket Proc",
+			"weapon_type": "empty_handed",
+			"damage_coefficient": 1.0,
+			"ammo": 50000,
+			"cast_duration": [0, 0],
+			"strike_on_tick_list": [
+				[0],
+				[0]
+			],
+			"cooldown": [3000, 3000]
+		},
+
+		{
+			"skill_key": "Rifle Burst",
+			"weapon_type": "rifle",
+			"damage_coefficient": 0.5,
+			"cast_duration": [1260, 840],
+			"strike_on_tick_list": [
+				[630, 1260],
+				[420, 840]
+			]
+		},
+		{
+			"skill_key": "Grenade Barrage",
+			"weapon_type": "main_hand",
+			"damage_coefficient": 0.6,
+			"cast_duration": [1020, 680],
+			"strike_on_tick_list": [
+				[1020, 1020, 1020, 1020, 1020, 1020],
+				[680, 680, 680, 680, 680, 680]
+			],
+			"child_skill_keys": [
+				"Static Discharge"
+			]
+		},
+		{
+			"skill_key": "Grenade Kit",
+			"cast_duration": [0, 0]
+		},
+		{
+			"skill_key": "Grenade",
+			"weapon_type": "kit_conjure",
+			"damage_coefficient": 0.33,
+			"cast_duration": [1020, 680],
+			"strike_on_tick_list": [
+				[1020, 1020, 1020],
+				[680, 680, 680]
+			]
+		},
+		{
+			"skill_key": "Shrapnel Grenade",
+			"weapon_type": "kit_conjure",
+			"damage_coefficient": 0.63,
+			"cast_duration": [1020, 680],
+			"strike_on_tick_list": [
+				[1020, 1020, 1020],
+				[680, 680, 680]
+			],
+			"on_strike_effect_applications": [{
+				"effect": "BLEEDING",
+				"base_duration_ms": 10000,
+				"direction": "OUTGOING"
+			}]
+		},
+		{
+			"skill_key": "Poison Grenade",
+			"weapon_type": "kit_conjure",
+			"damage_coefficient": 0.5,
+			"cast_duration": [1020, 680],
+			"strike_on_tick_list": [
+				[1020, 1020, 1020],
+				[680, 680, 680]
+			],
+			"on_strike_effect_applications": [{
+				"effect": "POISON",
+				"base_duration_ms": 8000,
+				"direction": "OUTGOING"
+			}]
+		},
+		{
+			"skill_key": "Flash Grenade",
+			"weapon_type": "kit_conjure",
+			"damage_coefficient": 0.1,
+			"cast_duration": [1020, 680],
+			"strike_on_tick_list": [
+				[1020, 1020, 1020],
+				[680, 680, 680]
+			],
+			"on_strike_effect_applications": [{
+				"effect": "BLINDED",
+				"base_duration_ms": 5000,
+				"direction": "OUTGOING"
+			}]
+		},
+		{
+			"skill_key": "Freeze Grenade",
+			"weapon_type": "kit_conjure",
+			"damage_coefficient": 0.5,
+			"cast_duration": [1020, 680],
+			"strike_on_tick_list": [
+				[1020, 1020, 1020],
+				[680, 680, 680]
+			],
+			"on_strike_effect_applications": [{
+				"effect": "CHILLED",
+				"base_duration_ms": 2000,
+				"direction": "OUTGOING"
+			}]
+		},
+		{
+			"skill_key": "Blunderbuss",
+			"weapon_type": "rifle",
+			"damage_coefficient": 1.76,
+			"cast_duration": [600, 400],
+			"strike_on_tick_list": [
+				[600],
+				[400]
+			],
+			"on_strike_effect_applications": [{
+				"effect": "BLEEDING",
+				"base_duration_ms": 9000,
+				"direction": "OUTGOING",
+				"num_stacks": 3
+			}]
+		},
+		{
+			"skill_key": "Net Shot",
+			"weapon_type": "rifle",
+			"damage_coefficient": 0.5,
+			"cast_duration": [540, 360],
+			"strike_on_tick_list": [
+				[540],
+				[360]
+			],
+			"on_strike_effect_applications": [{
+				"effect": "IMMOBILIZED",
+				"base_duration_ms": 4000,
+				"direction": "OUTGOING"
+			}]
+		},
+		{
+			"skill_key": "Overcharged Shot",
+			"weapon_type": "rifle",
+			"damage_coefficient": 1.0,
+			"cast_duration": [578, 385],
+			"strike_on_tick_list": [
+				[578],
+				[385]
+			]
+		},
+		{
+			"skill_key": "Jump Shot",
+			"weapon_type": "rifle",
+			"damage_coefficient": 1.35,
+			"cast_duration": [1386, 924],
+			"strike_on_tick_list": [
+				[693, 1386],
+				[462, 924]
+			]
+		},
+		{
+			"skill_key": "Throw Mine",
+			"weapon_type": "empty_handed",
+			"damage_coefficient": 3,
+			"cast_duration": [1020, 680],
+			"strike_on_tick_list": [
+				[1020, 1020],
+				[680, 680]
+			]
+		},
+		{
+			"skill_key": "Mine Field",
+			"weapon_type": "main_hand",
+			"damage_coefficient": 0.77,
+			"cast_duration": [1386, 924],
+			"strike_on_tick_list": [
+				[1386, 1386, 1386, 1386, 1386],
+				[924, 924, 924, 924, 924]
+			],
+			"child_skill_keys": [
+				"Static Discharge"
+			]
+		},
+		{
+			"skill_key": "Surprise Shot",
+			"weapon_type": "main_hand",
+			"damage_coefficient": 1.0,
+			"cast_duration": [0, 0],
+			"strike_on_tick_list": [
+				[0],
+				[0]
+			],
+			"cooldown": [6800, 5440]
+		},
+		{
+			"skill_key": "Orbital Strike",
+			"weapon_type": "empty_handed",
+			"damage_coefficient": 0.0,
+			"cast_duration": [1320, 880],
+			"child_skill_keys": [
+				"Static Discharge",
+				"Orbital Strike Attack"
+			]
+		},
+		{
+			"skill_key": "Orbital Strike Attack",
+			"weapon_type": "main_hand",
+			"damage_coefficient": 1.33,
+			"cast_duration": [2000, 2000],
+			"strike_on_tick_list": [
+				[2000],
+				[2000]
+			]
+		},
+		{
+			"skill_key": "Static Shock",
+			"weapon_type": "main_hand",
+			"damage_coefficient": 1.0,
+			"cast_duration": [1020, 680],
+			"strike_on_tick_list": [
+				[1020],
+				[680]
+			],
+			"child_skill_keys": [
+				"Static Discharge"
+			]
+		},
+		{
+			"skill_key": "Dodge",
+			"weapon_type": "empty_handed",
+			"damage_coefficient": 0.0,
+			"cast_duration": [792, 792],
+			"child_skill_keys": [
+				"Explosive Entrance"
+			],
+			"TODO": "STRIPS 50 ENDURANCE"
+		},
+		{
+			"skill_key": "Explosive Entrance",
+			"weapon_type": "empty_handed",
+			"damage_coefficient": 1.25,
+			"cast_duration": [0, 0],
+			"strike_on_tick_list": [
+				[0],
+				[0]
+			]
+		},
+		{
+			"skill_key": "Elite Mortar Kit",
+			"cast_duration": [0, 0]
+		},
+		{
+			"skill_key": "Mortar Shot",
+			"weapon_type": "kit_conjure",
+			"damage_coefficient": 1.0,
+			"cast_duration": [841, 561],
+			"strike_on_tick_list": [
+				[841],
+				[561]
+			]
+		},
+		{
+			"skill_key": "Poison Gas Shell",
+			"weapon_type": "kit_conjure",
+			"damage_coefficient": 1.0,
+			"cast_duration": [841, 561],
+			"strike_on_tick_list": [
+				[841],
+				[561]
+			],
+			"on_strike_effect_applications": [{
+				"effect": "POISON",
+				"base_duration_ms": 3000,
+				"direction": "OUTGOING",
+				"num_stacks": 5
+			}]
+		},
+		{
+			"skill_key": "Endothermic Shell",
+			"weapon_type": "kit_conjure",
+			"damage_coefficient": 1.0,
+			"cast_duration": [841, 561],
+			"strike_on_tick_list": [
+				[841],
+				[561]
+			],
+			"on_strike_effect_applications": [{
+				"effect": "CHILLED",
+				"base_duration_ms": 1000,
+				"direction": "OUTGOING",
+				"num_stacks": 5
+			}]
+		},
+		{
+			"skill_key": "Flash Shell",
+			"weapon_type": "kit_conjure",
+			"damage_coefficient": 1.0,
+			"cast_duration": [841, 561],
+			"strike_on_tick_list": [
+				[841],
+				[561]
+			],
+			"on_strike_effect_applications": [{
+				"effect": "BLINDED",
+				"base_duration_ms": 5000,
+				"direction": "OUTGOING",
+				"num_stacks": 5
+			}]
+		},
+		{
+			"skill_key": "Rifle Turret",
+			"weapon_type": "empty_handed",
+			"TODO": "This little shit here"
+		},
+		{
+			"skill_key": "A.E.D.",
+			"weapon_type": "empty_handed",
+			"damage_coefficient": 0.0,
+			"cast_duration": [939, 626]
+		},
+		{
+			"skill_key": "Static Discharge",
+			"weapon_type": "empty_handed",
+			"damage_coefficient": 0.66,
+			"cast_duration": [0, 0],
+			"ammo": 50000,
+			"strike_on_tick_list": [
+				[0],
+				[0]
+			],
+			"TODO": "Bug: Tooltip damage erroneously uses the weapon strength of the mainhand weapon, but the damage dealt uses the unequipped 690.5 value.",
+			"TODO2": "Its actuall 0.33 but +100% on crit"
+		}
+	]
+}

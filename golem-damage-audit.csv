@@ -1,0 +1,1048 @@
+target|tick|source_actor|damage_source|damage
+golem|1000|Console|"BURNING"|163
+golem|1000|Console|"BLEEDING"|27
+golem|1000|Console|"TORMENT"|39
+golem|1000|Console|"POISON"|41
+golem|1000|Console|"CONFUSION"|13
+golem|2000|Console|"BURNING"|163
+golem|2000|Console|"BLEEDING"|27
+golem|2000|Console|"TORMENT"|39
+golem|2000|Console|"POISON"|41
+golem|2000|Console|"CONFUSION"|13
+golem|2330|slb|Barrage Attack|5324
+golem|2331|slb|Lightning Strike|2525
+golem|2361|slb|Frost Trap Attack|7002
+golem|2721|slb|Point-Blank Shot|10648
+golem|2780|slb|Barrage Attack|7209
+golem|3000|Console|"BURNING"|163
+golem|3000|Console|"BLEEDING"|27
+golem|3000|Console|"TORMENT"|39
+golem|3000|Console|"POISON"|41
+golem|3000|Console|"CONFUSION"|13
+golem|3000|slb|"BLEEDING"|343
+golem|3230|slb|Barrage Attack|7583
+golem|3360|slb|Frost Trap Attack|9973
+golem|3481|slb|One Wolf Pack Attack|9474
+golem|3680|slb|Barrage Attack|7583
+golem|3821|slb|Splitblade|7221
+golem|3821|slb|Splitblade|7221
+golem|3821|slb|Splitblade|7221
+golem|3821|slb|Splitblade|7221
+golem|3821|slb|Splitblade|7221
+golem|4000|Console|"BURNING"|163
+golem|4000|Console|"BLEEDING"|27
+golem|4000|Console|"TORMENT"|39
+golem|4000|Console|"POISON"|41
+golem|4000|Console|"CONFUSION"|13
+golem|4000|slb|"BLEEDING"|980
+golem|4130|slb|Barrage Attack|7583
+golem|4341|slb|Winter's Bite|25998
+golem|4360|slb|Frost Trap Attack|9973
+golem|4580|slb|Barrage Attack|7583
+golem|4592|slb|One Wolf Pack Attack|9474
+golem|4781|slb|Path of Scars|17332
+golem|4781|slb|Path of Scars|17332
+golem|5000|Console|"BURNING"|163
+golem|5000|Console|"BLEEDING"|27
+golem|5000|Console|"TORMENT"|39
+golem|5000|Console|"POISON"|41
+golem|5000|Console|"CONFUSION"|13
+golem|5000|slb|"BLEEDING"|2386
+golem|5030|slb|Barrage Attack|7583
+golem|5360|slb|Frost Trap Attack|9973
+golem|5461|slb|Worldly Impact|28663
+golem|5480|slb|Barrage Attack|7583
+golem|5611|slb|One Wolf Pack Attack|9474
+golem|5681|slb|Whirling Defense|9532
+golem|5901|slb|Whirling Defense|9532
+golem|5930|slb|Barrage Attack|7583
+golem|6000|Console|"BURNING"|163
+golem|6000|Console|"BLEEDING"|27
+golem|6000|Console|"TORMENT"|39
+golem|6000|Console|"POISON"|41
+golem|6000|Console|"CONFUSION"|13
+golem|6000|slb|"BLEEDING"|2255
+golem|6121|slb|Whirling Defense|9532
+golem|6341|slb|Whirling Defense|9532
+golem|6360|slb|Frost Trap Attack|9973
+golem|6380|slb|Barrage Attack|7583
+golem|6561|slb|Whirling Defense|9532
+golem|6631|slb|One Wolf Pack Attack|9474
+golem|6781|slb|Whirling Defense|9532
+golem|6830|slb|Barrage Attack|7583
+golem|7000|Console|"BURNING"|163
+golem|7000|Console|"BLEEDING"|27
+golem|7000|Console|"TORMENT"|39
+golem|7000|Console|"POISON"|41
+golem|7000|Console|"CONFUSION"|13
+golem|7000|slb|"BLEEDING"|2975
+golem|7001|slb|Whirling Defense|9532
+golem|7221|slb|Whirling Defense|9532
+golem|7280|slb|Barrage Attack|7583
+golem|7441|slb|Whirling Defense|9532
+golem|7661|slb|Whirling Defense|9532
+golem|7692|slb|One Wolf Pack Attack|9474
+golem|7881|slb|Whirling Defense|9532
+golem|8000|Console|"BURNING"|163
+golem|8000|Console|"BLEEDING"|27
+golem|8000|Console|"TORMENT"|39
+golem|8000|Console|"POISON"|41
+golem|8000|Console|"CONFUSION"|13
+golem|8000|slb|"BLEEDING"|3538
+golem|8101|slb|Whirling Defense|9532
+golem|8701|slb|Splitblade|7221
+golem|8701|slb|Splitblade|7221
+golem|8701|slb|Splitblade|7221
+golem|8701|slb|Splitblade|7221
+golem|8701|slb|Splitblade|7221
+golem|8891|slb|Frenzied Attack|6066
+golem|8952|slb|One Wolf Pack Attack|9474
+golem|9000|Console|"BURNING"|163
+golem|9000|Console|"BLEEDING"|27
+golem|9000|Console|"TORMENT"|39
+golem|9000|Console|"POISON"|41
+golem|9000|Console|"CONFUSION"|13
+golem|9000|slb|"BLEEDING"|3866
+golem|9081|slb|Frenzied Attack|6066
+golem|9271|slb|Frenzied Attack|6066
+golem|9461|slb|Frenzied Attack|6066
+golem|10000|Console|"BURNING"|163
+golem|10000|Console|"BLEEDING"|27
+golem|10000|Console|"TORMENT"|39
+golem|10000|Console|"POISON"|41
+golem|10000|Console|"CONFUSION"|13
+golem|10000|slb|"BLEEDING"|4640
+golem|10061|slb|Ricochet|12999
+golem|10661|slb|Ricochet|12999
+golem|11000|Console|"BURNING"|163
+golem|11000|Console|"BLEEDING"|27
+golem|11000|Console|"TORMENT"|39
+golem|11000|Console|"POISON"|41
+golem|11000|Console|"CONFUSION"|13
+golem|11000|slb|"BLEEDING"|3412
+golem|11261|slb|Ricochet|12999
+golem|11781|slb|Winter's Bite|25998
+golem|12000|Console|"BURNING"|163
+golem|12000|Console|"BLEEDING"|27
+golem|12000|Console|"TORMENT"|39
+golem|12000|Console|"POISON"|41
+golem|12000|Console|"CONFUSION"|13
+golem|12000|slb|"BLEEDING"|3132
+golem|12381|slb|Ricochet|10399
+golem|12981|slb|Ricochet|10399
+golem|13000|Console|"BURNING"|163
+golem|13000|Console|"BLEEDING"|27
+golem|13000|Console|"TORMENT"|39
+golem|13000|Console|"POISON"|41
+golem|13000|Console|"CONFUSION"|13
+golem|13000|slb|"BLEEDING"|3241
+golem|13581|slb|Splitblade|5777
+golem|13581|slb|Splitblade|5777
+golem|13581|slb|Splitblade|5777
+golem|13581|slb|Splitblade|5777
+golem|13581|slb|Splitblade|5777
+golem|14000|Console|"BURNING"|163
+golem|14000|Console|"BLEEDING"|27
+golem|14000|Console|"TORMENT"|39
+golem|14000|Console|"POISON"|41
+golem|14000|Console|"CONFUSION"|13
+golem|14000|slb|"BLEEDING"|3145
+golem|14181|slb|Ricochet|10399
+golem|14781|slb|Ricochet|10399
+golem|15000|Console|"BURNING"|163
+golem|15000|Console|"BLEEDING"|27
+golem|15000|Console|"TORMENT"|39
+golem|15000|Console|"POISON"|41
+golem|15000|Console|"CONFUSION"|13
+golem|15000|slb|"BLEEDING"|2844
+golem|15221|slb|Path of Scars|12823
+golem|15221|slb|Path of Scars|12823
+golem|15821|slb|Ricochet|10399
+golem|16000|Console|"BURNING"|163
+golem|16000|Console|"BLEEDING"|27
+golem|16000|Console|"TORMENT"|39
+golem|16000|Console|"POISON"|41
+golem|16000|Console|"CONFUSION"|13
+golem|16000|slb|"BLEEDING"|2140
+golem|16421|slb|Ricochet|10399
+golem|17000|Console|"BURNING"|163
+golem|17000|Console|"BLEEDING"|27
+golem|17000|Console|"TORMENT"|39
+golem|17000|Console|"POISON"|41
+golem|17000|Console|"CONFUSION"|13
+golem|17000|slb|"BLEEDING"|1826
+golem|17021|slb|Ricochet|10399
+golem|17621|slb|Ricochet|10399
+golem|18000|Console|"BURNING"|163
+golem|18000|Console|"BLEEDING"|27
+golem|18000|Console|"TORMENT"|39
+golem|18000|Console|"POISON"|41
+golem|18000|Console|"CONFUSION"|13
+golem|18000|slb|"BLEEDING"|1598
+golem|18221|slb|Splitblade|5777
+golem|18221|slb|Splitblade|5777
+golem|18221|slb|Splitblade|5777
+golem|18221|slb|Splitblade|5777
+golem|18221|slb|Splitblade|5777
+golem|18741|slb|Winter's Bite|20799
+golem|19000|Console|"BURNING"|163
+golem|19000|Console|"BLEEDING"|27
+golem|19000|Console|"TORMENT"|39
+golem|19000|Console|"POISON"|41
+golem|19000|Console|"CONFUSION"|13
+golem|19000|slb|"BLEEDING"|2455
+golem|19033|slb|Rapid Fire|4325
+golem|19034|slb|Lightning Strike|2735
+golem|19225|slb|Rapid Fire|4325
+golem|19417|slb|Rapid Fire|4325
+golem|19609|slb|Rapid Fire|4325
+golem|19801|slb|Rapid Fire|4325
+golem|19993|slb|Rapid Fire|4325
+golem|20000|Console|"BURNING"|163
+golem|20000|Console|"BLEEDING"|27
+golem|20000|Console|"TORMENT"|39
+golem|20000|Console|"POISON"|41
+golem|20000|Console|"CONFUSION"|13
+golem|20000|slb|"BLEEDING"|3103
+golem|20185|slb|Rapid Fire|4325
+golem|20377|slb|Rapid Fire|4325
+golem|20569|slb|Rapid Fire|4325
+golem|20761|slb|Rapid Fire|4325
+golem|21000|Console|"BURNING"|163
+golem|21000|Console|"BLEEDING"|27
+golem|21000|Console|"TORMENT"|39
+golem|21000|Console|"POISON"|41
+golem|21000|Console|"CONFUSION"|13
+golem|21000|slb|"BLEEDING"|2464
+golem|21441|slb|Long Range Shot|10382
+golem|22000|Console|"BURNING"|163
+golem|22000|Console|"BLEEDING"|27
+golem|22000|Console|"TORMENT"|39
+golem|22000|Console|"POISON"|41
+golem|22000|Console|"CONFUSION"|13
+golem|22000|slb|"BLEEDING"|1938
+golem|22121|slb|Long Range Shot|10382
+golem|22122|slb|Lightning Strike|2735
+golem|22801|slb|Long Range Shot|10382
+golem|23000|Console|"BURNING"|163
+golem|23000|Console|"BLEEDING"|27
+golem|23000|Console|"TORMENT"|39
+golem|23000|Console|"POISON"|41
+golem|23000|Console|"CONFUSION"|13
+golem|23000|slb|"BLEEDING"|1875
+golem|23481|slb|Long Range Shot|10382
+golem|24000|Console|"BURNING"|163
+golem|24000|Console|"BLEEDING"|27
+golem|24000|Console|"TORMENT"|39
+golem|24000|Console|"POISON"|41
+golem|24000|Console|"CONFUSION"|13
+golem|24000|slb|"BLEEDING"|1788
+golem|24161|slb|Long Range Shot|10382
+golem|24841|slb|Long Range Shot|10382
+golem|25000|Console|"BURNING"|163
+golem|25000|Console|"BLEEDING"|27
+golem|25000|Console|"TORMENT"|39
+golem|25000|Console|"POISON"|41
+golem|25000|Console|"CONFUSION"|13
+golem|25000|slb|"BLEEDING"|1615
+golem|25201|slb|Point-Blank Shot|9228
+golem|25202|slb|Lightning Strike|2735
+golem|26000|Console|"BURNING"|163
+golem|26000|Console|"BLEEDING"|27
+golem|26000|Console|"TORMENT"|39
+golem|26000|Console|"POISON"|41
+golem|26000|Console|"CONFUSION"|13
+golem|26000|slb|"BLEEDING"|805
+golem|27000|Console|"BURNING"|163
+golem|27000|Console|"BLEEDING"|27
+golem|27000|Console|"TORMENT"|39
+golem|27000|Console|"POISON"|41
+golem|27000|Console|"CONFUSION"|13
+golem|27000|slb|"BLEEDING"|501
+golem|27531|slb|Barrage Attack|5767
+golem|27562|slb|Frost Trap Attack|7586
+golem|27981|slb|Barrage Attack|7209
+golem|28000|Console|"BURNING"|163
+golem|28000|Console|"BLEEDING"|27
+golem|28000|Console|"TORMENT"|39
+golem|28000|Console|"POISON"|41
+golem|28000|Console|"CONFUSION"|13
+golem|28000|slb|"BLEEDING"|545
+golem|28242|slb|Worldly Impact|27252
+golem|28243|slb|Lightning Strike|3419
+golem|28431|slb|Barrage Attack|7209
+golem|28432|slb|Frenzied Attack|5767
+golem|28561|slb|Frost Trap Attack|9482
+golem|28622|slb|Frenzied Attack|5767
+golem|28812|slb|Frenzied Attack|5767
+golem|28881|slb|Barrage Attack|7209
+golem|29000|Console|"BURNING"|163
+golem|29000|Console|"BLEEDING"|27
+golem|29000|Console|"TORMENT"|39
+golem|29000|Console|"POISON"|41
+golem|29000|Console|"CONFUSION"|13
+golem|29000|slb|"BLEEDING"|1259
+golem|29002|slb|Frenzied Attack|5767
+golem|29331|slb|Barrage Attack|7583
+golem|29561|slb|Frost Trap Attack|9973
+golem|29702|slb|Splitblade|7221
+golem|29702|slb|Splitblade|7221
+golem|29702|slb|Splitblade|7221
+golem|29702|slb|Splitblade|7221
+golem|29702|slb|Splitblade|7221
+golem|29781|slb|Barrage Attack|7583
+golem|30000|Console|"BURNING"|163
+golem|30000|Console|"BLEEDING"|27
+golem|30000|Console|"TORMENT"|39
+golem|30000|Console|"POISON"|41
+golem|30000|Console|"CONFUSION"|13
+golem|30000|slb|"BLEEDING"|1863
+golem|30222|slb|Winter's Bite|25998
+golem|30231|slb|Barrage Attack|7583
+golem|30561|slb|Frost Trap Attack|9973
+golem|30662|slb|Path of Scars|17332
+golem|30662|slb|Path of Scars|17332
+golem|30681|slb|Barrage Attack|7583
+golem|30882|slb|Whirling Defense|9532
+golem|31000|Console|"BURNING"|163
+golem|31000|Console|"BLEEDING"|27
+golem|31000|Console|"TORMENT"|39
+golem|31000|Console|"POISON"|41
+golem|31000|Console|"CONFUSION"|13
+golem|31000|slb|"BLEEDING"|2729
+golem|31102|slb|Whirling Defense|9532
+golem|31131|slb|Barrage Attack|7583
+golem|31322|slb|Whirling Defense|9532
+golem|31542|slb|Whirling Defense|9532
+golem|31561|slb|Frost Trap Attack|9973
+golem|31581|slb|Barrage Attack|7583
+golem|31762|slb|Whirling Defense|9532
+golem|31982|slb|Whirling Defense|9532
+golem|32000|Console|"BURNING"|163
+golem|32000|Console|"BLEEDING"|27
+golem|32000|Console|"TORMENT"|39
+golem|32000|Console|"POISON"|41
+golem|32000|Console|"CONFUSION"|13
+golem|32000|slb|"BLEEDING"|3159
+golem|32031|slb|Barrage Attack|7583
+golem|32202|slb|Whirling Defense|9532
+golem|32422|slb|Whirling Defense|9532
+golem|32481|slb|Barrage Attack|7583
+golem|32642|slb|Whirling Defense|9532
+golem|32862|slb|Whirling Defense|9532
+golem|33000|Console|"BURNING"|163
+golem|33000|Console|"BLEEDING"|27
+golem|33000|Console|"TORMENT"|39
+golem|33000|Console|"POISON"|41
+golem|33000|Console|"CONFUSION"|13
+golem|33000|slb|"BLEEDING"|3326
+golem|33082|slb|Whirling Defense|9532
+golem|33302|slb|Whirling Defense|9532
+golem|33902|slb|Ricochet|12999
+golem|34000|Console|"BURNING"|163
+golem|34000|Console|"BLEEDING"|27
+golem|34000|Console|"TORMENT"|39
+golem|34000|Console|"POISON"|41
+golem|34000|Console|"CONFUSION"|13
+golem|34000|slb|"BLEEDING"|3426
+golem|34502|slb|Splitblade|7221
+golem|34502|slb|Splitblade|7221
+golem|34502|slb|Splitblade|7221
+golem|34502|slb|Splitblade|7221
+golem|34502|slb|Splitblade|7221
+golem|35000|Console|"BURNING"|163
+golem|35000|Console|"BLEEDING"|27
+golem|35000|Console|"TORMENT"|39
+golem|35000|Console|"POISON"|41
+golem|35000|Console|"CONFUSION"|13
+golem|35000|slb|"BLEEDING"|3691
+golem|35102|slb|Ricochet|12999
+golem|35702|slb|Ricochet|12999
+golem|36000|Console|"BURNING"|163
+golem|36000|Console|"BLEEDING"|27
+golem|36000|Console|"TORMENT"|39
+golem|36000|Console|"POISON"|41
+golem|36000|Console|"CONFUSION"|13
+golem|36000|slb|"BLEEDING"|4060
+golem|36302|slb|Ricochet|12999
+golem|36902|slb|Ricochet|12999
+golem|37000|Console|"BURNING"|163
+golem|37000|Console|"BLEEDING"|27
+golem|37000|Console|"TORMENT"|39
+golem|37000|Console|"POISON"|41
+golem|37000|Console|"CONFUSION"|13
+golem|37000|slb|"BLEEDING"|3239
+golem|37422|slb|Winter's Bite|25998
+golem|38000|Console|"BURNING"|163
+golem|38000|Console|"BLEEDING"|27
+golem|38000|Console|"TORMENT"|39
+golem|38000|Console|"POISON"|41
+golem|38000|Console|"CONFUSION"|13
+golem|38000|slb|"BLEEDING"|3171
+golem|38022|slb|Ricochet|10399
+golem|38622|slb|Ricochet|10399
+golem|39000|Console|"BURNING"|163
+golem|39000|Console|"BLEEDING"|27
+golem|39000|Console|"TORMENT"|39
+golem|39000|Console|"POISON"|41
+golem|39000|Console|"CONFUSION"|13
+golem|39000|slb|"BLEEDING"|2747
+golem|39222|slb|Splitblade|5777
+golem|39222|slb|Splitblade|5777
+golem|39222|slb|Splitblade|5777
+golem|39222|slb|Splitblade|5777
+golem|39222|slb|Splitblade|5777
+golem|39822|slb|Ricochet|10399
+golem|40000|Console|"BURNING"|163
+golem|40000|Console|"BLEEDING"|27
+golem|40000|Console|"TORMENT"|39
+golem|40000|Console|"POISON"|41
+golem|40000|Console|"CONFUSION"|13
+golem|40000|slb|"BLEEDING"|3072
+golem|40422|slb|Ricochet|10399
+golem|40862|slb|Path of Scars|12823
+golem|40862|slb|Path of Scars|12823
+golem|41000|Console|"BURNING"|163
+golem|41000|Console|"BLEEDING"|27
+golem|41000|Console|"TORMENT"|39
+golem|41000|Console|"POISON"|41
+golem|41000|Console|"CONFUSION"|13
+golem|41000|slb|"BLEEDING"|2694
+golem|41462|slb|Ricochet|10399
+golem|42000|Console|"BURNING"|163
+golem|42000|Console|"BLEEDING"|27
+golem|42000|Console|"TORMENT"|39
+golem|42000|Console|"POISON"|41
+golem|42000|Console|"CONFUSION"|13
+golem|42000|slb|"BLEEDING"|2014
+golem|42062|slb|Ricochet|10399
+golem|42662|slb|Ricochet|10399
+golem|43000|Console|"BURNING"|163
+golem|43000|Console|"BLEEDING"|27
+golem|43000|Console|"TORMENT"|39
+golem|43000|Console|"POISON"|41
+golem|43000|Console|"CONFUSION"|13
+golem|43000|slb|"BLEEDING"|1784
+golem|43262|slb|Ricochet|10399
+golem|43862|slb|Splitblade|5777
+golem|43862|slb|Splitblade|5777
+golem|43862|slb|Splitblade|5777
+golem|43862|slb|Splitblade|5777
+golem|43862|slb|Splitblade|5777
+golem|44000|Console|"BURNING"|163
+golem|44000|Console|"BLEEDING"|27
+golem|44000|Console|"TORMENT"|39
+golem|44000|Console|"POISON"|41
+golem|44000|Console|"CONFUSION"|13
+golem|44000|slb|"BLEEDING"|1710
+golem|44382|slb|Winter's Bite|20799
+golem|44674|slb|Rapid Fire|4325
+golem|44675|slb|Lightning Strike|2735
+golem|44866|slb|Rapid Fire|4325
+golem|45000|Console|"BURNING"|163
+golem|45000|Console|"BLEEDING"|27
+golem|45000|Console|"TORMENT"|39
+golem|45000|Console|"POISON"|41
+golem|45000|Console|"CONFUSION"|13
+golem|45000|slb|"BLEEDING"|2978
+golem|45058|slb|Rapid Fire|4325
+golem|45250|slb|Rapid Fire|4325
+golem|45442|slb|Rapid Fire|4325
+golem|45634|slb|Rapid Fire|4325
+golem|45826|slb|Rapid Fire|4325
+golem|46000|Console|"BURNING"|163
+golem|46000|Console|"BLEEDING"|27
+golem|46000|Console|"TORMENT"|39
+golem|46000|Console|"POISON"|41
+golem|46000|Console|"CONFUSION"|13
+golem|46000|slb|"BLEEDING"|2904
+golem|46018|slb|Rapid Fire|4325
+golem|46210|slb|Rapid Fire|4325
+golem|46402|slb|Rapid Fire|4325
+golem|47000|Console|"BURNING"|163
+golem|47000|Console|"BLEEDING"|27
+golem|47000|Console|"TORMENT"|39
+golem|47000|Console|"POISON"|41
+golem|47000|Console|"CONFUSION"|13
+golem|47000|slb|"BLEEDING"|2235
+golem|47082|slb|Long Range Shot|10382
+golem|47762|slb|Long Range Shot|10382
+golem|47763|slb|Lightning Strike|2735
+golem|48000|Console|"BURNING"|163
+golem|48000|Console|"BLEEDING"|27
+golem|48000|Console|"TORMENT"|39
+golem|48000|Console|"POISON"|41
+golem|48000|Console|"CONFUSION"|13
+golem|48000|slb|"BLEEDING"|1851
+golem|48442|slb|Long Range Shot|10382
+golem|49000|Console|"BURNING"|163
+golem|49000|Console|"BLEEDING"|27
+golem|49000|Console|"TORMENT"|39
+golem|49000|Console|"POISON"|41
+golem|49000|Console|"CONFUSION"|13
+golem|49000|slb|"BLEEDING"|1871
+golem|49122|slb|Long Range Shot|10382
+golem|49482|slb|Point-Blank Shot|9228
+golem|50000|Console|"BURNING"|163
+golem|50000|Console|"BLEEDING"|27
+golem|50000|Console|"TORMENT"|39
+golem|50000|Console|"POISON"|41
+golem|50000|Console|"CONFUSION"|13
+golem|50000|slb|"BLEEDING"|1798
+golem|51000|Console|"BURNING"|163
+golem|51000|Console|"BLEEDING"|27
+golem|51000|Console|"TORMENT"|39
+golem|51000|Console|"POISON"|41
+golem|51000|Console|"CONFUSION"|13
+golem|51000|slb|"BLEEDING"|1109
+golem|51812|slb|Barrage Attack|7209
+golem|51813|slb|Lightning Strike|3419
+golem|52000|Console|"BURNING"|163
+golem|52000|Console|"BLEEDING"|27
+golem|52000|Console|"TORMENT"|39
+golem|52000|Console|"POISON"|41
+golem|52000|Console|"CONFUSION"|13
+golem|52000|slb|"BLEEDING"|468
+golem|52063|slb|One Wolf Pack Attack|9008
+golem|52244|slb|Frost Trap Attack|9482
+golem|52262|slb|Barrage Attack|7209
+golem|52712|slb|Barrage Attack|7209
+golem|52923|slb|Worldly Impact|27252
+golem|53000|Console|"BURNING"|163
+golem|53000|Console|"BLEEDING"|27
+golem|53000|Console|"TORMENT"|39
+golem|53000|Console|"POISON"|41
+golem|53000|Console|"CONFUSION"|13
+golem|53000|slb|"BLEEDING"|1058
+golem|53113|slb|Frenzied Attack|5767
+golem|53162|slb|Barrage Attack|7209
+golem|53174|slb|One Wolf Pack Attack|9008
+golem|53243|slb|Frost Trap Attack|9482
+golem|53303|slb|Frenzied Attack|5767
+golem|53493|slb|Frenzied Attack|5767
+golem|53612|slb|Barrage Attack|7209
+golem|53683|slb|Frenzied Attack|5767
+golem|54000|Console|"BURNING"|163
+golem|54000|Console|"BLEEDING"|27
+golem|54000|Console|"TORMENT"|39
+golem|54000|Console|"POISON"|41
+golem|54000|Console|"CONFUSION"|13
+golem|54000|slb|"BLEEDING"|1514
+golem|54062|slb|Barrage Attack|7209
+golem|54243|slb|Frost Trap Attack|9482
+golem|54313|slb|One Wolf Pack Attack|9008
+golem|54363|slb|Long Range Shot|12977
+golem|54512|slb|Barrage Attack|7209
+golem|54962|slb|Barrage Attack|7583
+golem|55000|Console|"BURNING"|163
+golem|55000|Console|"BLEEDING"|27
+golem|55000|Console|"TORMENT"|39
+golem|55000|Console|"POISON"|41
+golem|55000|Console|"CONFUSION"|13
+golem|55000|slb|"BLEEDING"|1411
+golem|55113|slb|Splitblade|7221
+golem|55113|slb|Splitblade|7221
+golem|55113|slb|Splitblade|7221
+golem|55113|slb|Splitblade|7221
+golem|55113|slb|Splitblade|7221
+golem|55243|slb|Frost Trap Attack|9973
+golem|55364|slb|One Wolf Pack Attack|9474
+golem|55412|slb|Barrage Attack|7583
+golem|55633|slb|Winter's Bite|25998
+golem|55862|slb|Barrage Attack|7583
+golem|56000|Console|"BURNING"|163
+golem|56000|Console|"BLEEDING"|27
+golem|56000|Console|"TORMENT"|39
+golem|56000|Console|"POISON"|41
+golem|56000|Console|"CONFUSION"|13
+golem|56000|slb|"BLEEDING"|2563
+golem|56073|slb|Path of Scars|17332
+golem|56073|slb|Path of Scars|17332
+golem|56243|slb|Frost Trap Attack|9973
+golem|56293|slb|Whirling Defense|9532
+golem|56312|slb|Barrage Attack|7583
+golem|56494|slb|One Wolf Pack Attack|9474
+golem|56513|slb|Whirling Defense|9532
+golem|56733|slb|Whirling Defense|9532
+golem|56762|slb|Barrage Attack|7583
+golem|56953|slb|Whirling Defense|9532
+golem|57000|Console|"BURNING"|163
+golem|57000|Console|"BLEEDING"|27
+golem|57000|Console|"TORMENT"|39
+golem|57000|Console|"POISON"|41
+golem|57000|Console|"CONFUSION"|13
+golem|57000|slb|"BLEEDING"|3085
+golem|57173|slb|Whirling Defense|9532
+golem|57393|slb|Whirling Defense|9532
+golem|57613|slb|Whirling Defense|9532
+golem|57644|slb|One Wolf Pack Attack|9474
+golem|57833|slb|Whirling Defense|9532
+golem|58000|Console|"BURNING"|163
+golem|58000|Console|"BLEEDING"|27
+golem|58000|Console|"TORMENT"|39
+golem|58000|Console|"POISON"|41
+golem|58000|Console|"CONFUSION"|13
+golem|58000|slb|"BLEEDING"|3263
+golem|58053|slb|Whirling Defense|9532
+golem|58273|slb|Whirling Defense|9532
+golem|58493|slb|Whirling Defense|9532
+golem|58713|slb|Whirling Defense|9532
+golem|59000|Console|"BURNING"|163
+golem|59000|Console|"BLEEDING"|27
+golem|59000|Console|"TORMENT"|39
+golem|59000|Console|"POISON"|41
+golem|59000|Console|"CONFUSION"|13
+golem|59000|slb|"BLEEDING"|3356
+golem|59313|slb|Ricochet|12999
+golem|59913|slb|Splitblade|7221
+golem|59913|slb|Splitblade|7221
+golem|59913|slb|Splitblade|7221
+golem|59913|slb|Splitblade|7221
+golem|59913|slb|Splitblade|7221
+golem|60000|Console|"BURNING"|163
+golem|60000|Console|"BLEEDING"|27
+golem|60000|Console|"TORMENT"|39
+golem|60000|Console|"POISON"|41
+golem|60000|Console|"CONFUSION"|13
+golem|60000|slb|"BLEEDING"|3264
+golem|60513|slb|Ricochet|12999
+golem|61000|Console|"BURNING"|163
+golem|61000|Console|"BLEEDING"|27
+golem|61000|Console|"TORMENT"|39
+golem|61000|Console|"POISON"|41
+golem|61000|Console|"CONFUSION"|13
+golem|61000|slb|"BLEEDING"|4294
+golem|61113|slb|Ricochet|12999
+golem|61713|slb|Ricochet|10399
+golem|62000|Console|"BURNING"|163
+golem|62000|Console|"BLEEDING"|27
+golem|62000|Console|"TORMENT"|39
+golem|62000|Console|"POISON"|41
+golem|62000|Console|"CONFUSION"|13
+golem|62000|slb|"BLEEDING"|3533
+golem|62313|slb|Ricochet|10399
+golem|62833|slb|Winter's Bite|20799
+golem|63000|Console|"BURNING"|163
+golem|63000|Console|"BLEEDING"|27
+golem|63000|Console|"TORMENT"|39
+golem|63000|Console|"POISON"|41
+golem|63000|Console|"CONFUSION"|13
+golem|63000|slb|"BLEEDING"|3095
+golem|63433|slb|Ricochet|10399
+golem|64000|Console|"BURNING"|163
+golem|64000|Console|"BLEEDING"|27
+golem|64000|Console|"TORMENT"|39
+golem|64000|Console|"POISON"|41
+golem|64000|Console|"CONFUSION"|13
+golem|64000|slb|"BLEEDING"|3013
+golem|64033|slb|Ricochet|10399
+golem|64633|slb|Splitblade|5777
+golem|64633|slb|Splitblade|5777
+golem|64633|slb|Splitblade|5777
+golem|64633|slb|Splitblade|5777
+golem|64633|slb|Splitblade|5777
+golem|65000|Console|"BURNING"|163
+golem|65000|Console|"BLEEDING"|27
+golem|65000|Console|"TORMENT"|39
+golem|65000|Console|"POISON"|41
+golem|65000|Console|"CONFUSION"|13
+golem|65000|slb|"BLEEDING"|2826
+golem|65233|slb|Ricochet|10399
+golem|65833|slb|Ricochet|10399
+golem|66000|Console|"BURNING"|163
+golem|66000|Console|"BLEEDING"|27
+golem|66000|Console|"TORMENT"|39
+golem|66000|Console|"POISON"|41
+golem|66000|Console|"CONFUSION"|13
+golem|66000|slb|"BLEEDING"|2938
+golem|66273|slb|Path of Scars|12823
+golem|66273|slb|Path of Scars|12823
+golem|66873|slb|Ricochet|10399
+golem|67000|Console|"BURNING"|163
+golem|67000|Console|"BLEEDING"|27
+golem|67000|Console|"TORMENT"|39
+golem|67000|Console|"POISON"|41
+golem|67000|Console|"CONFUSION"|13
+golem|67000|slb|"BLEEDING"|2280
+golem|67473|slb|Ricochet|10399
+golem|68000|Console|"BURNING"|163
+golem|68000|Console|"BLEEDING"|27
+golem|68000|Console|"TORMENT"|39
+golem|68000|Console|"POISON"|41
+golem|68000|Console|"CONFUSION"|13
+golem|68000|slb|"BLEEDING"|1841
+golem|68073|slb|Ricochet|10399
+golem|68673|slb|Ricochet|10399
+golem|69000|Console|"BURNING"|163
+golem|69000|Console|"BLEEDING"|27
+golem|69000|Console|"TORMENT"|39
+golem|69000|Console|"POISON"|41
+golem|69000|Console|"CONFUSION"|13
+golem|69000|slb|"BLEEDING"|1712
+golem|69273|slb|Splitblade|5777
+golem|69273|slb|Splitblade|5777
+golem|69273|slb|Splitblade|5777
+golem|69273|slb|Splitblade|5777
+golem|69273|slb|Splitblade|5777
+golem|69793|slb|Winter's Bite|20799
+golem|70000|Console|"BURNING"|163
+golem|70000|Console|"BLEEDING"|27
+golem|70000|Console|"TORMENT"|39
+golem|70000|Console|"POISON"|41
+golem|70000|Console|"CONFUSION"|13
+golem|70000|slb|"BLEEDING"|2368
+golem|70573|slb|Long Range Shot|10382
+golem|70574|slb|Lightning Strike|2735
+golem|71000|Console|"BURNING"|163
+golem|71000|Console|"BLEEDING"|27
+golem|71000|Console|"TORMENT"|39
+golem|71000|Console|"POISON"|41
+golem|71000|Console|"CONFUSION"|13
+golem|71000|slb|"BLEEDING"|2726
+golem|71253|slb|Long Range Shot|10382
+golem|71933|slb|Long Range Shot|10382
+golem|72000|Console|"BURNING"|163
+golem|72000|Console|"BLEEDING"|27
+golem|72000|Console|"TORMENT"|39
+golem|72000|Console|"POISON"|41
+golem|72000|Console|"CONFUSION"|13
+golem|72000|slb|"BLEEDING"|1991
+golem|72613|slb|Long Range Shot|10382
+golem|73000|Console|"BURNING"|163
+golem|73000|Console|"BLEEDING"|27
+golem|73000|Console|"TORMENT"|39
+golem|73000|Console|"POISON"|41
+golem|73000|Console|"CONFUSION"|13
+golem|73000|slb|"BLEEDING"|1770
+golem|73293|slb|Long Range Shot|10382
+golem|73973|slb|Long Range Shot|10382
+golem|73974|slb|Lightning Strike|2735
+golem|74000|Console|"BURNING"|163
+golem|74000|Console|"BLEEDING"|27
+golem|74000|Console|"TORMENT"|39
+golem|74000|Console|"POISON"|41
+golem|74000|Console|"CONFUSION"|13
+golem|74000|slb|"BLEEDING"|1738
+golem|74333|slb|Point-Blank Shot|9228
+golem|75000|Console|"BURNING"|163
+golem|75000|Console|"BLEEDING"|27
+golem|75000|Console|"TORMENT"|39
+golem|75000|Console|"POISON"|41
+golem|75000|Console|"CONFUSION"|13
+golem|75000|slb|"BLEEDING"|1954
+golem|76000|Console|"BURNING"|163
+golem|76000|Console|"BLEEDING"|27
+golem|76000|Console|"TORMENT"|39
+golem|76000|Console|"POISON"|41
+golem|76000|Console|"CONFUSION"|13
+golem|76000|slb|"BLEEDING"|1521
+golem|76663|slb|Barrage Attack|7209
+golem|76695|slb|Frost Trap Attack|9482
+golem|77000|Console|"BURNING"|163
+golem|77000|Console|"BLEEDING"|27
+golem|77000|Console|"TORMENT"|39
+golem|77000|Console|"POISON"|41
+golem|77000|Console|"CONFUSION"|13
+golem|77000|slb|"BLEEDING"|519
+golem|77113|slb|Barrage Attack|7209
+golem|77114|slb|Lightning Strike|3419
+golem|77374|slb|Worldly Impact|27252
+golem|77563|slb|Barrage Attack|7209
+golem|77564|slb|Frenzied Attack|5767
+golem|77694|slb|Frost Trap Attack|9482
+golem|77754|slb|Frenzied Attack|5767
+golem|77944|slb|Frenzied Attack|5767
+golem|78000|Console|"BURNING"|163
+golem|78000|Console|"BLEEDING"|27
+golem|78000|Console|"TORMENT"|39
+golem|78000|Console|"POISON"|41
+golem|78000|Console|"CONFUSION"|13
+golem|78000|slb|"BLEEDING"|1171
+golem|78013|slb|Barrage Attack|7209
+golem|78134|slb|Frenzied Attack|5767
+golem|78326|slb|Rapid Fire|5407
+golem|78463|slb|Barrage Attack|7209
+golem|78518|slb|Rapid Fire|5407
+golem|78694|slb|Frost Trap Attack|9482
+golem|78710|slb|Rapid Fire|5407
+golem|78902|slb|Rapid Fire|5407
+golem|78913|slb|Barrage Attack|7209
+golem|79000|Console|"BURNING"|163
+golem|79000|Console|"BLEEDING"|27
+golem|79000|Console|"TORMENT"|39
+golem|79000|Console|"POISON"|41
+golem|79000|Console|"CONFUSION"|13
+golem|79000|slb|"BLEEDING"|1695
+golem|79094|slb|Rapid Fire|5407
+golem|79286|slb|Rapid Fire|5407
+golem|79363|slb|Barrage Attack|7209
+golem|79478|slb|Rapid Fire|5407
+golem|79670|slb|Rapid Fire|5407
+golem|79694|slb|Frost Trap Attack|9482
+golem|79813|slb|Barrage Attack|7209
+golem|79862|slb|Rapid Fire|5407
+golem|80000|Console|"BURNING"|163
+golem|80000|Console|"BLEEDING"|27
+golem|80000|Console|"TORMENT"|39
+golem|80000|Console|"POISON"|41
+golem|80000|Console|"CONFUSION"|13
+golem|80000|slb|"BLEEDING"|1715
+golem|80054|slb|Rapid Fire|5407
+golem|80263|slb|Barrage Attack|7583
+golem|80694|slb|Frost Trap Attack|9973
+golem|80713|slb|Barrage Attack|7583
+golem|80754|slb|Splitblade|7221
+golem|80754|slb|Splitblade|7221
+golem|80754|slb|Splitblade|7221
+golem|80754|slb|Splitblade|7221
+golem|80754|slb|Splitblade|7221
+golem|81000|Console|"BURNING"|163
+golem|81000|Console|"BLEEDING"|27
+golem|81000|Console|"TORMENT"|39
+golem|81000|Console|"POISON"|41
+golem|81000|Console|"CONFUSION"|13
+golem|81000|slb|"BLEEDING"|1780
+golem|81163|slb|Barrage Attack|7583
+golem|81274|slb|Winter's Bite|25998
+golem|81613|slb|Barrage Attack|7583
+golem|81714|slb|Path of Scars|17332
+golem|81714|slb|Path of Scars|17332
+golem|81934|slb|Whirling Defense|9532
+golem|82000|Console|"BURNING"|163
+golem|82000|Console|"BLEEDING"|27
+golem|82000|Console|"TORMENT"|39
+golem|82000|Console|"POISON"|41
+golem|82000|Console|"CONFUSION"|13
+golem|82000|slb|"BLEEDING"|2672
+golem|82154|slb|Whirling Defense|9532
+golem|82374|slb|Whirling Defense|9532
+golem|82594|slb|Whirling Defense|9532
+golem|82814|slb|Whirling Defense|9532
+golem|83000|Console|"BURNING"|163
+golem|83000|Console|"BLEEDING"|27
+golem|83000|Console|"TORMENT"|39
+golem|83000|Console|"POISON"|41
+golem|83000|Console|"CONFUSION"|13
+golem|83000|slb|"BLEEDING"|2791
+golem|83034|slb|Whirling Defense|9532
+golem|83254|slb|Whirling Defense|9532
+golem|83474|slb|Whirling Defense|9532
+golem|83694|slb|Whirling Defense|9532
+golem|83914|slb|Whirling Defense|9532
+golem|84000|Console|"BURNING"|163
+golem|84000|Console|"BLEEDING"|27
+golem|84000|Console|"TORMENT"|39
+golem|84000|Console|"POISON"|41
+golem|84000|Console|"CONFUSION"|13
+golem|84000|slb|"BLEEDING"|2867
+golem|84134|slb|Whirling Defense|9532
+golem|84354|slb|Whirling Defense|9532
+golem|84954|slb|Ricochet|12999
+golem|85000|Console|"BURNING"|163
+golem|85000|Console|"BLEEDING"|27
+golem|85000|Console|"TORMENT"|39
+golem|85000|Console|"POISON"|41
+golem|85000|Console|"CONFUSION"|13
+golem|85000|slb|"BLEEDING"|3325
+golem|85554|slb|Splitblade|7221
+golem|85554|slb|Splitblade|7221
+golem|85554|slb|Splitblade|7221
+golem|85554|slb|Splitblade|7221
+golem|85554|slb|Splitblade|7221
+golem|86000|Console|"BURNING"|163
+golem|86000|Console|"BLEEDING"|27
+golem|86000|Console|"TORMENT"|39
+golem|86000|Console|"POISON"|41
+golem|86000|Console|"CONFUSION"|13
+golem|86000|slb|"BLEEDING"|3635
+golem|86154|slb|Ricochet|12999
+golem|86754|slb|Ricochet|10399
+golem|87000|Console|"BURNING"|163
+golem|87000|Console|"BLEEDING"|27
+golem|87000|Console|"TORMENT"|39
+golem|87000|Console|"POISON"|41
+golem|87000|Console|"CONFUSION"|13
+golem|87000|slb|"BLEEDING"|4088
+golem|87354|slb|Ricochet|10399
+golem|87954|slb|Ricochet|10399
+golem|88000|Console|"BURNING"|163
+golem|88000|Console|"BLEEDING"|27
+golem|88000|Console|"TORMENT"|39
+golem|88000|Console|"POISON"|41
+golem|88000|Console|"CONFUSION"|13
+golem|88000|slb|"BLEEDING"|3275
+golem|88474|slb|Winter's Bite|20799
+golem|89000|Console|"BURNING"|163
+golem|89000|Console|"BLEEDING"|27
+golem|89000|Console|"TORMENT"|39
+golem|89000|Console|"POISON"|41
+golem|89000|Console|"CONFUSION"|13
+golem|89000|slb|"BLEEDING"|3171
+golem|89074|slb|Ricochet|10399
+golem|89674|slb|Ricochet|10399
+golem|90000|Console|"BURNING"|163
+golem|90000|Console|"BLEEDING"|27
+golem|90000|Console|"TORMENT"|39
+golem|90000|Console|"POISON"|41
+golem|90000|Console|"CONFUSION"|13
+golem|90000|slb|"BLEEDING"|2776
+golem|90274|slb|Splitblade|5777
+golem|90274|slb|Splitblade|5777
+golem|90274|slb|Splitblade|5777
+golem|90274|slb|Splitblade|5777
+golem|90274|slb|Splitblade|5777
+golem|90874|slb|Ricochet|10399
+golem|91000|Console|"BURNING"|163
+golem|91000|Console|"BLEEDING"|27
+golem|91000|Console|"TORMENT"|39
+golem|91000|Console|"POISON"|41
+golem|91000|Console|"CONFUSION"|13
+golem|91000|slb|"BLEEDING"|3043
+golem|91474|slb|Ricochet|10399
+golem|91914|slb|Path of Scars|12823
+golem|91914|slb|Path of Scars|12823
+golem|92000|Console|"BURNING"|163
+golem|92000|Console|"BLEEDING"|27
+golem|92000|Console|"TORMENT"|39
+golem|92000|Console|"POISON"|41
+golem|92000|Console|"CONFUSION"|13
+golem|92000|slb|"BLEEDING"|2716
+golem|92206|slb|Rapid Fire|4325
+golem|92207|slb|Lightning Strike|2735
+golem|92398|slb|Rapid Fire|4325
+golem|92590|slb|Rapid Fire|4325
+golem|92782|slb|Rapid Fire|4325
+golem|92974|slb|Rapid Fire|4325
+golem|93000|Console|"BURNING"|163
+golem|93000|Console|"BLEEDING"|27
+golem|93000|Console|"TORMENT"|39
+golem|93000|Console|"POISON"|41
+golem|93000|Console|"CONFUSION"|13
+golem|93000|slb|"BLEEDING"|2388
+golem|93166|slb|Rapid Fire|4325
+golem|93358|slb|Rapid Fire|4325
+golem|93550|slb|Rapid Fire|4325
+golem|93742|slb|Rapid Fire|4325
+golem|93934|slb|Rapid Fire|4325
+golem|94000|Console|"BURNING"|163
+golem|94000|Console|"BLEEDING"|27
+golem|94000|Console|"TORMENT"|39
+golem|94000|Console|"POISON"|41
+golem|94000|Console|"CONFUSION"|13
+golem|94000|slb|"BLEEDING"|2357
+golem|94614|slb|Long Range Shot|10382
+golem|95000|Console|"BURNING"|163
+golem|95000|Console|"BLEEDING"|27
+golem|95000|Console|"TORMENT"|39
+golem|95000|Console|"POISON"|41
+golem|95000|Console|"CONFUSION"|13
+golem|95000|slb|"BLEEDING"|1820
+golem|95294|slb|Long Range Shot|10382
+golem|95295|slb|Lightning Strike|2735
+golem|95974|slb|Long Range Shot|10382
+golem|96000|Console|"BURNING"|163
+golem|96000|Console|"BLEEDING"|27
+golem|96000|Console|"TORMENT"|39
+golem|96000|Console|"POISON"|41
+golem|96000|Console|"CONFUSION"|13
+golem|96000|slb|"BLEEDING"|1415
+golem|96654|slb|Long Range Shot|10382
+golem|97000|Console|"BURNING"|163
+golem|97000|Console|"BLEEDING"|27
+golem|97000|Console|"TORMENT"|39
+golem|97000|Console|"POISON"|41
+golem|97000|Console|"CONFUSION"|13
+golem|97000|slb|"BLEEDING"|1321
+golem|97334|slb|Long Range Shot|10382
+golem|97694|slb|Point-Blank Shot|9228
+golem|98000|Console|"BURNING"|163
+golem|98000|Console|"BLEEDING"|27
+golem|98000|Console|"TORMENT"|39
+golem|98000|Console|"POISON"|41
+golem|98000|Console|"CONFUSION"|13
+golem|98000|slb|"BLEEDING"|667
+golem|99000|Console|"BURNING"|163
+golem|99000|Console|"BLEEDING"|27
+golem|99000|Console|"TORMENT"|39
+golem|99000|Console|"POISON"|41
+golem|99000|Console|"CONFUSION"|13
+golem|99000|slb|"BLEEDING"|587
+golem|100000|Console|"BURNING"|163
+golem|100000|Console|"BLEEDING"|27
+golem|100000|Console|"TORMENT"|39
+golem|100000|Console|"POISON"|41
+golem|100000|Console|"CONFUSION"|13
+golem|100000|slb|"BLEEDING"|416
+golem|100024|slb|Barrage Attack|7209
+golem|100025|slb|Lightning Strike|3419
+golem|100275|slb|One Wolf Pack Attack|9008
+golem|100474|slb|Barrage Attack|7209
+golem|100655|slb|Worldly Impact|27252
+golem|100924|slb|Barrage Attack|7209
+golem|101000|Console|"BURNING"|163
+golem|101000|Console|"BLEEDING"|27
+golem|101000|Console|"TORMENT"|39
+golem|101000|Console|"POISON"|41
+golem|101000|Console|"CONFUSION"|13
+golem|101000|slb|"BLEEDING"|919
+golem|101136|slb|Frost Trap Attack|9482
+golem|101325|slb|Frenzied Attack|5767
+golem|101374|slb|Barrage Attack|7209
+golem|101387|slb|One Wolf Pack Attack|9008
+golem|101515|slb|Frenzied Attack|5767
+golem|101705|slb|Frenzied Attack|5767
+golem|101824|slb|Barrage Attack|7209
+golem|101895|slb|Frenzied Attack|5767
+golem|102000|Console|"BURNING"|163
+golem|102000|Console|"BLEEDING"|27
+golem|102000|Console|"TORMENT"|39
+golem|102000|Console|"POISON"|41
+golem|102000|Console|"CONFUSION"|13
+golem|102000|slb|"BLEEDING"|1224
+golem|102135|slb|Frost Trap Attack|9973
+golem|102274|slb|Barrage Attack|7583
+golem|102525|slb|One Wolf Pack Attack|9474
+golem|102645|slb|Splitblade|7221
+golem|102645|slb|Splitblade|7221
+golem|102645|slb|Splitblade|7221
+golem|102645|slb|Splitblade|7221
+golem|102645|slb|Splitblade|7221
+golem|102724|slb|Barrage Attack|7583
+golem|103000|Console|"BURNING"|163
+golem|103000|Console|"BLEEDING"|27
+golem|103000|Console|"TORMENT"|39
+golem|103000|Console|"POISON"|41
+golem|103000|Console|"CONFUSION"|13
+golem|103000|slb|"BLEEDING"|1511
+golem|103135|slb|Frost Trap Attack|9973
+golem|103165|slb|Winter's Bite|25998
+golem|103174|slb|Barrage Attack|7583
+golem|103605|slb|Path of Scars|17332
+golem|103605|slb|Path of Scars|17332
+golem|103624|slb|Barrage Attack|7583
+golem|103825|slb|Whirling Defense|9532
+golem|103856|slb|One Wolf Pack Attack|9474
+golem|104000|Console|"BURNING"|163
+golem|104000|Console|"BLEEDING"|27
+golem|104000|Console|"TORMENT"|39
+golem|104000|Console|"POISON"|41
+golem|104000|Console|"CONFUSION"|13
+golem|104000|slb|"BLEEDING"|2428
+golem|104045|slb|Whirling Defense|9532
+golem|104074|slb|Barrage Attack|7583
+golem|104135|slb|Frost Trap Attack|9973
+golem|104265|slb|Whirling Defense|9532
+golem|104485|slb|Whirling Defense|9532
+golem|104524|slb|Barrage Attack|7583
+golem|104705|slb|Whirling Defense|9532
+golem|104925|slb|Whirling Defense|9532
+golem|104956|slb|One Wolf Pack Attack|9474
+golem|104974|slb|Barrage Attack|7583
+golem|105000|Console|"BURNING"|163
+golem|105000|Console|"BLEEDING"|27
+golem|105000|Console|"TORMENT"|39
+golem|105000|Console|"POISON"|41
+golem|105000|Console|"CONFUSION"|13
+golem|105000|slb|"BLEEDING"|2956
+golem|105135|slb|Frost Trap Attack|9973
+golem|105145|slb|Whirling Defense|9532

@@ -1,0 +1,940 @@
+{
+	"skill_casts": [
+		{
+			"cast_time_ms": 201,
+			"skill": "Rifle Burst"
+		},
+		{
+			"cast_time_ms": 678,
+			"skill": "Grenade Barrage"
+		},
+		{
+			"cast_time_ms": 0,
+			"skill": "Weapon Swap"
+		},
+		{
+			"cast_time_ms": 0,
+			"skill": "Grenade Kit"
+		},
+		{
+			"cast_time_ms": 680,
+			"skill": "Shrapnel Grenade"
+		},
+		{
+			"cast_time_ms": 679,
+			"skill": "Freeze Grenade"
+		},
+		{
+			"cast_time_ms": 684,
+			"skill": "Throw Mine"
+		},
+		{
+			"cast_time_ms": 480,
+			"skill": "Poison Grenade"
+		},
+		{
+			"cast_time_ms": 0,
+			"skill": "Weapon Swap"
+		},
+		{
+			"cast_time_ms": 918,
+			"skill": "Jump Shot"
+		},
+		{
+			"cast_time_ms": 397,
+			"skill": "Overcharged Shot"
+		},
+		{
+			"cast_time_ms": 356,
+			"skill": "Net Shot"
+		},
+		{
+			"cast_time_ms": 0,
+			"skill": "Overcharged Shot"
+		},
+		{
+			"cast_time_ms": 442,
+			"skill": "Blunderbuss"
+		},
+		{
+			"cast_time_ms": 0,
+			"skill": "Weapon Swap"
+		},
+		{
+			"cast_time_ms": 0,
+			"skill": "Grenade Kit"
+		},
+		{
+			"cast_time_ms": 678,
+			"skill": "Shrapnel Grenade"
+		},
+		{
+			"cast_time_ms": 640,
+			"skill": "Orbital Strike"
+		},
+		{
+			"cast_time_ms": 800,
+			"skill": "Dodge"
+		},
+		{
+			"cast_time_ms": 0,
+			"skill": "Weapon Swap"
+		},
+		{
+			"cast_time_ms": 683,
+			"skill": "Static Shock"
+		},
+		{
+			"cast_time_ms": 718,
+			"skill": "Rifle Burst"
+		},
+		{
+			"cast_time_ms": 718,
+			"skill": "Rifle Burst"
+		},
+		{
+			"cast_time_ms": 720,
+			"skill": "Rifle Burst"
+		},
+		{
+			"cast_time_ms": 402,
+			"skill": "Blunderbuss"
+		},
+		{
+			"cast_time_ms": 0,
+			"skill": "Weapon Swap"
+		},
+		{
+			"cast_time_ms": 0,
+			"skill": "Grenade Kit"
+		},
+		{
+			"cast_time_ms": 561,
+			"skill": "Shrapnel Grenade"
+		},
+		{
+			"cast_time_ms": 0,
+			"skill": "Weapon Swap"
+		},
+		{
+			"cast_time_ms": 915,
+			"skill": "Mine Field"
+		},
+		{
+			"cast_time_ms": 320,
+			"skill": "Rifle Burst"
+		},
+		{
+			"cast_time_ms": 523,
+			"skill": "Throw Mine"
+		},
+		{
+			"cast_time_ms": 761,
+			"skill": "Dodge"
+		},
+		{
+			"cast_time_ms": 360,
+			"skill": "Net Shot"
+		},
+		{
+			"cast_time_ms": 718,
+			"skill": "Rifle Burst"
+		},
+		{
+			"cast_time_ms": 562,
+			"skill": "Rifle Burst"
+		},
+		{
+			"cast_time_ms": 478,
+			"skill": "Blunderbuss"
+		},
+		{
+			"cast_time_ms": 0,
+			"skill": "Weapon Swap"
+		},
+		{
+			"cast_time_ms": 0,
+			"skill": "Grenade Kit"
+		},
+		{
+			"cast_time_ms": 521,
+			"skill": "Shrapnel Grenade"
+		},
+		{
+			"cast_time_ms": 0,
+			"skill": "Weapon Swap"
+		},
+		{
+			"cast_time_ms": 401,
+			"skill": "Overcharged Shot"
+		},
+		{
+			"cast_time_ms": 677,
+			"skill": "Grenade Barrage"
+		},
+		{
+			"cast_time_ms": 0,
+			"skill": "Overcharged Shot"
+		},
+		{
+			"cast_time_ms": 639,
+			"skill": "Rifle Burst"
+		},
+		{
+			"cast_time_ms": 925,
+			"skill": "Jump Shot"
+		},
+		{
+			"cast_time_ms": 800,
+			"skill": "Dodge"
+		},
+		{
+			"cast_time_ms": 519,
+			"skill": "Rifle Burst"
+		},
+		{
+			"cast_time_ms": 561,
+			"skill": "Blunderbuss"
+		},
+		{
+			"cast_time_ms": 0,
+			"skill": "Weapon Swap"
+		},
+		{
+			"cast_time_ms": 0,
+			"skill": "Grenade Kit"
+		},
+		{
+			"cast_time_ms": 678,
+			"skill": "Shrapnel Grenade"
+		},
+		{
+			"cast_time_ms": 721,
+			"skill": "Static Shock"
+		},
+		{
+			"cast_time_ms": 679,
+			"skill": "Throw Mine"
+		},
+		{
+			"cast_time_ms": 683,
+			"skill": "Freeze Grenade"
+		},
+		{
+			"cast_time_ms": 521,
+			"skill": "Poison Grenade"
+		},
+		{
+			"cast_time_ms": 0,
+			"skill": "Weapon Swap"
+		},
+		{
+			"cast_time_ms": 920,
+			"skill": "Mine Field"
+		},
+		{
+			"cast_time_ms": 639,
+			"skill": "Net Shot"
+		},
+		{
+			"cast_time_ms": 560,
+			"skill": "Blunderbuss"
+		},
+		{
+			"cast_time_ms": 0,
+			"skill": "Weapon Swap"
+		},
+		{
+			"cast_time_ms": 0,
+			"skill": "Grenade Kit"
+		},
+		{
+			"cast_time_ms": 559,
+			"skill": "Shrapnel Grenade"
+		},
+		{
+			"cast_time_ms": 803,
+			"skill": "Dodge"
+		},
+		{
+			"cast_time_ms": 0,
+			"skill": "Weapon Swap"
+		},
+		{
+			"cast_time_ms": 597,
+			"skill": "Rifle Burst"
+		},
+		{
+			"cast_time_ms": 400,
+			"skill": "Overcharged Shot"
+		},
+		{
+			"cast_time_ms": 722,
+			"skill": "Rifle Burst"
+		},
+		{
+			"cast_time_ms": 0,
+			"skill": "Overcharged Shot"
+		},
+		{
+			"cast_time_ms": 722,
+			"skill": "Rifle Burst"
+		},
+		{
+			"cast_time_ms": 717,
+			"skill": "Rifle Burst"
+		},
+		{
+			"cast_time_ms": 559,
+			"skill": "Rifle Burst"
+		},
+		{
+			"cast_time_ms": 520,
+			"skill": "Blunderbuss"
+		},
+		{
+			"cast_time_ms": 0,
+			"skill": "Weapon Swap"
+		},
+		{
+			"cast_time_ms": 0,
+			"skill": "Grenade Kit"
+		},
+		{
+			"cast_time_ms": 681,
+			"skill": "Shrapnel Grenade"
+		},
+		{
+			"cast_time_ms": 682,
+			"skill": "Throw Mine"
+		},
+		{
+			"cast_time_ms": 757,
+			"skill": "Orbital Strike"
+		},
+		{
+			"cast_time_ms": 800,
+			"skill": "Dodge"
+		},
+		{
+			"cast_time_ms": 0,
+			"skill": "Weapon Swap"
+		},
+		{
+			"cast_time_ms": 679,
+			"skill": "Grenade Barrage"
+		},
+		{
+			"cast_time_ms": 925,
+			"skill": "Jump Shot"
+		},
+		{
+			"cast_time_ms": 359,
+			"skill": "Net Shot"
+		},
+		{
+			"cast_time_ms": 403,
+			"skill": "Blunderbuss"
+		},
+		{
+			"cast_time_ms": 0,
+			"skill": "Weapon Swap"
+		},
+		{
+			"cast_time_ms": 0,
+			"skill": "Grenade Kit"
+		},
+		{
+			"cast_time_ms": 640,
+			"skill": "Shrapnel Grenade"
+		},
+		{
+			"cast_time_ms": 0,
+			"skill": "Weapon Swap"
+		},
+		{
+			"cast_time_ms": 921,
+			"skill": "Mine Field"
+		},
+		{
+			"cast_time_ms": 681,
+			"skill": "Static Shock"
+		},
+		{
+			"cast_time_ms": 561,
+			"skill": "Rifle Burst"
+		},
+		{
+			"cast_time_ms": 399,
+			"skill": "Overcharged Shot"
+		},
+		{
+			"cast_time_ms": 0,
+			"skill": "Overcharged Shot"
+		},
+		{
+			"cast_time_ms": 756,
+			"skill": "Dodge"
+		},
+		{
+			"cast_time_ms": 724,
+			"skill": "Rifle Burst"
+		},
+		{
+			"cast_time_ms": 402,
+			"skill": "Blunderbuss"
+		},
+		{
+			"cast_time_ms": 0,
+			"skill": "Weapon Swap"
+		},
+		{
+			"cast_time_ms": 0,
+			"skill": "Grenade Kit"
+		},
+		{
+			"cast_time_ms": 681,
+			"skill": "Shrapnel Grenade"
+		},
+		{
+			"cast_time_ms": 680,
+			"skill": "Throw Mine"
+		},
+		{
+			"cast_time_ms": 677,
+			"skill": "Freeze Grenade"
+		},
+		{
+			"cast_time_ms": 560,
+			"skill": "Poison Grenade"
+		},
+		{
+			"cast_time_ms": 801,
+			"skill": "Dodge"
+		},
+		{
+			"cast_time_ms": 0,
+			"skill": "Weapon Swap"
+		},
+		{
+			"cast_time_ms": 761,
+			"skill": "Rifle Burst"
+		},
+		{
+			"cast_time_ms": 358,
+			"skill": "Net Shot"
+		},
+		{
+			"cast_time_ms": 442,
+			"skill": "Rifle Burst"
+		},
+		{
+			"cast_time_ms": 479,
+			"skill": "Blunderbuss"
+		},
+		{
+			"cast_time_ms": 0,
+			"skill": "Weapon Swap"
+		},
+		{
+			"cast_time_ms": 0,
+			"skill": "Grenade Kit"
+		},
+		{
+			"cast_time_ms": 524,
+			"skill": "Shrapnel Grenade"
+		},
+		{
+			"cast_time_ms": 0,
+			"skill": "Weapon Swap"
+		},
+		{
+			"cast_time_ms": 721,
+			"skill": "Rifle Burst"
+		},
+		{
+			"cast_time_ms": 721,
+			"skill": "Rifle Burst"
+		},
+		{
+			"cast_time_ms": 718,
+			"skill": "Rifle Burst"
+		},
+		{
+			"cast_time_ms": 918,
+			"skill": "Mine Field"
+		},
+		{
+			"cast_time_ms": 763,
+			"skill": "Rifle Burst"
+		},
+		{
+			"cast_time_ms": 679,
+			"skill": "Grenade Barrage"
+		},
+		{
+			"cast_time_ms": 399,
+			"skill": "Blunderbuss"
+		},
+		{
+			"cast_time_ms": 0,
+			"skill": "Weapon Swap"
+		},
+		{
+			"cast_time_ms": 0,
+			"skill": "Grenade Kit"
+		},
+		{
+			"cast_time_ms": 681,
+			"skill": "Shrapnel Grenade"
+		},
+		{
+			"cast_time_ms": 522,
+			"skill": "Throw Mine"
+		},
+		{
+			"cast_time_ms": 757,
+			"skill": "Dodge"
+		},
+		{
+			"cast_time_ms": 0,
+			"skill": "Weapon Swap"
+		},
+		{
+			"cast_time_ms": 404,
+			"skill": "Overcharged Shot"
+		},
+		{
+			"cast_time_ms": 359,
+			"skill": "Net Shot"
+		},
+		{
+			"cast_time_ms": 0,
+			"skill": "Overcharged Shot"
+		},
+		{
+			"cast_time_ms": 678,
+			"skill": "Static Shock"
+		},
+		{
+			"cast_time_ms": 922,
+			"skill": "Jump Shot"
+		},
+		{
+			"cast_time_ms": 519,
+			"skill": "Rifle Burst"
+		},
+		{
+			"cast_time_ms": 481,
+			"skill": "Blunderbuss"
+		},
+		{
+			"cast_time_ms": 0,
+			"skill": "Weapon Swap"
+		},
+		{
+			"cast_time_ms": 0,
+			"skill": "Grenade Kit"
+		},
+		{
+			"cast_time_ms": 597,
+			"skill": "Shrapnel Grenade"
+		},
+		{
+			"cast_time_ms": 803,
+			"skill": "Dodge"
+		},
+		{
+			"cast_time_ms": 0,
+			"skill": "Weapon Swap"
+		},
+		{
+			"cast_time_ms": 718,
+			"skill": "Rifle Burst"
+		},
+		{
+			"cast_time_ms": 880,
+			"skill": "Orbital Strike"
+		},
+		{
+			"cast_time_ms": 717,
+			"skill": "Rifle Burst"
+		},
+		{
+			"cast_time_ms": 722,
+			"skill": "Rifle Burst"
+		},
+		{
+			"cast_time_ms": 919,
+			"skill": "Mine Field"
+		},
+		{
+			"cast_time_ms": 482,
+			"skill": "Blunderbuss"
+		},
+		{
+			"cast_time_ms": 0,
+			"skill": "Weapon Swap"
+		},
+		{
+			"cast_time_ms": 0,
+			"skill": "Grenade Kit"
+		},
+		{
+			"cast_time_ms": 676,
+			"skill": "Shrapnel Grenade"
+		},
+		{
+			"cast_time_ms": 695,
+			"skill": "Throw Mine"
+		},
+		{
+			"cast_time_ms": 668,
+			"skill": "Freeze Grenade"
+		},
+		{
+			"cast_time_ms": 556,
+			"skill": "Poison Grenade"
+		},
+		{
+			"cast_time_ms": 762,
+			"skill": "Dodge"
+		},
+		{
+			"cast_time_ms": 0,
+			"skill": "Weapon Swap"
+		},
+		{
+			"cast_time_ms": 361,
+			"skill": "Net Shot"
+		},
+		{
+			"cast_time_ms": 400,
+			"skill": "Overcharged Shot"
+		},
+		{
+			"cast_time_ms": 717,
+			"skill": "Rifle Burst"
+		},
+		{
+			"cast_time_ms": 0,
+			"skill": "Overcharged Shot"
+		},
+		{
+			"cast_time_ms": 242,
+			"skill": "Rifle Burst"
+		},
+		{
+			"cast_time_ms": 399,
+			"skill": "Blunderbuss"
+		},
+		{
+			"cast_time_ms": 679,
+			"skill": "Grenade Barrage"
+		},
+		{
+			"cast_time_ms": 0,
+			"skill": "Weapon Swap"
+		},
+		{
+			"cast_time_ms": 0,
+			"skill": "Grenade Kit"
+		},
+		{
+			"cast_time_ms": 681,
+			"skill": "Shrapnel Grenade"
+		},
+		{
+			"cast_time_ms": 561,
+			"skill": "Static Shock"
+		},
+		{
+			"cast_time_ms": 0,
+			"skill": "Weapon Swap"
+		},
+		{
+			"cast_time_ms": 719,
+			"skill": "Rifle Burst"
+		},
+		{
+			"cast_time_ms": 644,
+			"skill": "Rifle Burst"
+		},
+		{
+			"cast_time_ms": 917,
+			"skill": "Jump Shot"
+		},
+		{
+			"cast_time_ms": 598,
+			"skill": "Rifle Burst"
+		},
+		{
+			"cast_time_ms": 517,
+			"skill": "Blunderbuss"
+		},
+		{
+			"cast_time_ms": 0,
+			"skill": "Weapon Swap"
+		},
+		{
+			"cast_time_ms": 0,
+			"skill": "Grenade Kit"
+		},
+		{
+			"cast_time_ms": 683,
+			"skill": "Shrapnel Grenade"
+		},
+		{
+			"cast_time_ms": 518,
+			"skill": "Throw Mine"
+		},
+		{
+			"cast_time_ms": 0,
+			"skill": "Weapon Swap"
+		},
+		{
+			"cast_time_ms": 919,
+			"skill": "Mine Field"
+		},
+		{
+			"cast_time_ms": 758,
+			"skill": "Dodge"
+		},
+		{
+			"cast_time_ms": 722,
+			"skill": "Rifle Burst"
+		},
+		{
+			"cast_time_ms": 563,
+			"skill": "Rifle Burst"
+		},
+		{
+			"cast_time_ms": 357,
+			"skill": "Net Shot"
+		},
+		{
+			"cast_time_ms": 396,
+			"skill": "Overcharged Shot"
+		},
+		{
+			"cast_time_ms": 402,
+			"skill": "Blunderbuss"
+		},
+		{
+			"cast_time_ms": 0,
+			"skill": "Overcharged Shot"
+		},
+		{
+			"cast_time_ms": 0,
+			"skill": "Weapon Swap"
+		},
+		{
+			"cast_time_ms": 0,
+			"skill": "Grenade Kit"
+		},
+		{
+			"cast_time_ms": 564,
+			"skill": "Shrapnel Grenade"
+		},
+		{
+			"cast_time_ms": 795,
+			"skill": "Dodge"
+		},
+		{
+			"cast_time_ms": 0,
+			"skill": "Weapon Swap"
+		},
+		{
+			"cast_time_ms": 720,
+			"skill": "Rifle Burst"
+		},
+		{
+			"cast_time_ms": 724,
+			"skill": "Rifle Burst"
+		},
+		{
+			"cast_time_ms": 717,
+			"skill": "Rifle Burst"
+		},
+		{
+			"cast_time_ms": 723,
+			"skill": "Rifle Burst"
+		},
+		{
+			"cast_time_ms": 517,
+			"skill": "Rifle Burst"
+		},
+		{
+			"cast_time_ms": 678,
+			"skill": "Static Shock"
+		},
+		{
+			"cast_time_ms": 401,
+			"skill": "Blunderbuss"
+		},
+		{
+			"cast_time_ms": 0,
+			"skill": "Weapon Swap"
+		},
+		{
+			"cast_time_ms": 0,
+			"skill": "Grenade Kit"
+		},
+		{
+			"cast_time_ms": 681,
+			"skill": "Shrapnel Grenade"
+		},
+		{
+			"cast_time_ms": 680,
+			"skill": "Throw Mine"
+		},
+		{
+			"cast_time_ms": 683,
+			"skill": "Grenade Barrage"
+		},
+		{
+			"cast_time_ms": 679,
+			"skill": "Freeze Grenade"
+		},
+		{
+			"cast_time_ms": 680,
+			"skill": "Poison Grenade"
+		},
+		{
+			"cast_time_ms": 0,
+			"skill": "Weapon Swap"
+		},
+		{
+			"cast_time_ms": 915,
+			"skill": "Mine Field"
+		},
+		{
+			"cast_time_ms": 881,
+			"skill": "Orbital Strike"
+		},
+		{
+			"cast_time_ms": 399,
+			"skill": "Blunderbuss"
+		},
+		{
+			"cast_time_ms": 0,
+			"skill": "Weapon Swap"
+		},
+		{
+			"cast_time_ms": 0,
+			"skill": "Grenade Kit"
+		},
+		{
+			"cast_time_ms": 720,
+			"skill": "Shrapnel Grenade"
+		},
+		{
+			"cast_time_ms": 763,
+			"skill": "Dodge"
+		},
+		{
+			"cast_time_ms": 0,
+			"skill": "Weapon Swap"
+		},
+		{
+			"cast_time_ms": 402,
+			"skill": "Overcharged Shot"
+		},
+		{
+			"cast_time_ms": 196,
+			"skill": "Rifle Burst"
+		},
+		{
+			"cast_time_ms": 0,
+			"skill": "Overcharged Shot"
+		},
+		{
+			"cast_time_ms": 922,
+			"skill": "Jump Shot"
+		},
+		{
+			"cast_time_ms": 356,
+			"skill": "Net Shot"
+		},
+		{
+			"cast_time_ms": 724,
+			"skill": "Rifle Burst"
+		},
+		{
+			"cast_time_ms": 640,
+			"skill": "Rifle Burst"
+		},
+		{
+			"cast_time_ms": 558,
+			"skill": "Blunderbuss"
+		},
+		{
+			"cast_time_ms": 0,
+			"skill": "Weapon Swap"
+		},
+		{
+			"cast_time_ms": 0,
+			"skill": "Grenade Kit"
+		},
+		{
+			"cast_time_ms": 683,
+			"skill": "Shrapnel Grenade"
+		},
+		{
+			"cast_time_ms": 519,
+			"skill": "Throw Mine"
+		},
+		{
+			"cast_time_ms": 0,
+			"skill": "Weapon Swap"
+		},
+		{
+			"cast_time_ms": 638,
+			"skill": "Rifle Burst"
+		},
+		{
+			"cast_time_ms": 805,
+			"skill": "Dodge"
+		},
+		{
+			"cast_time_ms": 678,
+			"skill": "Static Shock"
+		},
+		{
+			"cast_time_ms": 721,
+			"skill": "Rifle Burst"
+		},
+		{
+			"cast_time_ms": 757,
+			"skill": "Rifle Burst"
+		},
+		{
+			"cast_time_ms": 402,
+			"skill": "Blunderbuss"
+		},
+		{
+			"cast_time_ms": 0,
+			"skill": "Weapon Swap"
+		},
+		{
+			"cast_time_ms": 0,
+			"skill": "Grenade Kit"
+		},
+		{
+			"cast_time_ms": 602,
+			"skill": "Shrapnel Grenade"
+		},
+		{
+			"cast_time_ms": 0,
+			"skill": "Weapon Swap"
+		},
+		{
+			"cast_time_ms": 920,
+			"skill": "Mine Field"
+		},
+		{
+			"cast_time_ms": 719,
+			"skill": "Rifle Burst"
+		}
+	]
+}
