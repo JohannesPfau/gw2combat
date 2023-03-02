@@ -12,14 +12,14 @@
 #include "component/temporal/cooldown_component.hpp"
 #include "component/temporal/duration_component.hpp"
 
-#include "configuration/build.hpp"
-
 #include "system/actor.hpp"
 #include "system/apply_strikes_and_effects.hpp"
+#include "system/attributes.hpp"
 #include "system/audit.hpp"
 #include "system/dispatch_strikes_and_effects.hpp"
 #include "system/effects.hpp"
 #include "system/encounter.hpp"
+#include "system/rotation.hpp"
 #include "system/temporal.hpp"
 
 #include "utils/entity_utils.hpp"
@@ -75,6 +75,7 @@ void tick(registry_t& registry) {
 
     system::update_combat_stats(registry);
 
+    system::reset_counters(registry);
     system::cleanup_expired_components(registry);
     system::cleanup_expired_effects(registry);
     system::cleanup_finished_casting_skills(registry);
@@ -86,7 +87,8 @@ void tick(registry_t& registry) {
 void local_combat_loop(const std::string& encounter_configuration_path) {
     registry_t registry;
 
-    system::setup_local_encounter(registry, encounter_configuration_path);
+    auto encounter = utils::read<configuration::encounter_t>(encounter_configuration_path);
+    system::setup_local_encounter(registry, encounter);
 
     tick_t current_tick = 1;
     registry.ctx().emplace<const tick_t&>(current_tick);
@@ -128,7 +130,9 @@ end_of_combat_loop:
 std::string server_combat_loop(const std::string& encounter_configuration) {
     registry_t registry;
 
-    system::setup_server_encounter(registry, encounter_configuration);
+    auto encounter =
+        nlohmann::json::parse(encounter_configuration).get<configuration::encounter_server_t>();
+    system::setup_server_encounter(registry, encounter);
 
     tick_t current_tick = 1;
     registry.ctx().emplace<const tick_t&>(current_tick);

@@ -14,6 +14,17 @@ else
 	CXXFLAGS += -O3 -DNDEBUG
 endif
 
+UNAME = $(shell uname)
+
+ifeq ($(UNAME),Linux)
+	CXXFLAGS += -static
+else
+	ifeq ($(UNAME),Darwin)
+	else
+		CXXFLAGS += -static -lwsock32 -lws2_32 -m64 -Wa,-mbig-obj
+	endif
+endif
+
 all: $(EXE)
 
 $(EXE): $(OBJS)

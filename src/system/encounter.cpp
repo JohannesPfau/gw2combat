@@ -1,12 +1,14 @@
 #include "encounter.hpp"
 
 #include "component/actor/base_class_component.hpp"
+#include "component/actor/counters_component.hpp"
 #include "component/actor/effects_component.hpp"
 #include "component/actor/is_actor.hpp"
 #include "component/actor/profession_component.hpp"
 #include "component/actor/static_attributes.hpp"
 #include "component/actor/team.hpp"
 #include "component/audit/audit_component.hpp"
+#include "component/counter/is_counter.hpp"
 #include "component/equipment/weapons.hpp"
 
 #include "configuration/build.hpp"
@@ -19,14 +21,13 @@
 
 namespace gw2combat::system {
 
-void setup_local_encounter(registry_t& registry, const std::string& encounter_configuration_path) {
+void setup_local_encounter(registry_t& registry, const configuration::encounter_t& encounter) {
     auto console_entity = registry.create();
     registry.emplace<component::is_actor>(console_entity);
     registry.emplace<component::static_attributes>(
         console_entity, component::static_attributes{configuration::build_t{}.attributes});
     registry.ctx().emplace_as<std::string>(console_entity, "Console");
 
-    auto encounter = utils::read<configuration::encounter_t>(encounter_configuration_path);
     for (auto&& actor : encounter.actors) {
         auto build = utils::read<configuration::build_t>(actor.build_path);
 
@@ -42,7 +43,6 @@ void setup_local_encounter(registry_t& registry, const std::string& encounter_co
         registry.emplace<component::profession_component>(actor_entity, build.profession);
         registry.emplace<component::effects_component>(actor_entity);
         registry.emplace<component::current_weapon_set>(actor_entity);
-        registry.emplace<component::strike_counter>(actor_entity);
         registry.emplace<component::static_attributes>(actor_entity, build.attributes);
 
         auto& equipped_weapons = registry.emplace<component::equipped_weapons>(actor_entity);
@@ -61,6 +61,22 @@ void setup_local_encounter(registry_t& registry, const std::string& encounter_co
         }
         for (auto& permanent_unique_effect : build.permanent_unique_effects) {
             utils::add_unique_effect_to_actor(permanent_unique_effect, actor_entity, registry);
+        }
+
+        auto& counters_component = registry.emplace<component::counters_component>(actor_entity);
+        for (auto& counter_configuration : build.counters) {
+            if (counters_component.has(counter_configuration.counter_key)) {
+                throw std::runtime_error("multiple counters with the same name are not allowed");
+            }
+
+            auto counter_entity = registry.create();
+            registry.emplace<component::owner_component>(counter_entity,
+                                                         component::owner_component{actor_entity});
+            registry.emplace<component::is_counter>(
+                counter_entity,
+                component::is_counter{counter_configuration.initial_value, counter_configuration});
+            counters_component.counter_entities.emplace_back(
+                component::counter_entity{counter_configuration.counter_key, counter_entity});
         }
 
         if (!actor.rotation_path.empty()) {
@@ -111,15 +127,14 @@ void setup_local_encounter(registry_t& registry, const std::string& encounter_co
     }
 }
 
-void setup_server_encounter(registry_t& registry, const std::string& encounter_configuration) {
+void setup_server_encounter(registry_t& registry,
+                            const configuration::encounter_server_t& encounter) {
     auto console_entity = registry.create();
     registry.emplace<component::is_actor>(console_entity);
     registry.emplace<component::static_attributes>(
         console_entity, component::static_attributes{configuration::build_t{}.attributes});
     registry.ctx().emplace_as<std::string>(console_entity, "Console");
 
-    auto encounter =
-        nlohmann::json::parse(encounter_configuration).get<configuration::encounter_server_t>();
     for (auto&& actor : encounter.actors) {
         auto build = actor.build;
 
@@ -132,7 +147,6 @@ void setup_server_encounter(registry_t& registry, const std::string& encounter_c
         registry.emplace<component::profession_component>(actor_entity, build.profession);
         registry.emplace<component::effects_component>(actor_entity);
         registry.emplace<component::current_weapon_set>(actor_entity);
-        registry.emplace<component::strike_counter>(actor_entity);
         registry.emplace<component::static_attributes>(actor_entity, build.attributes);
 
         auto& equipped_weapons = registry.emplace<component::equipped_weapons>(actor_entity);
@@ -151,6 +165,22 @@ void setup_server_encounter(registry_t& registry, const std::string& encounter_c
         }
         for (auto& permanent_unique_effect : build.permanent_unique_effects) {
             utils::add_unique_effect_to_actor(permanent_unique_effect, actor_entity, registry);
+        }
+
+        auto& counters_component = registry.emplace<component::counters_component>(actor_entity);
+        for (auto& counter_configuration : build.counters) {
+            if (counters_component.has(counter_configuration.counter_key)) {
+                throw std::runtime_error("multiple counters with the same name are not allowed");
+            }
+
+            auto counter_entity = registry.create();
+            registry.emplace<component::owner_component>(counter_entity,
+                                                         component::owner_component{actor_entity});
+            registry.emplace<component::is_counter>(
+                counter_entity,
+                component::is_counter{counter_configuration.initial_value, counter_configuration});
+            counters_component.counter_entities.emplace_back(
+                component::counter_entity{counter_configuration.counter_key, counter_entity});
         }
 
         if (!actor.rotation.skill_casts.empty()) {
