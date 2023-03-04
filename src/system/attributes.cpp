@@ -2,7 +2,6 @@
 
 #include "component/actor/attribute_conversions_component.hpp"
 #include "component/actor/attribute_modifiers_component.hpp"
-#include "component/actor/effects_component.hpp"
 #include "component/actor/is_actor.hpp"
 #include "component/actor/relative_attributes.hpp"
 #include "component/actor/static_attributes.hpp"
@@ -11,6 +10,7 @@
 #include "component/hierarchy/owner_component.hpp"
 
 #include "utils/condition_utils.hpp"
+#include "utils/effect_utils.hpp"
 
 namespace gw2combat::system {
 
@@ -199,6 +199,45 @@ void calculate_relative_attributes(registry_t& registry) {
                         relative_attributes.get(other_entity,
                                                 actor::attribute_t::CRITICAL_DAMAGE_MULTIPLIER) +
                             ferocity / 1500.0);
+
+                    double expertise =
+                        relative_attributes.get(other_entity, actor::attribute_t::EXPERTISE);
+                    relative_attributes.set(
+                        other_entity,
+                        actor::attribute_t::CONDITION_DURATION_MULTIPLIER,
+                        relative_attributes.get(other_entity,
+                                                actor::attribute_t::CONDITION_DURATION_MULTIPLIER) +
+                            expertise / 1500.0);
+                    relative_attributes.set(
+                        other_entity,
+                        actor::attribute_t::BLEEDING_DURATION_MULTIPLIER,
+                        relative_attributes.get(other_entity,
+                                                actor::attribute_t::BLEEDING_DURATION_MULTIPLIER) +
+                            expertise / 1500.0);
+                    relative_attributes.set(
+                        other_entity,
+                        actor::attribute_t::BURNING_DURATION_MULTIPLIER,
+                        relative_attributes.get(other_entity,
+                                                actor::attribute_t::BURNING_DURATION_MULTIPLIER) +
+                            expertise / 1500.0);
+                    relative_attributes.set(
+                        other_entity,
+                        actor::attribute_t::CONFUSION_DURATION_MULTIPLIER,
+                        relative_attributes.get(other_entity,
+                                                actor::attribute_t::CONFUSION_DURATION_MULTIPLIER) +
+                            expertise / 1500.0);
+                    relative_attributes.set(
+                        other_entity,
+                        actor::attribute_t::POISON_DURATION_MULTIPLIER,
+                        relative_attributes.get(other_entity,
+                                                actor::attribute_t::POISON_DURATION_MULTIPLIER) +
+                            expertise / 1500.0);
+                    relative_attributes.set(
+                        other_entity,
+                        actor::attribute_t::TORMENT_DURATION_MULTIPLIER,
+                        relative_attributes.get(other_entity,
+                                                actor::attribute_t::TORMENT_DURATION_MULTIPLIER) +
+                            expertise / 1500.0);
                 });
         });
 }

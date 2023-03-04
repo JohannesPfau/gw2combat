@@ -51,6 +51,8 @@ void perform_rotations(registry_t& registry) {
                 return;
             }
 
+            utils::assert_can_cast_skill(entity, next_skill_cast.skill, registry);
+
             auto skill_entity =
                 registry.get<component::skills_component>(entity).find_by(next_skill_cast.skill);
 
@@ -106,7 +108,17 @@ void perform_skills(registry_t& registry) {
                 auto& outgoing_effects_component =
                     registry.get_or_emplace<component::outgoing_effects_component>(entity);
                 for (auto& effect_application : skill_configuration.on_pulse_effect_applications) {
-                    outgoing_effects_component.effect_applications.emplace_back(effect_application);
+                    outgoing_effects_component.effect_applications.emplace_back(
+                        component::effect_application_t{
+                            .condition = effect_application.condition,
+                            .source_skill = skill_configuration.skill_key,
+                            .effect = effect_application.effect,
+                            .unique_effect = effect_application.unique_effect,
+                            .direction = component::effect_application_t::convert_direction(
+                                effect_application.direction),
+                            .base_duration_ms = effect_application.base_duration_ms,
+                            .num_stacks = effect_application.num_stacks,
+                            .num_targets = effect_application.num_targets});
                 }
                 ++casting_skill.next_pulse_idx;
             }
@@ -126,8 +138,13 @@ void perform_skills(registry_t& registry) {
             if (effective_progress_pct >= 100) {
                 registry.emplace<component::finished_casting_skill>(
                     entity, component::finished_casting_skill{casting_skill.skill_entity});
-                utils::put_skill_on_cooldown(
-                    utils::get_owner(entity, registry), skill_configuration.skill_key, registry);
+                if (skill_configuration.cooldown[0] != 0 &&
+                    !(skill_configuration.skill_key == "Weapon Swap" &&
+                      registry.any_of<component::bundle_component>(entity))) {
+                    utils::put_skill_on_cooldown(utils::get_owner(entity, registry),
+                                                 skill_configuration.skill_key,
+                                                 registry);
+                }
                 spdlog::info("[{}] {}: finished casting skill {}",
                              utils::get_current_tick(registry),
                              utils::get_entity_name(entity, registry),
@@ -144,8 +161,21 @@ void perform_skills(registry_t& registry) {
             registry
                 .get<component::skill_configuration_component>(finished_casting_skill.skill_entity)
                 .skill_configuration;
-        if (skill_configuration.skill_key == "Weapon Swap") {
-            if (registry.any_of<component::bundle_component>(entity)) {
+
+        if (!skill_configuration.equip_bundle.empty()) {
+            registry.emplace_or_replace<component::bundle_component>(
+                entity, component::bundle_component{skill_configuration.equip_bundle});
+            spdlog::info("[{}] {}: equipped bundle {}",
+                         utils::get_current_tick(registry),
+                         utils::get_entity_name(entity, registry),
+                         skill_configuration.equip_bundle);
+        } else if (skill_configuration.skill_key == "Weapon Swap") {
+            if (auto bundle_ptr = registry.try_get<component::bundle_component>(entity);
+                bundle_ptr) {
+                spdlog::info("[{}] {}: dropped bundle {}",
+                             utils::get_current_tick(registry),
+                             utils::get_entity_name(entity, registry),
+                             bundle_ptr->name);
                 registry.remove<component::bundle_component>(entity);
             } else {
                 if (!registry.any_of<component::current_weapon_set>(entity)) {
@@ -223,6 +253,7 @@ void perform_skills(registry_t& registry) {
                     }
                 }
             });
+
         registry.view<component::source_actor, component::unchained_skill_triggers_component>()
             .each([&](const component::source_actor& source_actor,
                       const component::unchained_skill_triggers_component&
