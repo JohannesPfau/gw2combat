@@ -33,22 +33,18 @@ struct effect_application_t {
     [[nodiscard]] static inline component::effect_application_t::direction_t convert_direction(
         const configuration::direction_t& direction) {
         switch (direction) {
-            case configuration::direction_t::INVALID:
-                return component::effect_application_t::direction_t::INVALID;
             case configuration::direction_t::SELF:
                 return component::effect_application_t::direction_t::SELF;
             case configuration::direction_t::TEAM:
                 return component::effect_application_t::direction_t::TEAM;
             case configuration::direction_t::OUTGOING:
                 return component::effect_application_t::direction_t::OUTGOING;
+            default:
+                return component::effect_application_t::direction_t::INVALID;
         }
     }
 };
 
-struct outgoing_effect_application {
-    entity_t source_entity = entt::tombstone;
-    effect_application_t effect_application;
-};
 struct outgoing_effects_component {
     std::vector<effect_application_t> effect_applications;
 };
@@ -63,7 +59,7 @@ struct incoming_effects_component {
 
 NLOHMANN_JSON_SERIALIZE_ENUM(effect_application_t::direction_t,
                              {
-                                 {effect_application_t::direction_t::INVALID, "Invalid"},
+                                 {effect_application_t::direction_t::INVALID, "invalid"},
 
                                  {effect_application_t::direction_t::SELF, "SELF"},
                                  {effect_application_t::direction_t::TEAM, "TEAM"},
@@ -78,9 +74,6 @@ NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE_WITH_DEFAULT(effect_application_t,
                                                 num_stacks,
                                                 num_targets)
 
-NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE_WITH_DEFAULT(outgoing_effect_application,
-                                                source_entity,
-                                                effect_application)
 NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE_WITH_DEFAULT(incoming_effect_application,
                                                 source_entity,
                                                 effect_application)

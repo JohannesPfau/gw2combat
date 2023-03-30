@@ -1,13 +1,17 @@
 #include "combat_loop.hpp"
 
+#include "component/actor/combat_stats.hpp"
 #include "component/actor/is_actor.hpp"
 #include "component/actor/is_downstate.hpp"
 #include "component/actor/no_more_rotation.hpp"
 #include "component/actor/relative_attributes.hpp"
 #include "component/actor/rotation_component.hpp"
+#include "component/actor/static_attributes.hpp"
 #include "component/damage/effects_pipeline.hpp"
 #include "component/damage/incoming_damage.hpp"
 #include "component/damage/strikes_pipeline.hpp"
+#include "component/equipment/bundle.hpp"
+#include "component/lifecycle/destroy_entity.hpp"
 #include "component/temporal/animation_component.hpp"
 #include "component/temporal/cooldown_component.hpp"
 #include "component/temporal/duration_component.hpp"
@@ -23,12 +27,14 @@
 #include "system/temporal.hpp"
 
 #include "utils/entity_utils.hpp"
-#include "utils/io_utils.hpp"
 
 namespace gw2combat {
 
 void clear_temporary_components(registry_t& registry) {
-    registry.clear<component::relative_attributes,
+    registry.clear<component::actor_created,
+                   component::equipped_bundle,
+                   component::dropped_bundle,
+                   component::relative_attributes,
                    component::incoming_damage,
                    component::animation_expired,
                    component::cooldown_expired,
@@ -37,7 +43,35 @@ void clear_temporary_components(registry_t& registry) {
                    component::outgoing_effects_component,
                    component::incoming_strikes_component,
                    component::incoming_effects_component,
-                   component::incoming_damage>();
+                   component::incoming_damage,
+                   component::combat_stats_updated>();
+}
+
+void try_clean_entity(registry_t& registry, entity_t entity, entity_t owner_entity) {
+    if (!registry.valid(owner_entity)) {
+        registry.destroy(entity);
+    } else if (registry.any_of<component::owner_component>(owner_entity)) {
+        auto owners_owner_entity = registry.get<component::owner_component>(owner_entity).entity;
+        try_clean_entity(registry, entity, owners_owner_entity);
+    }
+}
+
+void clean_children_of_destroyed_owners(registry_t& registry) {
+    registry.view<component::owner_component>().each(
+        [&](entity_t entity, const component::owner_component& owner_component) {
+            try_clean_entity(registry, entity, owner_component.entity);
+        });
+}
+
+void destroy_marked_entities(registry_t& registry) {
+    bool entity_was_destroyed = false;
+    registry.view<component::destroy_entity>().each([&](entity_t entity) {
+        registry.destroy(entity);
+        entity_was_destroyed = true;
+    });
+    if (entity_was_destroyed) {
+        clean_children_of_destroyed_owners(registry);
+    }
 }
 
 void tick(registry_t& registry) {
@@ -71,102 +105,95 @@ void tick(registry_t& registry) {
         system::apply_condition_damage(registry);
     }
 
-    system::audit_damage(registry);
-
     system::update_combat_stats(registry);
 
-    system::reset_counters(registry);
     system::cleanup_expired_components(registry);
-    system::cleanup_finished_casting_skills(registry);
     system::destroy_actors_with_no_rotation(registry);
 
+    system::audit(registry);
+
+    system::reset_counters(registry);
+    system::cleanup_finished_casting_skills(registry);
+    destroy_marked_entities(registry);
     clear_temporary_components(registry);
 }
 
-void local_combat_loop(const std::string& encounter_configuration_path) {
+std::string combat_loop(const configuration::encounter_t& encounter) {
     registry_t registry;
+    system::setup_encounter(registry, encounter);
 
-    auto encounter = utils::read<configuration::encounter_t>(encounter_configuration_path);
-    system::setup_local_encounter(registry, encounter);
+    try {
+        tick_t current_tick = 1;
+        registry.ctx().emplace<const tick_t&>(current_tick);
+        bool continue_combat_loop = true;
+        while (continue_combat_loop) {
+            tick(registry);
 
-    tick_t current_tick = 1;
-    registry.ctx().emplace<const tick_t&>(current_tick);
-    tick_t everyone_out_of_rotation_at_tick = 3'000'000'000;
-    while (true) {
-        tick(registry);
+            for (auto entity : registry.view<component::is_actor>()) {
+                if (registry.any_of<component::is_downstate>(entity)) {
+                    spdlog::info("[{}] {} is downstate",
+                                 current_tick,
+                                 utils::get_entity_name(entity, registry));
+                    continue_combat_loop = false;
+                    break;
+                }
+            }
 
-        bool everyone_out_of_rotation = true;
-        auto actors = registry.view<component::is_actor>();
-        for (auto entity : actors) {
-            if (registry.any_of<component::is_downstate>(entity)) {
-                spdlog::info(
-                    "[{}] {} is downstate", current_tick, utils::get_entity_name(entity, registry));
-                goto end_of_combat_loop;
+            for (auto& termination_condition : encounter.termination_conditions) {
+                if (termination_condition.type ==
+                    configuration::termination_condition_t::type_t::ROTATION) {
+                    bool everyone_out_of_rotation = true;
+                    for (auto entity : registry.view<component::is_actor>()) {
+                        if (utils::get_entity_name(entity, registry) !=
+                                termination_condition.actor ||
+                            !registry.any_of<component::rotation_component>(entity)) {
+                            continue;
+                        }
+                        if (!registry.any_of<component::no_more_rotation>(entity)) {
+                            everyone_out_of_rotation = false;
+                            break;
+                        }
+                    }
+                    if (everyone_out_of_rotation) {
+                        continue_combat_loop = false;
+                        break;
+                    }
+                } else if (termination_condition.type ==
+                           configuration::termination_condition_t::type_t::DAMAGE) {
+                    bool someone_took_required_damage = false;
+                    for (auto entity : registry.view<component::is_actor>()) {
+                        if (utils::get_entity_name(entity, registry) !=
+                            termination_condition.actor) {
+                            continue;
+                        }
+                        int max_health = utils::round_to_nearest_even(
+                            registry.get<component::static_attributes>(entity)
+                                .attribute_value_map[actor::attribute_t::MAX_HEALTH]);
+                        int current_health = registry.get<component::combat_stats>(entity).health;
+                        if (max_health - current_health >= termination_condition.damage) {
+                            someone_took_required_damage = true;
+                            break;
+                        }
+                    }
+                    if (someone_took_required_damage) {
+                        continue_combat_loop = false;
+                        break;
+                    }
+                } else if (termination_condition.type ==
+                           configuration::termination_condition_t::type_t::TIME) {
+                    if (current_tick >= termination_condition.time) {
+                        continue_combat_loop = false;
+                        break;
+                    }
+                }
             }
-            if (!registry.any_of<component::rotation_component>(entity)) {
-                continue;
-            }
-            if (!registry.any_of<component::no_more_rotation>(entity)) {
-                everyone_out_of_rotation = false;
-            }
+
+            ++current_tick;
         }
-        if (everyone_out_of_rotation) {
-            if (everyone_out_of_rotation_at_tick > current_tick) {
-                everyone_out_of_rotation_at_tick = current_tick;
-            }
-            if (current_tick - everyone_out_of_rotation_at_tick >= 10'000) {
-                spdlog::info("[{}] no one has any rotation left!", current_tick);
-                break;
-            }
-        }
-
-        ++current_tick;
+    } catch (std::exception& e) {
+        spdlog::error("Exception: {}", e.what());
     }
-end_of_combat_loop:
-    system::audit_report_to_disk(registry);
-}
 
-std::string server_combat_loop(const std::string& encounter_configuration) {
-    registry_t registry;
-
-    auto encounter =
-        nlohmann::json::parse(encounter_configuration).get<configuration::encounter_server_t>();
-    system::setup_server_encounter(registry, encounter);
-
-    tick_t current_tick = 1;
-    registry.ctx().emplace<const tick_t&>(current_tick);
-    tick_t everyone_out_of_rotation_at_tick = 3'000'000'000;
-    while (true) {
-        tick(registry);
-
-        bool everyone_out_of_rotation = true;
-        auto actors = registry.view<component::is_actor>();
-        for (auto entity : actors) {
-            if (registry.any_of<component::is_downstate>(entity)) {
-                spdlog::info(
-                    "[{}] {} is downstate", current_tick, utils::get_entity_name(entity, registry));
-                goto end_of_combat_loop;
-            }
-            if (!registry.any_of<component::rotation_component>(entity)) {
-                continue;
-            }
-            if (!registry.any_of<component::no_more_rotation>(entity)) {
-                everyone_out_of_rotation = false;
-            }
-        }
-        if (everyone_out_of_rotation) {
-            if (everyone_out_of_rotation_at_tick > current_tick) {
-                everyone_out_of_rotation_at_tick = current_tick;
-            }
-            if (current_tick - everyone_out_of_rotation_at_tick >= 10'000) {
-                spdlog::info("[{}] no one has any rotation left!", current_tick);
-                break;
-            }
-        }
-
-        ++current_tick;
-    }
-end_of_combat_loop:
     return nlohmann::json{system::get_audit_report(registry)}[0].dump();
 }
 

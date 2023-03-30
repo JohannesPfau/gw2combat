@@ -1,15 +1,27 @@
 {
     "actors": [
         {
-            "name": "gs-slb",
-            "build_path": "resources/build-gs-slb.json",
-            "rotation_path": "resources/rotation-gs-slb.csv",
+            "name": "cfb",
+            "build_path": "resources/build-cfb.json",
+            "rotation_path": "resources/rotation-cfb.csv",
             "team": 1
         }, {
             "name": "golem",
             "build_path": "resources/build-golem.json",
-            "team": 2,
-            "audit_output_base_path": "."
+            "team": 2
+        }
+    ],
+    "termination_conditions": [
+        {
+            "type": "DAMAGE",
+            "actor": "golem",
+            "damage": 4000000
+        }, {
+            "type": "ROTATION",
+            "actor": "cfb"
+        }, {
+            "type": "TIME",
+            "time": 110000
         }
     ]
 }

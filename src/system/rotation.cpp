@@ -4,14 +4,14 @@
 #include "component/actor/finished_casting_skill.hpp"
 #include "component/actor/no_more_rotation.hpp"
 #include "component/actor/rotation_component.hpp"
-#include "component/actor/skills_component.hpp"
+#include "component/counter/is_counter.hpp"
 #include "component/damage/effects_pipeline.hpp"
 #include "component/damage/strikes_pipeline.hpp"
 #include "component/equipment/bundle.hpp"
 #include "component/equipment/weapons.hpp"
 #include "component/hierarchy/owner_component.hpp"
-#include "component/skill/skill_configuration_component.hpp"
-#include "component/skill/skill_trigger_lock.hpp"
+#include "component/lifecycle/destroy_entity.hpp"
+#include "component/skill/is_skill.hpp"
 #include "component/temporal/animation_component.hpp"
 
 #include "utils/actor_utils.hpp"
@@ -29,7 +29,7 @@ void perform_rotations(registry_t& registry) {
             auto current_tick = utils::get_current_tick(registry);
 
             if (rotation_component.current_idx >=
-                (int)rotation_component.rotation.skill_casts.size()) {
+                static_cast<int>(rotation_component.rotation.skill_casts.size())) {
                 if (rotation_component.repeat) {
                     rotation_component.current_idx = 0;
                     rotation_component.tick_offset = current_tick;
@@ -51,29 +51,23 @@ void perform_rotations(registry_t& registry) {
                 return;
             }
 
-            utils::assert_can_cast_skill(entity, next_skill_cast.skill, registry);
+            utils::assert_can_cast_skill(next_skill_cast.skill, entity, registry);
 
-            auto skill_entity =
-                registry.get<component::skills_component>(entity).find_by(next_skill_cast.skill);
+            auto skill_entity = utils::get_skill_entity(next_skill_cast.skill, entity, registry);
 
-            if (!registry.any_of<component::skill_trigger_lock>(skill_entity)) {
-                registry.emplace<component::skill_trigger_lock>(skill_entity);
-
-                auto& skill_cast_duration =
-                    registry.get<component::skill_configuration_component>(skill_entity)
-                        .skill_configuration.cast_duration;
-                registry.emplace<component::animation_component>(
-                    entity, component::animation_component{skill_cast_duration, {0, 0}});
-                registry.emplace<component::casting_skill>(
-                    entity, component::casting_skill{skill_entity, 0, 0});
-
-                spdlog::info("[{}] {} casting skill {}",
-                             utils::get_current_tick(registry),
-                             utils::get_entity_name(entity, registry),
-                             utils::to_string(next_skill_cast.skill));
-            }
+            auto& skill_configuration =
+                utils::get_skill_configuration(next_skill_cast.skill, entity, registry);
+            registry.emplace<component::animation_component>(
+                entity, component::animation_component{skill_configuration.cast_duration, {0, 0}});
+            registry.emplace<component::casting_skill>(
+                entity, component::casting_skill{skill_entity, 0, 0});
 
             rotation_component.current_idx += 1;
+
+            spdlog::info("[{}] {} casting skill {}",
+                         utils::get_current_tick(registry),
+                         utils::get_entity_name(entity, registry),
+                         utils::to_string(next_skill_cast.skill));
         });
 }
 
@@ -94,15 +88,14 @@ void perform_skills(registry_t& registry) {
                                                       (double)animation_component.duration[1];
 
             auto& skill_configuration =
-                registry.get<component::skill_configuration_component>(casting_skill.skill_entity)
-                    .skill_configuration;
+                registry.get<component::is_skill>(casting_skill.skill_entity).skill_configuration;
 
             double effective_progress_pct = no_quickness_progress_pct + quickness_progress_pct;
-            int effective_tick =
-                (int)((double)animation_component.duration[0] * effective_progress_pct / 100.0);
+            int effective_tick = utils::round_down((double)animation_component.duration[0] *
+                                                   effective_progress_pct / 100.0);
 
             while (casting_skill.next_pulse_idx <
-                       (int)skill_configuration.pulse_on_tick_list[0].size() &&
+                       static_cast<int>(skill_configuration.pulse_on_tick_list[0].size()) &&
                    effective_tick >=
                        skill_configuration.pulse_on_tick_list[0][casting_skill.next_pulse_idx]) {
                 auto& outgoing_effects_component =
@@ -124,7 +117,7 @@ void perform_skills(registry_t& registry) {
             }
 
             while (casting_skill.next_strike_idx <
-                       (int)skill_configuration.strike_on_tick_list[0].size() &&
+                       static_cast<int>(skill_configuration.strike_on_tick_list[0].size()) &&
                    effective_tick >=
                        skill_configuration.strike_on_tick_list[0][casting_skill.next_strike_idx]) {
                 auto& outgoing_strikes_component =
@@ -141,9 +134,12 @@ void perform_skills(registry_t& registry) {
                 if (skill_configuration.cooldown[0] != 0 &&
                     !(skill_configuration.skill_key == "Weapon Swap" &&
                       registry.any_of<component::bundle_component>(entity))) {
-                    utils::put_skill_on_cooldown(utils::get_owner(entity, registry),
-                                                 skill_configuration.skill_key,
-                                                 registry);
+                    utils::put_skill_on_cooldown(skill_configuration.skill_key, entity, registry);
+                    auto owner_entity = utils::get_owner(entity, registry);
+                    if (entity != owner_entity) {
+                        utils::put_skill_on_cooldown(
+                            skill_configuration.skill_key, owner_entity, registry);
+                    }
                 }
                 spdlog::info("[{}] {}: finished casting skill {}",
                              utils::get_current_tick(registry),
@@ -152,195 +148,165 @@ void perform_skills(registry_t& registry) {
             }
         });
 
-    registry.view<component::finished_casting_skill>().each([&](entity_t entity,
-                                                                const component::
-                                                                    finished_casting_skill&
-                                                                        finished_casting_skill) {
-        registry.remove<component::skill_trigger_lock>(finished_casting_skill.skill_entity);
-        auto& skill_configuration =
-            registry
-                .get<component::skill_configuration_component>(finished_casting_skill.skill_entity)
-                .skill_configuration;
+    registry.view<component::finished_casting_skill>().each(
+        [&](entity_t actor_entity,
+            const component::finished_casting_skill& finished_casting_skill) {
+            auto& skill_configuration =
+                registry.get<component::is_skill>(finished_casting_skill.skill_entity)
+                    .skill_configuration;
 
-        if (!skill_configuration.equip_bundle.empty()) {
-            registry.emplace_or_replace<component::bundle_component>(
-                entity, component::bundle_component{skill_configuration.equip_bundle});
-            spdlog::info("[{}] {}: equipped bundle {}",
-                         utils::get_current_tick(registry),
-                         utils::get_entity_name(entity, registry),
-                         skill_configuration.equip_bundle);
-        } else if (skill_configuration.skill_key == "Weapon Swap") {
-            if (auto bundle_ptr = registry.try_get<component::bundle_component>(entity);
-                bundle_ptr) {
-                spdlog::info("[{}] {}: dropped bundle {}",
+            if (!skill_configuration.equip_bundle.empty()) {
+                registry.emplace<component::bundle_component>(
+                    actor_entity, component::bundle_component{skill_configuration.equip_bundle});
+                registry.emplace_or_replace<component::equipped_bundle>(actor_entity);
+                spdlog::info("[{}] {}: equipped bundle {}",
                              utils::get_current_tick(registry),
-                             utils::get_entity_name(entity, registry),
-                             bundle_ptr->name);
-                registry.remove<component::bundle_component>(entity);
-            } else {
-                if (!registry.any_of<component::current_weapon_set>(entity)) {
-                    throw std::runtime_error("no equipped_weapon_set on entity");
-                }
-                auto& equipped_weapons = registry.get<component::equipped_weapons>(entity);
-                if (equipped_weapons.weapons.size() == 1) {
-                    throw std::runtime_error(
-                        "cannot weapon swap when there is only 1 weapon set equipped");
-                }
-
-                auto current_set = registry.get<component::current_weapon_set>(entity).set;
-                if (current_set == actor::weapon_set::SET_1) {
-                    registry.replace<component::current_weapon_set>(
-                        entity, component::current_weapon_set{actor::weapon_set::SET_2});
+                             utils::get_entity_name(actor_entity, registry),
+                             skill_configuration.equip_bundle);
+            } else if (skill_configuration.skill_key == "Weapon Swap") {
+                if (auto bundle_ptr = registry.try_get<component::bundle_component>(actor_entity);
+                    bundle_ptr) {
+                    registry.emplace_or_replace<component::dropped_bundle>(actor_entity,
+                                                                           bundle_ptr->name);
+                    registry.remove<component::bundle_component>(actor_entity);
+                    spdlog::info("[{}] {}: dropped bundle {}",
+                                 utils::get_current_tick(registry),
+                                 utils::get_entity_name(actor_entity, registry),
+                                 bundle_ptr->name);
                 } else {
-                    registry.replace<component::current_weapon_set>(
-                        entity, component::current_weapon_set{actor::weapon_set::SET_1});
+                    if (!registry.any_of<component::current_weapon_set>(actor_entity)) {
+                        throw std::runtime_error("no equipped_weapon_set on entity");
+                    }
+                    auto& equipped_weapons =
+                        registry.get<component::equipped_weapons>(actor_entity);
+                    if (equipped_weapons.weapons.size() == 1) {
+                        throw std::runtime_error(
+                            "cannot weapon swap when there is only 1 weapon set equipped");
+                    }
+
+                    auto current_set =
+                        registry.get<component::current_weapon_set>(actor_entity).set;
+                    if (current_set == actor::weapon_set::SET_1) {
+                        registry.replace<component::current_weapon_set>(
+                            actor_entity, component::current_weapon_set{actor::weapon_set::SET_2});
+                    } else {
+                        registry.replace<component::current_weapon_set>(
+                            actor_entity, component::current_weapon_set{actor::weapon_set::SET_1});
+                    }
                 }
             }
-        }
 
-        registry.view<component::owner_component, component::is_counter>().each(
-            [&](const component::owner_component& owner_component,
-                component::is_counter& is_counter) {
-                if (owner_component.entity != entity) {
-                    return;
-                }
-                bool increment_value = true;
-                for (auto& increment_condition :
-                     is_counter.counter_configuration.increment_conditions) {
-                    if (!(increment_condition.only_applies_on_finished_casting &&
-                          *increment_condition.only_applies_on_finished_casting &&
-                          (!increment_condition.only_applies_on_finished_casting_skill ||
-                           *increment_condition.only_applies_on_finished_casting_skill ==
-                               skill_configuration.skill_key) &&
-                          (!increment_condition.only_applies_on_finished_casting_skill_with_tag ||
-                           utils::skill_has_tag(
-                               skill_configuration,
-                               *increment_condition
-                                    .only_applies_on_finished_casting_skill_with_tag)) &&
-                          utils::conditions_satisfied(increment_condition,
-                                                      owner_component.entity,
-                                                      std::nullopt,
-                                                      registry))) {
-                        increment_value = false;
-                        break;
+            registry.view<component::is_counter>().each(
+                [&](entity_t counter_entity, component::is_counter& is_counter) {
+                    auto owner_actor = utils::get_owner(counter_entity, registry);
+                    if (owner_actor != actor_entity) {
+                        return;
                     }
-                }
-                if (increment_value) {
-                    ++is_counter.value;
-                }
-            });
-        registry.view<component::owner_component, component::is_effect_removal>().each(
-            [&](const component::owner_component& owner_component,
-                component::is_effect_removal& is_effect_removal) {
-                if (owner_component.entity != entity) {
-                    return;
-                }
-                auto& effect_removal = is_effect_removal.effect_removal;
-                if (effect_removal.condition.only_applies_on_finished_casting &&
-                    *effect_removal.condition.only_applies_on_finished_casting &&
-                    (!effect_removal.condition.only_applies_on_finished_casting_skill ||
-                     *effect_removal.condition.only_applies_on_finished_casting_skill ==
-                         skill_configuration.skill_key) &&
-                    (!effect_removal.condition.only_applies_on_finished_casting_skill_with_tag ||
-                     utils::skill_has_tag(skill_configuration,
-                                          *effect_removal.condition
-                                               .only_applies_on_finished_casting_skill_with_tag)) &&
-                    utils::conditions_satisfied(
-                        effect_removal.condition, owner_component.entity, std::nullopt, registry)) {
-                    if (effect_removal.effect != actor::effect_t::INVALID) {
-                        registry.view<component::is_effect, component::owner_component>().each(
-                            [&](entity_t effect_entity,
-                                const component::is_effect& is_effect,
-                                const component::owner_component& effect_owner) {
-                                if (effect_owner.entity == entity &&
-                                    is_effect.effect == effect_removal.effect) {
-                                    registry.destroy(effect_entity);
-                                }
-                            });
+                    bool increment_value = true;
+                    for (auto& increment_condition :
+                         is_counter.counter_configuration.increment_conditions) {
+                        bool on_finished_casting_conditions_satisfied =
+                            utils::on_finished_casting_conditions_satisfied(
+                                increment_condition, owner_actor, skill_configuration, registry);
+                        if (!on_finished_casting_conditions_satisfied) {
+                            increment_value = false;
+                            break;
+                        }
                     }
-                    if (!effect_removal.unique_effect.empty()) {
-                        registry.view<component::is_unique_effect, component::owner_component>()
-                            .each([&](entity_t unique_effect_entity,
-                                      const component::is_unique_effect& is_unique_effect,
-                                      const component::owner_component& effect_owner) {
-                                if (effect_owner.entity == entity &&
-                                    is_unique_effect.unique_effect.unique_effect_key ==
-                                        effect_removal.unique_effect) {
-                                    registry.destroy(unique_effect_entity);
-                                }
-                            });
+                    if (increment_value) {
+                        ++is_counter.value;
                     }
-                }
-            });
-        registry.view<component::owner_component, component::skill_triggers_component>().each(
-            [&](const component::owner_component& owner_component,
-                const component::skill_triggers_component& skill_triggers_component) {
-                if (owner_component.entity != entity) {
-                    return;
-                }
-                for (auto& skill_trigger : skill_triggers_component.skill_triggers) {
-                    if (skill_trigger.condition.only_applies_on_finished_casting &&
-                        *skill_trigger.condition.only_applies_on_finished_casting &&
-                        (!skill_trigger.condition.only_applies_on_finished_casting_skill ||
-                         *skill_trigger.condition.only_applies_on_finished_casting_skill ==
-                             skill_configuration.skill_key) &&
-                        (!skill_trigger.condition.only_applies_on_finished_casting_skill_with_tag ||
-                         utils::skill_has_tag(
-                             skill_configuration,
-                             *skill_trigger.condition
-                                  .only_applies_on_finished_casting_skill_with_tag)) &&
-                        utils::conditions_satisfied(
-                            skill_trigger.condition, entity, std::nullopt, registry)) {
-                        utils::enqueue_triggered_skill(entity, skill_trigger.skill_key, registry);
+                });
+            registry.view<component::is_effect_removal>().each(
+                [&](entity_t effect_removal_entity,
+                    component::is_effect_removal& is_effect_removal) {
+                    auto owner_actor = utils::get_owner(effect_removal_entity, registry);
+                    if (owner_actor != actor_entity) {
+                        return;
                     }
-                }
-            });
-        registry.view<component::owner_component, component::unchained_skill_triggers_component>()
-            .each([&](const component::owner_component& owner_component,
-                      const component::unchained_skill_triggers_component&
-                          unchained_skill_triggers_component) {
-                if (owner_component.entity != entity) {
-                    return;
-                }
-                for (auto& skill_trigger : unchained_skill_triggers_component.skill_triggers) {
-                    if (skill_trigger.condition.only_applies_on_finished_casting &&
-                        *skill_trigger.condition.only_applies_on_finished_casting &&
-                        (!skill_trigger.condition.only_applies_on_finished_casting_skill ||
-                         *skill_trigger.condition.only_applies_on_finished_casting_skill ==
-                             skill_configuration.skill_key) &&
-                        (!skill_trigger.condition.only_applies_on_finished_casting_skill_with_tag ||
-                         utils::skill_has_tag(
-                             skill_configuration,
-                             *skill_trigger.condition
-                                  .only_applies_on_finished_casting_skill_with_tag)) &&
-                        utils::conditions_satisfied(
-                            skill_trigger.condition, entity, std::nullopt, registry)) {
-                        auto& skills_component = registry.get<component::skills_component>(entity);
-                        auto& triggered_skill_configuration =
-                            registry
-                                .get<component::skill_configuration_component>(
-                                    skills_component.find_by(skill_trigger.skill_key))
-                                .skill_configuration;
-                        utils::enqueue_child_skill(entity, triggered_skill_configuration, registry);
-                    }
-                }
-            });
 
-        std::vector<configuration::skill_t> child_skills;
-        auto& skills_component =
-            registry.get<component::skills_component>(utils::get_owner(entity, registry));
-        for (auto&& child_skill_key : skill_configuration.child_skill_keys) {
-            auto& child_skill_configuration = registry
-                                                  .get<component::skill_configuration_component>(
-                                                      skills_component.find_by(child_skill_key))
-                                                  .skill_configuration;
-            child_skills.emplace_back(child_skill_configuration);
-        }
-        utils::enqueue_child_skills(entity,
-                                    "Temporary " + skill_configuration.skill_key + " Entity",
-                                    child_skills,
-                                    registry);
-    });
+                    auto& effect_removal = is_effect_removal.effect_removal;
+                    bool on_finished_casting_conditions_satisfied =
+                        utils::on_finished_casting_conditions_satisfied(
+                            effect_removal.condition, owner_actor, skill_configuration, registry);
+                    if (on_finished_casting_conditions_satisfied) {
+                        if (effect_removal.effect != actor::effect_t::INVALID) {
+                            int stacks_to_remove =
+                                effect_removal.num_stacks ? *effect_removal.num_stacks : 5000;
+                            registry.view<component::is_effect, component::owner_component>().each(
+                                [&](entity_t effect_entity,
+                                    const component::is_effect& is_effect,
+                                    const component::owner_component& effect_owner) {
+                                    if (effect_owner.entity == actor_entity &&
+                                        is_effect.effect == effect_removal.effect) {
+                                        if (stacks_to_remove <= 0) {
+                                            return;
+                                        }
+                                        --stacks_to_remove;
+                                        registry.emplace_or_replace<component::destroy_entity>(
+                                            effect_entity);
+                                    }
+                                });
+                        }
+                        if (!effect_removal.unique_effect.empty()) {
+                            int stacks_to_remove =
+                                effect_removal.num_stacks ? *effect_removal.num_stacks : 5000;
+                            registry.view<component::is_unique_effect, component::owner_component>()
+                                .each([&](entity_t unique_effect_entity,
+                                          const component::is_unique_effect& is_unique_effect,
+                                          const component::owner_component& effect_owner) {
+                                    if (effect_owner.entity == actor_entity &&
+                                        is_unique_effect.unique_effect.unique_effect_key ==
+                                            effect_removal.unique_effect) {
+                                        if (stacks_to_remove <= 0) {
+                                            return;
+                                        }
+                                        --stacks_to_remove;
+                                        registry.emplace_or_replace<component::destroy_entity>(
+                                            unique_effect_entity);
+                                    }
+                                });
+                        }
+                    }
+                });
+            registry.view<component::is_skill_trigger>().each(
+                [&](entity_t skill_trigger_entity,
+                    const component::is_skill_trigger& is_skill_trigger) {
+                    auto owner_actor = utils::get_owner(skill_trigger_entity, registry);
+                    if (owner_actor != actor_entity) {
+                        return;
+                    }
+
+                    auto& skill_trigger = is_skill_trigger.skill_trigger;
+                    bool on_finished_casting_conditions_satisfied =
+                        utils::on_finished_casting_conditions_satisfied(
+                            skill_trigger.condition, owner_actor, skill_configuration, registry);
+                    if (on_finished_casting_conditions_satisfied) {
+                        utils::enqueue_child_skill(skill_trigger.skill_key, owner_actor, registry);
+                    }
+                });
+            registry.view<component::is_unchained_skill_trigger>().each(
+                [&](entity_t skill_trigger_entity,
+                    const component::is_unchained_skill_trigger& is_unchanged_skill_trigger) {
+                    auto owner_actor = utils::get_owner(skill_trigger_entity, registry);
+                    if (owner_actor != actor_entity) {
+                        return;
+                    }
+
+                    auto& skill_trigger = is_unchanged_skill_trigger.skill_trigger;
+                    bool on_finished_casting_conditions_satisfied =
+                        utils::on_finished_casting_conditions_satisfied(
+                            skill_trigger.condition, owner_actor, skill_configuration, registry);
+                    if (on_finished_casting_conditions_satisfied) {
+                        utils::enqueue_child_skill(skill_trigger.skill_key, actor_entity, registry);
+                    }
+                });
+
+            utils::enqueue_child_skills(actor_entity,
+                                        "Temporary " + skill_configuration.skill_key + " Entity",
+                                        skill_configuration.child_skill_keys,
+                                        registry);
+        });
 }
 
 void cleanup_finished_casting_skills(registry_t& registry) {
@@ -352,8 +318,12 @@ void cleanup_finished_casting_skills(registry_t& registry) {
 }
 
 void destroy_actors_with_no_rotation(registry_t& registry) {
-    registry.view<component::destroy_after_rotation, component::no_more_rotation>().each(
-        [&](entity_t entity) { registry.destroy(entity); });
+    registry
+        .view<component::destroy_after_rotation, component::no_more_rotation>(
+            entt::exclude<component::casting_skill>)
+        .each([&](entity_t entity) {
+            registry.emplace_or_replace<component::destroy_entity>(entity);
+        });
 }
 
 }  // namespace gw2combat::system

@@ -7,6 +7,14 @@
 
 namespace gw2combat::utils {
 
+[[nodiscard]] static inline int round_down(double value) {
+    return static_cast<int>(std::floor(value));
+}
+
+[[nodiscard]] static inline int round_to_nearest_even(double value) {
+    return static_cast<int>(std::nearbyint(value));
+}
+
 template <typename T>
 [[nodiscard]] static inline std::string to_string(T t) {
     return nlohmann::json{t}[0].dump();
@@ -28,7 +36,7 @@ template <typename T>
     return registry.ctx().get<const tick_t>();
 }
 
-[[nodiscard]] static inline entity_t get_console_entity() {
+[[nodiscard]] static inline entity_t get_singleton_entity() {
     return entity_t{0};
 }
 
