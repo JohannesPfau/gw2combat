@@ -10,8 +10,8 @@
 #include "component/effect/is_effect.hpp"
 #include "component/effect/is_unique_effect.hpp"
 #include "component/hierarchy/owner_component.hpp"
-
 #include "component/lifecycle/destroy_entity.hpp"
+
 #include "utils/actor_utils.hpp"
 #include "utils/condition_utils.hpp"
 #include "utils/entity_utils.hpp"
@@ -115,20 +115,21 @@ void apply_strikes(registry_t& registry) {
                                                      skill_configuration.skill_key,
                                                      damage.value});
 
-                // double total_incoming_damage = std::accumulate(
-                //     incoming_damage.incoming_damage_events.begin(),
-                //     incoming_damage.incoming_damage_events.end(),
-                //     0.0,
-                //     [](double accumulated,
-                //        const component::incoming_damage_event& incoming_damage_event) {
-                //         return accumulated + incoming_damage_event.value;
-                //     });
-                //  spdlog::info(
-                //      "[{}] skill {} pow {} this_dmg {} total_incoming_dmg {}",
-                //      utils::get_current_tick(registry),
-                //      skill_configuration.skill_key,
-                //      strike_source_relative_attributes.get(target_entity,
-                //      actor::attribute_t::POWER), damage.value, total_incoming_damage);
+                double total_incoming_damage = std::accumulate(
+                    incoming_damage.incoming_damage_events.begin(),
+                    incoming_damage.incoming_damage_events.end(),
+                    0.0,
+                    [](double accumulated,
+                       const component::incoming_damage_event& incoming_damage_event) {
+                        return accumulated + incoming_damage_event.value;
+                    });
+                spdlog::info(
+                    "[{}] skill {} pow {} this_dmg {} total_incoming_dmg {}",
+                    utils::get_current_tick(registry),
+                    skill_configuration.skill_key,
+                    strike_source_relative_attributes.get(target_entity, actor::attribute_t::POWER),
+                    damage.value,
+                    total_incoming_damage);
 
                 // NOTE: Extreme hack to avoid coding a whole new type of damage just for food.
                 //       Implement properly if there are more such instances!
@@ -308,14 +309,16 @@ void apply_effects(registry_t& registry) {
                                                       target_entity,
                                                       registry);
                     spdlog::info(
-                        "[{}] {}:{} applied {} stacks of {} duration {} effect on {}",
+                        "[{}] {}:{} applied {} stacks of {} duration {} unique effect on {} with "
+                        "skill {}",
                         utils::get_current_tick(registry),
                         utils::get_entity_name(application_source_entity, registry),
                         utils::get_entity_name(incoming_application.source_entity, registry),
                         application.num_stacks,
                         application.base_duration_ms,
                         application.unique_effect.unique_effect_key,
-                        utils::get_entity_name(target_entity, registry));
+                        utils::get_entity_name(target_entity, registry),
+                        incoming_application.effect_application.source_skill);
                 }
                 if (application.effect != actor::effect_t::INVALID) {
                     int effective_duration =
@@ -331,14 +334,15 @@ void apply_effects(registry_t& registry) {
                                                target_entity,
                                                registry);
                     spdlog::info(
-                        "[{}] {}:{} applied {} stacks of {} duration {} effect on {}",
+                        "[{}] {}:{} applied {} stacks of {} duration {} effect on {} with skill {}",
                         utils::get_current_tick(registry),
                         utils::get_entity_name(application_source_entity, registry),
                         utils::get_entity_name(incoming_application.source_entity, registry),
                         application.num_stacks,
                         effective_duration,
                         utils::to_string(application.effect),
-                        utils::get_entity_name(target_entity, registry));
+                        utils::get_entity_name(target_entity, registry),
+                        incoming_application.effect_application.source_skill);
                 }
             }
         });

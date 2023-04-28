@@ -8,6 +8,7 @@
 #include "component/actor/team.hpp"
 #include "component/audit/audit_component.hpp"
 #include "component/counter/is_counter.hpp"
+#include "component/encounter/encounter_configuration_component.hpp"
 #include "component/equipment/weapons.hpp"
 
 #include "configuration/build.hpp"
@@ -20,8 +21,15 @@ namespace gw2combat::system {
 
 void setup_encounter(registry_t& registry, const configuration::encounter_t& encounter) {
     auto singleton_entity = registry.create();
+    registry.emplace<component::encounter_configuration_component>(singleton_entity, encounter);
     registry.emplace<component::is_actor>(singleton_entity);
-    registry.emplace<component::audit_component>(singleton_entity);
+    registry.emplace<component::audit_component>(
+        singleton_entity,
+        component::audit_component{
+            .audit_configuration = encounter.audit_configuration,
+            .old_events = {},
+            .events = {},
+        });
     registry.emplace<component::static_attributes>(
         singleton_entity, component::static_attributes{configuration::build_t{}.attributes});
     registry.ctx().emplace_as<std::string>(singleton_entity, "Console");

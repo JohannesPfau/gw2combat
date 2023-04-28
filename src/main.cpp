@@ -58,7 +58,7 @@ configuration::encounter_t convert_encounter(
                         cast_time_offset_ms = -cast_time_ms;
                     }
                     converted_rotation.skill_casts.emplace_back(configuration::skill_cast_t{
-                        skill_name, (tick_t)(cast_time_ms + cast_time_offset_ms)});
+                        skill_name, cast_time_ms + cast_time_offset_ms});
                 }
             }
         }
@@ -73,6 +73,8 @@ configuration::encounter_t convert_encounter(
     std::copy(encounter_local.termination_conditions.begin(),
               encounter_local.termination_conditions.end(),
               std::back_inserter(converted_encounter.termination_conditions));
+    converted_encounter.audit_configuration = encounter_local.audit_configuration;
+    converted_encounter.require_afk_skills = encounter_local.require_afk_skills;
     return converted_encounter;
 }
 

@@ -380,6 +380,7 @@
             "cooldown": [10000, 8000]
         }, {
             "skill_key": "Symbol of Energy Initial Attack",
+            "attribute_damage_to_skill": "Symbol of Energy",
             "weapon_type": "longbow",
             "damage_coefficient": 0.897,
             "cast_duration": [0, 0],
@@ -406,6 +407,7 @@
             ]
         }, {
             "skill_key": "Symbol of Energy Usual Attack",
+            "attribute_damage_to_skill": "Symbol of Energy",
             "weapon_type": "longbow",
             "damage_coefficient": 0.897,
             "cast_duration": [4000, 4000],
@@ -441,6 +443,7 @@
             ]
         }, {
             "skill_key": "Hunter's Ward Small Attacks",
+            "attribute_damage_to_skill": "Hunter's Ward",
             "weapon_type": "longbow",
             "damage_coefficient": 0.75,
             "cast_duration": [1250, 1250],
@@ -450,6 +453,7 @@
             ]
         }, {
             "skill_key": "Hunter's Ward Big Attack",
+            "attribute_damage_to_skill": "Hunter's Ward",
             "weapon_type": "longbow",
             "damage_coefficient": 2.5,
             "cast_duration": [300, 300],
@@ -498,11 +502,12 @@
             "skill_key": "Leap of Faith",
             "weapon_type": "greatsword",
             "damage_coefficient": 2.0,
-            "cast_duration": [1000, 720],
+            "cast_duration": [1000, 800],
             "cooldown": [8000, 6400],
-            "strike_on_tick_list": [[1000], [720]]
+            "strike_on_tick_list": [[1000], [800]]
         }, {
             "skill_key": "Symbol of Resolution Attack",
+            "attribute_damage_to_skill": "Symbol of Resolution",
             "is_child_skill": true,
             "weapon_type": "greatsword",
             "damage_coefficient": 0.845,
@@ -556,7 +561,7 @@
             "skill_key": "Sword of Justice Attack",
             "is_child_skill": true,
             "weapon_type": "empty_handed",
-            "damage_coefficient": 0.72,
+            "damage_coefficient": 0.8,
             "cast_duration": [1850, 1850],
             "cooldown": [0, 0],
             "strike_on_tick_list": [
@@ -574,14 +579,15 @@
             "recharge_duration": 1000
         }, {
             "skill_key": "Procession of Blades Attack",
+            "attribute_damage_to_skill": "Procession of Blades",
             "is_child_skill": true,
             "weapon_type": "empty_handed",
             "damage_coefficient": 0.44,
-            "cast_duration": [5500, 5500],
+            "cast_duration": [3800, 3800],
             "cooldown": [0, 0],
             "strike_on_tick_list": [
-                [1000, 1500, 2000, 2500, 3000, 3500, 4000, 4500, 5000, 5500],
-                [1000, 1500, 2000, 2500, 3000, 3500, 4000, 4500, 5000, 5500]
+                [1280, 1560, 1840, 2120, 2400, 2680, 2960, 3240, 3520, 3800],
+                [1280, 1560, 1840, 2120, 2400, 2680, 2960, 3240, 3520, 3800]
             ]
         }, {
             "skill_key": "Procession of Blades",
