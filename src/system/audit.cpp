@@ -62,11 +62,15 @@ get_actor_attributes(registry_t& registry) {
 audit::tick_event_t create_tick_event(const decltype(audit::tick_event_t::event)& event,
                                       entity_t actor_entity,
                                       registry_t& registry) {
+    auto bundle_ptr = registry.try_get<component::bundle_component>(actor_entity);
+    auto weapon_set_ptr = registry.try_get<component::current_weapon_set>(actor_entity);
     return audit::tick_event_t{
         .time_ms = utils::get_current_tick(registry),
         .actor = utils::get_entity_name(actor_entity, registry),
         .event = event,
         .skill_cooldowns = get_skill_cooldowns(actor_entity, registry),
+        .current_weapon_set = weapon_set_ptr ? weapon_set_ptr->set : actor::weapon_set::INVALID,
+        .current_bundle = bundle_ptr ? bundle_ptr->name : "",
         //.actor_attributes = get_actor_attributes(registry),
     };
 }
@@ -311,6 +315,20 @@ void audit(registry_t& registry) {
             configuration::audit_t::audit_type_t::ACTOR_DOWNSTATE)) {
         audit_actor_downstate(registry);
     }
+}
+
+audit::report_t get_audit_report(registry_t& registry, const std::string& error) {
+    audit::report_t audit_report;
+    registry.view<component::audit_component>().each(
+        [&](const component::audit_component& audit_component) {
+            std::copy(audit_component.events.cbegin(),
+                      audit_component.events.cend(),
+                      std::back_inserter(audit_report.tick_events));
+        });
+    if (!error.empty()) {
+        audit_report.error = error;
+    }
+    return audit_report;
 }
 
 audit::report_t get_audit_report(registry_t& registry) {

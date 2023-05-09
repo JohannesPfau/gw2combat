@@ -1,6 +1,8 @@
 #include "combat_loop.hpp"
 
+#include "component/actor/casting_skills.hpp"
 #include "component/actor/combat_stats.hpp"
+#include "component/actor/finished_casting_skills.hpp"
 #include "component/actor/is_actor.hpp"
 #include "component/actor/is_downstate.hpp"
 #include "component/actor/no_more_rotation.hpp"
@@ -150,6 +152,11 @@ std::string combat_loop(const configuration::encounter_t& encounter) {
                             !registry.any_of<component::rotation_component>(entity)) {
                             continue;
                         }
+                        if (registry.any_of<component::casting_skills_component,
+                                            component::finished_casting_skills>(entity)) {
+                            everyone_out_of_rotation = false;
+                            break;
+                        }
                         if (!registry.any_of<component::no_more_rotation>(entity)) {
                             everyone_out_of_rotation = false;
                             break;
@@ -193,6 +200,7 @@ std::string combat_loop(const configuration::encounter_t& encounter) {
         }
     } catch (std::exception& e) {
         spdlog::error("Exception: {}", e.what());
+        return nlohmann::json{system::get_audit_report(registry, e.what())}[0].dump();
     }
 
     return nlohmann::json{system::get_audit_report(registry)}[0].dump();
