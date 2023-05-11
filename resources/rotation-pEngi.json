@@ -1,5 +1,4 @@
 {
-  "name": "pEngi", 
   "skill_casts": [
     {
       "cast_time_ms": -0.042, 
@@ -8,14 +7,6 @@
     {
       "cast_time_ms": 0.159, 
       "skill": "Grenade Barrage"
-    }, 
-    {
-      "cast_time_ms": 0.516, 
-      "skill": "Weapon Swap"
-    }, 
-    {
-      "cast_time_ms": 0.516, 
-      "skill": "Grenade Kit"
     }, 
     {
       "cast_time_ms": 0.837, 
@@ -32,10 +23,6 @@
     {
       "cast_time_ms": 2.88, 
       "skill": "Poison Grenade"
-    }, 
-    {
-      "cast_time_ms": 3.36, 
-      "skill": "Weapon Swap"
     }, 
     {
       "cast_time_ms": 3.596, 
@@ -58,14 +45,6 @@
       "skill": "Blunderbuss"
     }, 
     {
-      "cast_time_ms": 5.677, 
-      "skill": "Weapon Swap"
-    }, 
-    {
-      "cast_time_ms": 5.677, 
-      "skill": "Grenade Kit"
-    }, 
-    {
       "cast_time_ms": 5.838, 
       "skill": "Shrapnel Grenade"
     }, 
@@ -76,10 +55,6 @@
     {
       "cast_time_ms": 7.156, 
       "skill": "Dodge"
-    }, 
-    {
-      "cast_time_ms": 7.318, 
-      "skill": "Weapon Swap"
     }, 
     {
       "cast_time_ms": 7.956, 
@@ -102,20 +77,8 @@
       "skill": "Blunderbuss"
     }, 
     {
-      "cast_time_ms": 10.996, 
-      "skill": "Weapon Swap"
-    }, 
-    {
-      "cast_time_ms": 10.996, 
-      "skill": "Grenade Kit"
-    }, 
-    {
       "cast_time_ms": 11.238, 
       "skill": "Shrapnel Grenade"
-    }, 
-    {
-      "cast_time_ms": 11.799, 
-      "skill": "Weapon Swap"
     }, 
     {
       "cast_time_ms": 12.079, 
@@ -150,20 +113,8 @@
       "skill": "Blunderbuss"
     }, 
     {
-      "cast_time_ms": 16.517, 
-      "skill": "Weapon Swap"
-    }, 
-    {
-      "cast_time_ms": 16.517, 
-      "skill": "Grenade Kit"
-    }, 
-    {
       "cast_time_ms": 16.716, 
       "skill": "Shrapnel Grenade"
-    }, 
-    {
-      "cast_time_ms": 17.237, 
-      "skill": "Weapon Swap"
     }, 
     {
       "cast_time_ms": 17.397, 
@@ -198,14 +149,6 @@
       "skill": "Blunderbuss"
     }, 
     {
-      "cast_time_ms": 21.959, 
-      "skill": "Weapon Swap"
-    }, 
-    {
-      "cast_time_ms": 21.959, 
-      "skill": "Grenade Kit"
-    }, 
-    {
       "cast_time_ms": 22.156, 
       "skill": "Shrapnel Grenade"
     }, 
@@ -226,10 +169,6 @@
       "skill": "Poison Grenade"
     }, 
     {
-      "cast_time_ms": 25.438, 
-      "skill": "Weapon Swap"
-    }, 
-    {
       "cast_time_ms": 25.598, 
       "skill": "Mine Field"
     }, 
@@ -242,24 +181,12 @@
       "skill": "Blunderbuss"
     }, 
     {
-      "cast_time_ms": 27.515, 
-      "skill": "Weapon Swap"
-    }, 
-    {
-      "cast_time_ms": 27.515, 
-      "skill": "Grenade Kit"
-    }, 
-    {
       "cast_time_ms": 27.756, 
       "skill": "Shrapnel Grenade"
     }, 
     {
       "cast_time_ms": 28.315, 
       "skill": "Dodge"
-    }, 
-    {
-      "cast_time_ms": 28.395, 
-      "skill": "Weapon Swap"
     }, 
     {
       "cast_time_ms": 29.118, 
@@ -294,14 +221,6 @@
       "skill": "Blunderbuss"
     }, 
     {
-      "cast_time_ms": 33.159, 
-      "skill": "Weapon Swap"
-    }, 
-    {
-      "cast_time_ms": 33.159, 
-      "skill": "Grenade Kit"
-    }, 
-    {
       "cast_time_ms": 33.355, 
       "skill": "Shrapnel Grenade"
     }, 
@@ -316,10 +235,6 @@
     {
       "cast_time_ms": 35.475, 
       "skill": "Dodge"
-    }, 
-    {
-      "cast_time_ms": 35.718, 
-      "skill": "Weapon Swap"
     }, 
     {
       "cast_time_ms": 36.275, 
@@ -338,20 +253,8 @@
       "skill": "Blunderbuss"
     }, 
     {
-      "cast_time_ms": 38.635, 
-      "skill": "Weapon Swap"
-    }, 
-    {
-      "cast_time_ms": 38.635, 
-      "skill": "Grenade Kit"
-    }, 
-    {
       "cast_time_ms": 38.798, 
       "skill": "Shrapnel Grenade"
-    }, 
-    {
-      "cast_time_ms": 39.438, 
-      "skill": "Weapon Swap"
     }, 
     {
       "cast_time_ms": 39.554, 
@@ -386,14 +289,6 @@
       "skill": "Blunderbuss"
     }, 
     {
-      "cast_time_ms": 44.015, 
-      "skill": "Weapon Swap"
-    }, 
-    {
-      "cast_time_ms": 44.015, 
-      "skill": "Grenade Kit"
-    }, 
-    {
       "cast_time_ms": 44.197, 
       "skill": "Shrapnel Grenade"
     }, 
@@ -414,10 +309,6 @@
       "skill": "Dodge"
     }, 
     {
-      "cast_time_ms": 47, 
-      "skill": "Weapon Swap"
-    }, 
-    {
       "cast_time_ms": 47.596, 
       "skill": "Rifle Burst"
     }, 
@@ -434,20 +325,8 @@
       "skill": "Blunderbuss"
     }, 
     {
-      "cast_time_ms": 49.476, 
-      "skill": "Weapon Swap"
-    }, 
-    {
-      "cast_time_ms": 49.476, 
-      "skill": "Grenade Kit"
-    }, 
-    {
       "cast_time_ms": 49.636, 
       "skill": "Shrapnel Grenade"
-    }, 
-    {
-      "cast_time_ms": 50.16, 
-      "skill": "Weapon Swap"
     }, 
     {
       "cast_time_ms": 50.317, 
@@ -478,14 +357,6 @@
       "skill": "Blunderbuss"
     }, 
     {
-      "cast_time_ms": 54.997, 
-      "skill": "Weapon Swap"
-    }, 
-    {
-      "cast_time_ms": 54.997, 
-      "skill": "Grenade Kit"
-    }, 
-    {
       "cast_time_ms": 55.236, 
       "skill": "Shrapnel Grenade"
     }, 
@@ -496,10 +367,6 @@
     {
       "cast_time_ms": 56.439, 
       "skill": "Dodge"
-    }, 
-    {
-      "cast_time_ms": 56.558, 
-      "skill": "Weapon Swap"
     }, 
     {
       "cast_time_ms": 57.196, 
@@ -530,24 +397,12 @@
       "skill": "Blunderbuss"
     }, 
     {
-      "cast_time_ms": 60.479, 
-      "skill": "Weapon Swap"
-    }, 
-    {
-      "cast_time_ms": 60.479, 
-      "skill": "Grenade Kit"
-    }, 
-    {
       "cast_time_ms": 60.639, 
       "skill": "Shrapnel Grenade"
     }, 
     {
       "cast_time_ms": 61.236, 
       "skill": "Dodge"
-    }, 
-    {
-      "cast_time_ms": 61.356, 
-      "skill": "Weapon Swap"
     }, 
     {
       "cast_time_ms": 62.039, 
@@ -574,14 +429,6 @@
       "skill": "Blunderbuss"
     }, 
     {
-      "cast_time_ms": 66.355, 
-      "skill": "Weapon Swap"
-    }, 
-    {
-      "cast_time_ms": 66.355, 
-      "skill": "Grenade Kit"
-    }, 
-    {
       "cast_time_ms": 66.52, 
       "skill": "Shrapnel Grenade"
     }, 
@@ -600,10 +447,6 @@
     {
       "cast_time_ms": 69.115, 
       "skill": "Dodge"
-    }, 
-    {
-      "cast_time_ms": 69.195, 
-      "skill": "Weapon Swap"
     }, 
     {
       "cast_time_ms": 69.877, 
@@ -634,24 +477,12 @@
       "skill": "Grenade Barrage"
     }, 
     {
-      "cast_time_ms": 72.317, 
-      "skill": "Weapon Swap"
-    }, 
-    {
-      "cast_time_ms": 72.317, 
-      "skill": "Grenade Kit"
-    }, 
-    {
       "cast_time_ms": 72.675, 
       "skill": "Shrapnel Grenade"
     }, 
     {
       "cast_time_ms": 73.356, 
       "skill": "Static Shock"
-    }, 
-    {
-      "cast_time_ms": 73.917, 
-      "skill": "Weapon Swap"
     }, 
     {
       "cast_time_ms": 74.036, 
@@ -674,24 +505,12 @@
       "skill": "Blunderbuss"
     }, 
     {
-      "cast_time_ms": 77.396, 
-      "skill": "Weapon Swap"
-    }, 
-    {
-      "cast_time_ms": 77.396, 
-      "skill": "Grenade Kit"
-    }, 
-    {
       "cast_time_ms": 77.556, 
       "skill": "Shrapnel Grenade"
     }, 
     {
       "cast_time_ms": 78.239, 
       "skill": "Throw Mine"
-    }, 
-    {
-      "cast_time_ms": 78.756, 
-      "skill": "Weapon Swap"
     }, 
     {
       "cast_time_ms": 78.918, 
@@ -726,24 +545,12 @@
       "skill": "Overcharged Shot"
     }, 
     {
-      "cast_time_ms": 82.836, 
-      "skill": "Weapon Swap"
-    }, 
-    {
-      "cast_time_ms": 82.836, 
-      "skill": "Grenade Kit"
-    }, 
-    {
       "cast_time_ms": 83.077, 
       "skill": "Shrapnel Grenade"
     }, 
     {
       "cast_time_ms": 83.641, 
       "skill": "Dodge"
-    }, 
-    {
-      "cast_time_ms": 83.798, 
-      "skill": "Weapon Swap"
     }, 
     {
       "cast_time_ms": 84.436, 
@@ -774,14 +581,6 @@
       "skill": "Blunderbuss"
     }, 
     {
-      "cast_time_ms": 88.555, 
-      "skill": "Weapon Swap"
-    }, 
-    {
-      "cast_time_ms": 88.555, 
-      "skill": "Grenade Kit"
-    }, 
-    {
       "cast_time_ms": 88.916, 
       "skill": "Shrapnel Grenade"
     }, 
@@ -802,10 +601,6 @@
       "skill": "Poison Grenade"
     }, 
     {
-      "cast_time_ms": 92.319, 
-      "skill": "Weapon Swap"
-    }, 
-    {
       "cast_time_ms": 92.4, 
       "skill": "Mine Field"
     }, 
@@ -818,24 +613,12 @@
       "skill": "Blunderbuss"
     }, 
     {
-      "cast_time_ms": 94.36, 
-      "skill": "Weapon Swap"
-    }, 
-    {
-      "cast_time_ms": 94.36, 
-      "skill": "Grenade Kit"
-    }, 
-    {
       "cast_time_ms": 94.595, 
       "skill": "Shrapnel Grenade"
     }, 
     {
       "cast_time_ms": 95.315, 
       "skill": "Dodge"
-    }, 
-    {
-      "cast_time_ms": 95.476, 
-      "skill": "Weapon Swap"
     }, 
     {
       "cast_time_ms": 96.078, 
@@ -870,24 +653,12 @@
       "skill": "Blunderbuss"
     }, 
     {
-      "cast_time_ms": 99.88, 
-      "skill": "Weapon Swap"
-    }, 
-    {
-      "cast_time_ms": 99.88, 
-      "skill": "Grenade Kit"
-    }, 
-    {
       "cast_time_ms": 100.117, 
       "skill": "Shrapnel Grenade"
     }, 
     {
       "cast_time_ms": 100.8, 
       "skill": "Throw Mine"
-    }, 
-    {
-      "cast_time_ms": 101.319, 
-      "skill": "Weapon Swap"
     }, 
     {
       "cast_time_ms": 101.478, 
@@ -914,20 +685,8 @@
       "skill": "Blunderbuss"
     }, 
     {
-      "cast_time_ms": 105.317, 
-      "skill": "Weapon Swap"
-    }, 
-    {
-      "cast_time_ms": 105.317, 
-      "skill": "Grenade Kit"
-    }, 
-    {
       "cast_time_ms": 105.479, 
       "skill": "Shrapnel Grenade"
-    }, 
-    {
-      "cast_time_ms": 106.081, 
-      "skill": "Weapon Swap"
     }, 
     {
       "cast_time_ms": 106.158, 
