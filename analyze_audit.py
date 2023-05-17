@@ -1,6 +1,7 @@
 import json
-import pandas as pd
+
 import numpy as np
+import pandas as pd
 
 CONDITION_EFFECTS = (
     "BLEEDING",
@@ -49,13 +50,11 @@ def main():
 
     in_combat_filter = \
         ((df["event_type"] == "damage_event") | (
-                    (df["event_type"] == "effect_application_event") & (df["effect"].isin(CONDITION_EFFECTS)))) \
+                (df["event_type"] == "effect_application_event") & (df["effect"].isin(CONDITION_EFFECTS)))) \
         & (df["source_actor"] != "Console")
 
     combat_df = df[in_combat_filter].reset_index(drop=True)
-    damage_df = combat_df[
-        (combat_df["event_type"] == "damage_event") & (combat_df["source_actor"] != "Console")] \
-        .reset_index(drop=True)
+    damage_df = combat_df[combat_df["event_type"] == "damage_event"].reset_index(drop=True)
     time_to_first_strike_ms = min(combat_df["time_ms"])
     combat_time_ms = max(combat_df["time_ms"]) - time_to_first_strike_ms
     damage_summary = damage_df.groupby(by=["damage_type", "source_skill"], dropna=False)["damage"] \
@@ -63,9 +62,13 @@ def main():
         .reset_index() \
         .sort_values(by=["total_damage"], ascending=[False]) \
         .reset_index(drop=True)
+    golem_hp_updates = df[(df['event_type'] == 'combat_stats_update_event') & (df['actor'] == 'golem')][
+        'updated_health']
     print(damage_summary.to_string(index=False))
     print()
     print(f"Time to First Strike: {time_to_first_strike_ms / 1000.0}s")
+    print(
+        f"Remaining Golem HP: {int(min(golem_hp_updates.values))}")
     print(f"Combat Time: {combat_time_ms / 1000.0}s")
     print(f"DPS: {(sum(damage_summary['total_damage']) * 1000.0 / combat_time_ms):.2f}")
 
