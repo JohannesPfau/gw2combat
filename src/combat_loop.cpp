@@ -12,6 +12,7 @@
 #include "component/actor/relative_attributes.hpp"
 #include "component/actor/rotation_component.hpp"
 #include "component/actor/static_attributes.hpp"
+#include "component/audit/audit_component.hpp"
 #include "component/damage/effects_pipeline.hpp"
 #include "component/damage/incoming_damage.hpp"
 #include "component/damage/strikes_pipeline.hpp"
@@ -189,7 +190,6 @@ bool continue_combat_loop(registry_t& registry, const configuration::encounter_t
                 }
             }
             if (everyone_out_of_rotation) {
-                spdlog::info("qau");
                 return false;
             }
         } else if (termination_condition.type ==
@@ -213,13 +213,11 @@ bool continue_combat_loop(registry_t& registry, const configuration::encounter_t
                 }
             }
             if (someone_took_required_damage) {
-                spdlog::info("wau");
                 return false;
             }
         } else if (termination_condition.type ==
                    configuration::termination_condition_t::type_t::TIME) {
             if (utils::get_current_tick(registry) >= termination_condition.time) {
-                spdlog::info("mau");
                 return false;
             }
         }
@@ -295,10 +293,11 @@ std::string combat_loop(const configuration::encounter_t& encounter, bool enable
         }
     } catch (std::exception& e) {
         spdlog::error("Exception: {}", e.what());
-        return utils::to_string(system::get_audit_report(registry, e.what()));
+        return utils::to_string(
+            system::get_audit_report(registry, encounter.audit_offset, e.what()));
     }
 
-    result = utils::to_string(system::get_audit_report(registry));
+    result = utils::to_string(system::get_audit_report(registry, encounter.audit_offset));
     if (enable_caching) {
         auto cache_key = convert_encounter_to_cache_key(encounter);
         if (!registry_cache.contains(cache_key)) {

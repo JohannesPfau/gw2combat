@@ -336,28 +336,18 @@ void audit(registry_t& registry) {
     }
 }
 
-audit::report_t get_audit_report(registry_t& registry, const std::string& error) {
+audit::report_t get_audit_report(registry_t& registry, int offset, const std::string& error) {
     audit::report_t audit_report;
     registry.view<component::audit_component>().each(
         [&](const component::audit_component& audit_component) {
-            std::copy(audit_component.events.cbegin(),
+            std::copy(audit_component.events.cbegin() + offset,
                       audit_component.events.cend(),
                       std::back_inserter(audit_report.tick_events));
         });
     if (!error.empty()) {
         audit_report.error = error;
     }
-    return audit_report;
-}
-
-audit::report_t get_audit_report(registry_t& registry) {
-    audit::report_t audit_report;
-    registry.view<component::audit_component>().each(
-        [&](const component::audit_component& audit_component) {
-            std::copy(audit_component.events.cbegin(),
-                      audit_component.events.cend(),
-                      std::back_inserter(audit_report.tick_events));
-        });
+    audit_report.offset = offset;
     return audit_report;
 }
 
