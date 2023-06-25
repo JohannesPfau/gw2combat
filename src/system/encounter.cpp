@@ -49,7 +49,7 @@ void setup_encounter(registry_t& registry, const configuration::encounter_t& enc
         registry.emplace<component::team>(actor_entity, actor.team);
         registry.emplace<component::base_class_component>(actor_entity, build.base_class);
         registry.emplace<component::profession_component>(actor_entity, build.profession);
-        registry.emplace<component::current_weapon_set>(actor_entity);
+        registry.emplace<component::current_weapon_set>(actor_entity, build.initial_weapon_set);
         registry.emplace<component::static_attributes>(actor_entity, build.attributes);
 
         auto& equipped_weapons = registry.emplace<component::equipped_weapons>(actor_entity);
@@ -66,7 +66,7 @@ void setup_encounter(registry_t& registry, const configuration::encounter_t& enc
             utils::add_permanent_effect_to_actor(permanent_effect, actor_entity, registry);
         }
         for (auto& permanent_unique_effect : build.permanent_unique_effects) {
-            utils::add_unique_effect_to_actor(permanent_unique_effect, actor_entity, registry);
+            utils::add_permanent_unique_effect_to_actor(permanent_unique_effect, actor_entity, registry);
         }
         for (auto& counter_configuration : build.counters) {
             for (auto&& [counter_entity, is_counter] :
