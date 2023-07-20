@@ -153,10 +153,9 @@ void calculate_relative_attributes(registry_t& registry) {
                             attribute_conversion.condition, owner_actor, other_actor, registry)) {
                         owner_actor_to_attribute_conversion_bonuses[std::make_tuple(
                             owner_actor, attribute_conversion.to)] +=
-                            utils::round_to_nearest_even(
-                                (relative_attributes.get(other_actor, attribute_conversion.from) *
-                                 attribute_conversion.multiplier) +
-                                attribute_conversion.addend);
+                            (relative_attributes.get(other_actor, attribute_conversion.from) *
+                             attribute_conversion.multiplier) +
+                            attribute_conversion.addend;
                     }
                 }
             });
@@ -165,8 +164,10 @@ void calculate_relative_attributes(registry_t& registry) {
              owner_actor_to_attribute_conversion_bonuses) {
             auto& [owner_actor, attribute] = owner_actor_attribute_tuple;
             auto& relative_attributes = registry.get<component::relative_attributes>(owner_actor);
-            relative_attributes.set(
-                other_actor, attribute, relative_attributes.get(other_actor, attribute) + bonus);
+            relative_attributes.set(other_actor,
+                                    attribute,
+                                    utils::round_to_nearest_even(
+                                        relative_attributes.get(other_actor, attribute) + bonus));
             // spdlog::info("{}:{} conversion {} bonus {} final {}",
             //              utils::get_entity_name(owner_actor, registry),
             //              utils::get_entity_name(other_actor, registry),
@@ -205,37 +206,37 @@ void calculate_relative_attributes(registry_t& registry) {
                         actor::attribute_t::CONDITION_DURATION_MULTIPLIER,
                         relative_attributes.get(other_actor,
                                                 actor::attribute_t::CONDITION_DURATION_MULTIPLIER) +
-                            expertise / 1500.0);
+                            utils::round_to_nearest_n_digits(expertise / 1500.0, 2));
                     relative_attributes.set(
                         other_actor,
                         actor::attribute_t::BLEEDING_DURATION_MULTIPLIER,
                         relative_attributes.get(other_actor,
                                                 actor::attribute_t::BLEEDING_DURATION_MULTIPLIER) +
-                            expertise / 1500.0);
+                            utils::round_to_nearest_n_digits(expertise / 1500.0, 2));
                     relative_attributes.set(
                         other_actor,
                         actor::attribute_t::BURNING_DURATION_MULTIPLIER,
                         relative_attributes.get(other_actor,
                                                 actor::attribute_t::BURNING_DURATION_MULTIPLIER) +
-                            expertise / 1500.0);
+                            utils::round_to_nearest_n_digits(expertise / 1500.0, 2));
                     relative_attributes.set(
                         other_actor,
                         actor::attribute_t::CONFUSION_DURATION_MULTIPLIER,
                         relative_attributes.get(other_actor,
                                                 actor::attribute_t::CONFUSION_DURATION_MULTIPLIER) +
-                            expertise / 1500.0);
+                            utils::round_to_nearest_n_digits(expertise / 1500.0, 2));
                     relative_attributes.set(
                         other_actor,
                         actor::attribute_t::POISON_DURATION_MULTIPLIER,
                         relative_attributes.get(other_actor,
                                                 actor::attribute_t::POISON_DURATION_MULTIPLIER) +
-                            expertise / 1500.0);
+                            utils::round_to_nearest_n_digits(expertise / 1500.0, 2));
                     relative_attributes.set(
                         other_actor,
                         actor::attribute_t::TORMENT_DURATION_MULTIPLIER,
                         relative_attributes.get(other_actor,
                                                 actor::attribute_t::TORMENT_DURATION_MULTIPLIER) +
-                            expertise / 1500.0);
+                            utils::round_to_nearest_n_digits(expertise / 1500.0, 2));
                 });
         });
 }

@@ -8,15 +8,16 @@
 #include "component/damage/incoming_damage.hpp"
 #include "component/damage/strikes_pipeline.hpp"
 #include "component/effect/is_effect.hpp"
+#include "component/encounter/encounter_configuration_component.hpp"
 #include "component/hierarchy/owner_component.hpp"
 
 #include "utils/actor_utils.hpp"
 #include "utils/condition_utils.hpp"
 #include "utils/effect_utils.hpp"
 #include "utils/entity_utils.hpp"
-#include "utils/gear_utils.hpp"
 #include "utils/side_effect_utils.hpp"
 #include "utils/skill_utils.hpp"
+#include "utils/weapon_utils.hpp"
 
 namespace gw2combat::system {
 
@@ -32,8 +33,13 @@ damage_result_t calculate_damage(
     entity_t target_entity,
     const component::relative_attributes& target_relative_attributes,
     registry_t& registry) {
-    double weapon_strength =
-        utils::get_weapon_strength(strike_source_entity, skill_configuration.weapon_type, registry);
+    auto& encounter =
+        registry.get<component::encounter_configuration_component>(utils::get_singleton_entity())
+            .encounter;
+    double weapon_strength = utils::get_weapon_strength(strike_source_entity,
+                                                        skill_configuration.weapon_type,
+                                                        encounter.weapon_strength_mode,
+                                                        registry);
     double skill_intrinsic_damage = weapon_strength * skill_configuration.damage_coefficient;
 
     double critical_chance_multiplier =
@@ -78,7 +84,7 @@ damage_result_t calculate_damage(
                                                                 target_armor;
     return damage_result_t{
         .is_critical = is_critical,
-        .value = damage_value,
+        .value = (double)utils::round_down(damage_value),
     };
 }
 
@@ -122,10 +128,13 @@ void apply_strikes(registry_t& registry) {
                         return accumulated + incoming_damage_event.value;
                     });
                 spdlog::info(
-                    "[{}] skill {} pow {} crit% {} crit_mult {} this_dmg {} total_incoming_dmg {}",
+                    "[{}] skill {} pow {} fero {} crit% {} crit_mult {} this_dmg {} "
+                    "total_incoming_dmg {}",
                     utils::get_current_tick(registry),
                     skill_configuration.skill_key,
                     strike_source_relative_attributes.get(target_entity, actor::attribute_t::POWER),
+                    strike_source_relative_attributes.get(target_entity,
+                                                          actor::attribute_t::FEROCITY),
                     strike_source_relative_attributes.get(
                         target_entity, actor::attribute_t::CRITICAL_CHANCE_MULTIPLIER),
                     strike_source_relative_attributes.get(
