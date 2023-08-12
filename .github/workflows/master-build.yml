@@ -1,0 +1,50 @@
+name: Master build
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build-linux:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+    - name: Build
+      run: make -j2
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: gw2combat_linux
+        path: |
+          gw2combat
+
+  build-windows:
+    runs-on: windows-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+    - name: Build
+      run: make -j2
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: gw2combat_windows
+        path: |
+          gw2combat.exe
+
+  build-macos:
+    runs-on: macos-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+    - name: Build
+      run: make -j2
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: gw2combat_macos
+        path: |
+          gw2combat
