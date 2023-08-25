@@ -20,6 +20,7 @@
 #include "component/equipment/bundle.hpp"
 #include "component/equipment/weapons.hpp"
 #include "component/skill/ammo.hpp"
+#include "component/skill/is_conditional_skill_group.hpp"
 #include "component/skill/is_skill.hpp"
 #include "component/temporal/cooldown_component.hpp"
 #include "component/temporal/duration_component.hpp"
@@ -40,10 +41,17 @@ namespace gw2combat::system {
                 return;
             }
             bool has_alacrity = registry.any_of<component::has_alacrity>(owner_entity);
+            double no_alacrity_progress_pct =
+                cooldown_component.progress[0] * 100.0 / cooldown_component.duration[0];
+            double alacrity_progress_pct =
+                cooldown_component.progress[1] * 100.0 / cooldown_component.duration[1];
+            int remaining_duration = static_cast<int>(
+                cooldown_component.duration[has_alacrity] *
+                (1.0 - (alacrity_progress_pct + no_alacrity_progress_pct) / 100.0));
+
             skill_cooldowns.emplace_back(audit::skill_cooldown_t{
                 .skill = is_skill.skill_configuration.skill_key,
-                .duration = cooldown_component.duration[has_alacrity] -
-                            cooldown_component.progress[has_alacrity],
+                .duration = remaining_duration,
                 .remaining_ammo = ammo.current_ammo,
             });
         });
@@ -78,8 +86,7 @@ namespace gw2combat::system {
             if (owner_component.entity != actor_entity) {
                 return;
             }
-            auto skill_castability = utils::can_cast_skill(
-                is_skill.skill_configuration.skill_key, actor_entity, registry);
+            auto skill_castability = utils::can_cast_skill(skill_entity, registry);
             if (!skill_castability.can_cast) {
                 auto cooldown_component =
                     registry.try_get<component::cooldown_component>(skill_entity);
@@ -95,6 +102,26 @@ namespace gw2combat::system {
                     .remaining_cooldown = remaining_cooldown,
                     .remaining_ammo = remaining_ammo,
                 };
+
+                auto is_part_of_conditional_skill_group_ptr =
+                    registry.try_get<component::is_part_of_conditional_skill_group>(skill_entity);
+                if (is_part_of_conditional_skill_group_ptr) {
+                    auto& conditional_skill_group_configuration =
+                        registry
+                            .get<component::is_conditional_skill_group>(
+                                is_part_of_conditional_skill_group_ptr
+                                    ->conditional_skill_group_entity)
+                            .conditional_skill_group_configuration;
+                    auto& conditional_skill_group_skill_key =
+                        conditional_skill_group_configuration.skill_key;
+                    if (!uncastable_skills.contains(conditional_skill_group_skill_key)) {
+                        uncastable_skills[conditional_skill_group_skill_key] = {
+                            .reason = skill_castability.reason,
+                            .remaining_cooldown = remaining_cooldown,
+                            .remaining_ammo = remaining_ammo,
+                        };
+                    }
+                }
             }
         });
     return uncastable_skills;

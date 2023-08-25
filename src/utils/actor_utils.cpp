@@ -32,6 +32,7 @@
 #include "component/equipment/bundle.hpp"
 #include "component/lifecycle/destroy_entity.hpp"
 #include "component/skill/ammo.hpp"
+#include "component/skill/is_conditional_skill_group.hpp"
 #include "component/skill/is_skill.hpp"
 #include "component/temporal/duration_component.hpp"
 #include "component/temporal/has_alacrity.hpp"
@@ -98,6 +99,37 @@ entity_t add_skill_to_actor(const configuration::skill_t& skill,
     return skill_entity;
 }
 
+entity_t add_conditional_skill_group_to_actor(
+    const configuration::conditional_skill_group_t& conditional_skill_group,
+    entity_t actor_entity,
+    registry_t& registry) {
+    for (auto&& [conditional_skill_group_entity, owner_component, is_conditional_skill_group] :
+         registry.view<component::owner_component, component::is_conditional_skill_group>()
+             .each()) {
+        if (owner_component.entity == actor_entity &&
+            is_conditional_skill_group.conditional_skill_group_configuration.skill_key ==
+                conditional_skill_group.skill_key) {
+            return conditional_skill_group_entity;
+        }
+    }
+
+    auto conditional_skill_group_entity = registry.create();
+    registry.ctx().emplace_as<std::string>(
+        conditional_skill_group_entity,
+        conditional_skill_group.skill_key + " conditional skill group holder entity");
+
+    registry.emplace<component::is_conditional_skill_group>(conditional_skill_group_entity,
+                                                            conditional_skill_group);
+    registry.emplace<component::owner_component>(conditional_skill_group_entity, actor_entity);
+    for (auto& conditional_skill_key : conditional_skill_group.conditional_skill_keys) {
+        auto skill_entity =
+            utils::get_skill_entity(conditional_skill_key.skill_key, actor_entity, registry);
+        registry.emplace<component::is_part_of_conditional_skill_group>(
+            skill_entity, conditional_skill_group_entity);
+    }
+    return conditional_skill_group_entity;
+}
+
 void enqueue_child_skills(entity_t parent_actor,
                           const std::string& child_name,
                           const std::vector<actor::skill_t>& skills,
@@ -158,6 +190,9 @@ entity_t add_effect_to_actor(actor::effect_t effect,
                     std::min(remaining_duration + duration, utils::get_max_effect_duration(effect));
                 return effect_entity;
             } else {
+                if ((duration_component.duration - duration_component.progress) > duration) {
+                    return effect_entity;
+                }
                 duration_component.progress = duration_component.duration;
                 registry.emplace_or_replace<component::destroy_entity>(effect_entity);
                 break;
@@ -275,6 +310,9 @@ std::optional<entity_t> add_unique_effect_to_actor(
                                                    is_unique_effect.unique_effect.max_duration);
             return unique_effect_entity;
         } else if (unique_effect.stacking_type == actor::stacking_t::REPLACE) {
+            if ((duration_component.duration - duration_component.progress) > duration) {
+                return unique_effect_entity;
+            }
             duration_component.progress = duration_component.duration;
             registry.emplace_or_replace<component::destroy_entity>(unique_effect_entity);
         }
@@ -347,7 +385,40 @@ std::vector<entity_t> add_unique_effect_to_actor(
     return unique_effect_entities;
 }
 
-void finish_casting_skill(entity_t actor_entity, entity_t skill_entity, registry_t& registry) {
+void put_skill_on_cooldown_for_actor(entity_t skill_entity,
+                                     const configuration::skill_t& skill_configuration,
+                                     entity_t actor_entity,
+                                     registry_t& registry) {
+    auto is_part_of_conditional_skill_group_ptr =
+        registry.try_get<component::is_part_of_conditional_skill_group>(skill_entity);
+    if (is_part_of_conditional_skill_group_ptr) {
+        auto& conditional_skill_group_configuration =
+            registry
+                .get<component::is_conditional_skill_group>(
+                    is_part_of_conditional_skill_group_ptr->conditional_skill_group_entity)
+                .conditional_skill_group_configuration;
+        for (auto& conditional_skill_key :
+             conditional_skill_group_configuration.conditional_skill_keys) {
+            auto conditional_skill_entity =
+                utils::get_skill_entity(conditional_skill_key.skill_key, actor_entity, registry);
+            utils::put_skill_on_cooldown(conditional_skill_entity, registry);
+            for (auto& skill_to_put_on_cooldown : skill_configuration.skills_to_put_on_cooldown) {
+                auto skill_to_put_on_cooldown_entity =
+                    utils::get_skill_entity(skill_to_put_on_cooldown, actor_entity, registry);
+                utils::put_skill_on_cooldown(skill_to_put_on_cooldown_entity, registry, true);
+            }
+        }
+    } else {
+        utils::put_skill_on_cooldown(skill_entity, registry);
+        for (auto& skill_to_put_on_cooldown : skill_configuration.skills_to_put_on_cooldown) {
+            auto skill_to_put_on_cooldown_entity =
+                utils::get_skill_entity(skill_to_put_on_cooldown, actor_entity, registry);
+            utils::put_skill_on_cooldown(skill_to_put_on_cooldown_entity, registry, true);
+        }
+    }
+}
+
+void finish_casting_skill(entity_t skill_entity, entity_t actor_entity, registry_t& registry) {
     auto& finished_casting_skills =
         registry.get_or_emplace<component::finished_casting_skills>(actor_entity);
     finished_casting_skills.skill_entities.emplace_back(skill_entity);
@@ -356,17 +427,13 @@ void finish_casting_skill(entity_t actor_entity, entity_t skill_entity, registry
     if (skill_configuration.cooldown[0] != 0 &&
         !(skill_configuration.skill_key == "Weapon Swap" &&
           registry.any_of<component::bundle_component>(actor_entity))) {
-        utils::put_skill_on_cooldown(skill_configuration.skill_key, actor_entity, registry);
-        for (auto& skill_to_put_on_cooldown : skill_configuration.skills_to_put_on_cooldown) {
-            utils::put_skill_on_cooldown(skill_to_put_on_cooldown, actor_entity, registry, true);
-        }
+        put_skill_on_cooldown_for_actor(skill_entity, skill_configuration, actor_entity, registry);
         auto owner_entity = utils::get_owner(actor_entity, registry);
         if (actor_entity != owner_entity) {
-            utils::put_skill_on_cooldown(skill_configuration.skill_key, owner_entity, registry);
-            for (auto& skill_to_put_on_cooldown : skill_configuration.skills_to_put_on_cooldown) {
-                utils::put_skill_on_cooldown(
-                    skill_to_put_on_cooldown, actor_entity, registry, true);
-            }
+            auto owner_actor_skill_entity =
+                utils::get_skill_entity(skill_configuration.skill_key, owner_entity, registry);
+            put_skill_on_cooldown_for_actor(
+                owner_actor_skill_entity, skill_configuration, owner_entity, registry);
         }
     }
     // spdlog::info("[{}] {}: finished casting skill {}",
