@@ -2,20 +2,15 @@
   "attributes": [
     [
       "power",
-      2381
+      2173
     ],
     [
       "precision",
-      1961
+      1633
     ],
-    [
-      "ferocity",
-      961
-    ],
-    [
-      "vitality",
-      1400
-    ]
+	["condition_damage", 1173],
+	["expertise", 633],
+	["vitality", 1000]
   ],
   "author": "gorKjan.5019",
   "base_class": "engineer",
@@ -49,7 +44,8 @@
           "value": 25
         }
       ],
-      "initial_value": 1000000
+      "initial_value": 120000,
+      "max_value": 1000000
     },
     {
       "counter_key": "Aim-Assisted Rockets Counter",
@@ -57,8 +53,8 @@
         {
           "condition": {
             "depends_on_skill_off_cooldown": "Aim-Assisted Rocket ICD",
-            "only_applies_on_strikes": true,
-            "only_applies_on_strikes_by_skill_with_tag": "MISSILE",
+            "only_applies_on_finished_casting": true,
+            "only_applies_on_finished_casting_skill_with_tag": "MISSILE",
             "threshold": {
               "counter_value_subject_to_threshold": "Aim-Assisted Rockets Counter",
               "threshold_type": "upper_bound_inclusive",
@@ -86,9 +82,53 @@
         }
       ],
       "initial_value": 0
+    },
+    {
+      "counter_key": "Incendiary Ammo Counter",
+      "icon": "https://render.guildwars2.com/file/9FD24A39C91355664B9C4FDEA7A1A40662C2E1AF/103461.png",
+      "counter_modifiers": [
+        {
+          "condition": {
+			"only_applies_on_strikes": true,
+            "threshold": {
+              "counter_value_subject_to_threshold": "Incendiary Ammo Counter",
+              "threshold_type": "lower_bound_inclusive",
+              "threshold_value": 1
+            }
+          },
+          "counter_key": "Incendiary Ammo Counter",
+          "operation": "subtract",
+          "value": 1
+        },
+		
+        {
+          "condition": {
+			"only_applies_on_finished_casting": true,
+			"only_applies_on_finished_casting_skill": "Incendiary Ammo"
+          },
+          "counter_key": "Incendiary Ammo Counter",
+          "operation": "add",
+          "value": 3
+        }
+      ],
+	  "unchained_skill_triggers": [
+        {
+          "condition": {
+            "only_applies_on_strikes": true,
+            "threshold": {
+              "counter_value_subject_to_threshold": "Incendiary Ammo Counter",
+              "threshold_type": "lower_bound_inclusive",
+              "threshold_value": 1
+            }
+          },
+          "skill_key": "Incendiary Ammo Proc"
+        }
+      ],
+      "initial_value": 0,
+      "max_value": 6
     }
   ],
-  "name": "pEngi",
+  "name": "cEngi",
   "permanent_effects": [
     "QUICKNESS",
     "ALACRITY",
@@ -123,17 +163,16 @@
   ],
   "permanent_unique_effects": [
     {
-      "skill_triggers": [
+      "unchained_skill_triggers": [
         {
           "condition": {
-            "depends_on_skill_off_cooldown": "Lightning Strike",
-            "only_applies_on_strikes": true,
-            "weapon_set": "set_1"
+            "only_applies_on_finished_casting": true,
+            "only_applies_on_finished_casting_skill_with_tag": "TOOLBELT"
           },
-          "skill_key": "Lightning Strike"
+          "skill_key": "Static Discharge"
         }
       ],
-      "unique_effect_key": "Air Sigil"
+      "unique_effect_key": "Static Discharge Effect"
     },
     {
       "skill_triggers": [
@@ -148,95 +187,74 @@
       ],
       "unique_effect_key": "Explosive Entrance Initial Effect"
     },
-    {
-      "skill_triggers": [
-        {
-          "condition": {
-            "depends_on_skill_off_cooldown": "Mine Field Precast",
-            "only_applies_on_strikes": true,
-            "weapon_set": "set_1"
-          },
-          "skill_key": "Mine Field Precast"
-        }
-      ],
-      "unique_effect_key": "Mine Field Precast Effect"
-    },
-    {
-      "skill_triggers": [
-        {
-          "condition": {
-            "depends_on_skill_off_cooldown": "Throw Mine Precast",
-            "only_applies_on_strikes": true,
-            "weapon_set": "set_1"
-          },
-          "skill_key": "Throw Mine Precast"
-        }
-      ],
-      "unique_effect_key": "Throw Mine Precast Effect"
-    },
-    {
-      "attribute_conversions": [
-        {
-          "from": "precision",
-          "multiplier": 0.03,
-          "to": "power"
-        },
-        {
-          "from": "ferocity",
-          "multiplier": 0.06,
-          "to": "power"
-        }
-      ],
-      "unique_effect_key": "Superior Sharpening Stone"
-    },
+	{
+		"unique_effect_key": "Toxic Focusing Crystal",
+		"attribute_conversions": [
+			{
+				"from": "power",
+				"to": "condition_damage",
+				"multiplier": 0.03
+			}, {
+				"from": "precision",
+				"to": "condition_damage",
+				"multiplier": 0.03
+			}
+		]
+	},
     {
       "attribute_modifiers": [
         {
           "addend": 100,
-          "attribute": "power"
+          "attribute": "condition_damage"
         },
         {
           "addend": 70,
-          "attribute": "ferocity"
+          "attribute": "expertise"
         }
       ],
-      "unique_effect_key": "Cilantro Lime Sous-Vide Steak"
+      "unique_effect_key": "Cilantro and Cured Meat Flatbread"
     },
     {
       "attribute_modifiers": [
         {
           "addend": 90,
-          "attribute": "power"
+          "attribute": "condition_damage"
         }
       ],
-      "unique_effect_key": "Mighty Infusions"
+      "unique_effect_key": "Malign Infusions"
     },
-    {
-      "attribute_modifiers": [
-        {
-          "addend": 175,
-          "attribute": "power"
-        },
-        {
-          "addend": 225,
-          "attribute": "ferocity"
-        },
-        {
-          "attribute": "outgoing_strike_damage_multiplier",
-          "multiplier": 1.05
-        }
-      ],
-      "unique_effect_key": "Scholar Rune"
-    },
-    {
-      "attribute_modifiers": [
-        {
-          "addend": 0.05,
-          "attribute": "outgoing_strike_damage_multiplier_add_group"
-        }
-      ],
-      "unique_effect_key": "Force Sigil"
-    },
+	{
+		"unique_effect_key": "Renegade Rune",
+		"attribute_modifiers": [
+			{
+				"attribute": "condition_damage",
+				"addend": 175
+			}, {
+				"attribute": "ferocity",
+				"addend": 100
+			}, {
+				"attribute": "outgoing_condition_damage_multiplier_add_group",
+				"addend": 0.07
+			}
+		]
+	},
+	{
+		"unique_effect_key": "Sigil of Malice",
+		"attribute_modifiers": [
+			{
+				"attribute": "condition_duration_multiplier",
+				"addend": 0.10
+			}
+		]
+	}, {
+		"unique_effect_key": "Bursting Sigil",
+		"attribute_modifiers": [
+			{
+				"attribute": "outgoing_condition_damage_multiplier_add_group",
+				"addend": 0.05
+			}
+		]
+	}, 
     {
       "unchained_skill_triggers": [
         {
@@ -246,16 +264,23 @@
           "skill_key": "Sharpshooter Bleeding Proc"
         }
       ],
-      "unique_effect_key": "Sharpshooter Edges"
+      "unique_effect_key": "Sharpshooter"
     },
     {
       "attribute_modifiers": [
         {
-          "addend": 0.15,
-          "attribute": "critical_chance_multiplier"
-        }
+			"attribute": "condition_duration_multiplier",
+			"addend": 0.33,
+			"TODO": "Only for pistol skills"
+        },		
+		{
+			"addend": 120,
+			"from": "condition_damage",
+			"multiplier": 0,
+			"to": "condition_damage"
+		}
       ],
-      "unique_effect_key": "High Caliber"
+      "unique_effect_key": "Chemical Rounds"
     },
     {
       "attribute_modifiers": [
@@ -270,18 +295,21 @@
       "unique_effect_key": "Hematic Focus"
     },
     {
-      "attribute_conversions": [
-        {
-          "addend": 150,
-          "condition": {
-            "effect_on_source": "FURY"
-          },
-          "from": "ferocity",
-          "multiplier": 0,
-          "to": "ferocity"
-        }
-      ],
-      "unique_effect_key": "No Scope"
+		"attribute_modifiers": [
+			{
+				"attribute": "outgoing_condition_damage_multiplier_add_group",
+				"addend": 0.05
+			}
+		],
+        "attribute_conversions": [
+			{
+				"addend": 150,
+				"from": "expertise",
+				"multiplier": 0,
+				"to": "expertise"
+			}
+      ], 
+		"unique_effect_key": "Thermal Vision"
     },
     {
       "attribute_modifiers": [
@@ -293,16 +321,22 @@
       "unique_effect_key": "Serrated Steel"
     },
     {
-      "attribute_modifiers": [
+	  "attribute_modifiers": [
+		{
+			"attribute": "burning_duration_multiplier",
+			"addend": 0.33
+		}
+      ],
+	   "skill_triggers": [
         {
-          "attribute": "outgoing_strike_damage_multiplier",
           "condition": {
-            "effect_on_target": "BURNING"
+            "depends_on_skill_off_cooldown": "Incendiary Powder Proc",
+            "only_applies_on_critical_strikes": true
           },
-          "multiplier": 1.2
+          "skill_key": "Incendiary Powder Proc"
         }
       ],
-      "unique_effect_key": "Modified Ammunition"
+      "unique_effect_key": "Incendiary Powder"
     },
     {
       "attribute_modifiers": [
@@ -372,19 +406,23 @@
       "unique_effect_key": "Shaped Charge"
     },
     {
-      "attribute_modifiers": [
+	  "unchained_skill_triggers": [
         {
-          "attribute": "outgoing_strike_damage_multiplier",
-          "multiplier": 1.15
+          "condition": {
+            "only_applies_on_strikes": true,
+			"only_applies_on_strikes_by_skill_with_tag": "EXPLOSION"
+          },
+          "skill_key": "Shrapnel Bleeding Proc"
         }
       ],
-      "unique_effect_key": "Big Boomer"
+      "unique_effect_key": "Shrapnel"
     },
     {
       "attribute_modifiers": [
         {
           "attribute": "outgoing_strike_damage_multiplier",
-          "multiplier": 1.1
+          "multiplier": 1.0,
+		  "TODO": "Set to 1.1 if want to enable (and compare against Streamlined Kits)"
         }
       ],
       "unique_effect_key": "Takedown Round"
@@ -400,30 +438,6 @@
         }
       ],
       "unique_effect_key": "Excessive Energy"
-    },
-    {
-      "skill_triggers": [
-        {
-          "condition": {
-            "depends_on_skill_off_cooldown": "Surprise Shot",
-            "only_applies_on_strikes": true
-          },
-          "skill_key": "Surprise Shot"
-        }
-      ],
-      "unique_effect_key": "Surprise Shot Workaround"
-    },
-    {
-      "skill_triggers": [
-        {
-          "condition": {
-            "depends_on_skill_off_cooldown": "Rifle Turret Attack",
-            "only_applies_on_strikes": true
-          },
-          "skill_key": "Rifle Turret Attack"
-        }
-      ],
-      "unique_effect_key": "Rifle Turret Workaround"
     }
   ],
   "profession": "engineer",
@@ -440,28 +454,6 @@
       ],
       "executable": true,
       "skill_key": "Weapon Swap",
-      "weapon_type": "empty_handed"
-    },
-    {
-      "can_critical_strike": false,
-      "cast_duration": [
-        0,
-        0
-      ],
-      "cooldown": [
-        3000,
-        3000
-      ],
-      "damage_coefficient": 1.1,
-      "skill_key": "Lightning Strike",
-      "strike_on_tick_list": [
-        [
-          0
-        ],
-        [
-          0
-        ]
-      ],
       "weapon_type": "empty_handed"
     },
     {
@@ -514,11 +506,80 @@
         0,
         0
       ],
+      "on_pulse_effect_applications": [
+        {
+          "base_duration_ms": 6000,
+          "direction": "OUTGOING",
+          "effect": "BLEEDING",
+          "num_stacks": 1
+        }
+      ],
+      "pulse_on_tick_list": [
+        [
+          0
+        ],
+        [
+          0
+        ]
+      ],
+      "skill_key": "Incendiary Ammo Proc"
+    },
+    {
+      "ammo": 50000,
+      "cast_duration": [
+        0,
+        0
+      ],
+      "on_pulse_effect_applications": [
+        {
+          "base_duration_ms": 2000,
+          "direction": "OUTGOING",
+          "effect": "BLEEDING",
+          "num_stacks": 1
+        }
+      ],
+      "pulse_on_tick_list": [
+        [
+          0
+        ],
+        [
+          0
+        ]
+      ],
+      "skill_key": "Shrapnel Bleeding Proc"
+    },
+    {
+      "ammo": 50000,
+      "cast_duration": [
+        0,
+        0
+      ],
       "cooldown": [
         3000,
         3000
       ],
       "skill_key": "Aim-Assisted Rocket ICD"
+    },
+    {
+      "ammo": 50000,
+      "cast_duration": [
+        0,
+        0
+      ],
+      "cooldown": [
+        10000,
+        10000
+      ],
+      "skill_key": "Incendiary Powder Proc",
+	  "pulse_on_tick_list": [[0], [0]],
+		"on_pulse_effect_applications": [
+			{
+				"effect": "BURNING",
+				"base_duration_ms": 8000,
+				"direction": "OUTGOING",
+				"num_targets": 1
+			}
+		]
     },
     {
       "ammo": 50000,
@@ -541,11 +602,13 @@
         ]
       ],
       "tags": [
+	    "EXPLOSION",
         "ROCKET"
       ],
       "weapon_type": "empty_handed"
     },
     {
+      "attribute_damage_to_skill": "Orbital Strike",
       "cast_duration": [
         2000,
         2000
@@ -567,9 +630,6 @@
         1020,
         680
       ],
-      "child_skill_keys": [
-        "Static Discharge"
-      ],
       "cooldown": [
         17000,
         13600
@@ -585,15 +645,15 @@
           680
         ]
       ],
+      "tags": [
+        "TOOLBELT"
+      ],
       "weapon_type": "main_hand"
     },
     {
       "cast_duration": [
         1020,
         680
-      ],
-      "child_skill_keys": [
-        "Static Discharge"
       ],
       "cooldown": [
         21250,
@@ -621,80 +681,70 @@
         ]
       ],
       "tags": [
-        "MISSILE"
+        "MISSILE",
+        "TOOLBELT",
+		"EXPLOSION"
       ],
       "weapon_type": "main_hand"
     },
     {
-      "cast_duration": [
-        1386,
-        924
-      ],
-      "child_skill_keys": [
-        "Static Discharge",
-        "Static Discharge"
-      ],
-      "cooldown": [
-        14450,
-        11560
-      ],
-      "damage_coefficient": 0.77,
-      "executable": true,
-      "skill_key": "Mine Field",
-      "strike_on_tick_list": [
-        [
-          1386,
-          1386,
-          1386,
-          1386,
-          1386
-        ],
-        [
-          924,
-          924,
-          924,
-          924,
-          924
-        ]
-      ],
-      "tags": [
-        "MINEFIELD"
-      ],
-      "weapon_type": "main_hand"
-    },
-    {
-      "ammo": 5,
       "cast_duration": [
         0,
         0
       ],
-      "child_skill_keys": [
-        "Static Discharge"
-      ],
       "cooldown": [
-        999999,
-        999999
+        17000,
+        13600
       ],
-      "damage_coefficient": 0.77,
-      "executable": false,
-      "skill_key": "Mine Field Precast",
-      "strike_on_tick_list": [
-        [
-          0,
-          0,
-          0,
-          0,
-          0
-        ],
-        [
-          0,
-          0,
-          0,
-          0,
-          0
-        ]
+      "damage_coefficient": 0.0,
+      "executable": true,
+      "skill_key": "Incendiary Ammo",
+      "tags": [
+        "TOOLBELT"
       ],
       "weapon_type": "main_hand"
+    },	
+	
+	{
+      "cast_duration": [
+        3000,
+        3000
+      ],
+      "strike_on_tick_list": [
+        [
+          3000
+        ],
+        [
+		  3000
+        ]
+      ],
+      "damage_coefficient": 2.475,
+      "executable": false,
+      "skill_key": "Big Ol' Bomb Proc",
+      "weapon_type": "kit_conjure",
+      "tags": [
+		"EXPLOSION"
+      ]
+    },
+    {
+      "cast_duration": [
+        900,
+        600
+      ],
+      "cooldown": [
+        17000,
+        13600
+      ],
+      "damage_coefficient": 0,
+      "executable": true,
+      "skill_key": "Big Ol' Bomb",
+      "tags": [
+        "TOOLBELT"
+      ],
+      "weapon_type": "main_hand",
+      "child_skill_keys": [
+        "Big Ol' Bomb Proc"
+      ]
     },
     {
       "cast_duration": [
@@ -702,7 +752,6 @@
         880
       ],
       "child_skill_keys": [
-        "Static Discharge",
         "Orbital Strike Attack"
       ],
       "cooldown": [
@@ -712,6 +761,9 @@
       "damage_coefficient": 0,
       "executable": true,
       "skill_key": "Orbital Strike",
+      "tags": [
+        "TOOLBELT"
+      ],
       "weapon_type": "main_hand"
     },
     {
@@ -719,7 +771,7 @@
         2000,
         2000
       ],
-      "damage_coefficient": 1.33,
+      "damage_coefficient": 1.92,
       "skill_key": "Orbital Command Strike",
       "strike_on_tick_list": [
         [
@@ -754,159 +806,136 @@
     },
     {
       "cast_duration": [
-        1260,
-        840
+        900,
+        600
       ],
-      "damage_coefficient": 0.6,
-      "executable": false,
-      "skill_key": "Rifle Burst Grenade",
-      "strike_on_tick_list": [
-        [
-          0
-        ],
-        [
-          0
-        ]
-      ],
-      "weapon_type": "rifle"
-    },
-    {
-      "cast_duration": [
-        1260,
-        840
-      ],
-      "child_skill_keys": [
-        "Rifle Burst Grenade"
+      "cooldown": [
+        0,
+        0
       ],
       "damage_coefficient": 0.4,
       "executable": true,
-      "skill_key": "Rifle Burst",
+      "on_strike_effect_applications": [
+        {
+          "base_duration_ms": 6000,
+          "direction": "OUTGOING",
+          "effect": "BLEEDING",
+          "num_stacks": 1
+        }
+      ],
+      "skill_key": "Fragmentation Shot",
       "strike_on_tick_list": [
         [
-          630
+          900
         ],
         [
-          420
+          600
         ]
       ],
       "tags": [
         "MISSILE"
       ],
-      "weapon_type": "rifle"
+      "weapon_type": "pistol"
     },
     {
+	  "TODO": "Is cast_duration up to date with current patch?",
       "cast_duration": [
-        600,
-        400
+        2220,
+        1480
       ],
       "cooldown": [
-        6000,
-        4800
+        8000,
+        6400
       ],
-      "damage_coefficient": 1.76,
+      "damage_coefficient": 0.4,
       "executable": true,
       "on_strike_effect_applications": [
         {
           "base_duration_ms": 9000,
           "direction": "OUTGOING",
-          "effect": "BLEEDING",
-          "num_stacks": 3
+          "effect": "POISON",
+          "num_stacks": 1
         }
       ],
-      "skill_key": "Blunderbuss",
+      "skill_key": "Poison Dart Volley",
       "strike_on_tick_list": [
         [
-          600
+          444, 888, 1332, 1776, 2220
         ],
         [
-          400
+          296, 592, 888, 1184, 1480
         ]
       ],
       "tags": [
         "MISSILE"
       ],
-      "weapon_type": "rifle"
+      "weapon_type": "pistol"
     },
     {
       "cast_duration": [
-        540,
-        360
+        660,
+        440
       ],
       "cooldown": [
-        9000,
-        7200
+        12000,
+        9600
       ],
-      "damage_coefficient": 0.5,
+      "damage_coefficient": 0.4,
       "executable": true,
       "on_strike_effect_applications": [
         {
-          "base_duration_ms": 4000,
+          "base_duration_ms": 5000,
           "direction": "OUTGOING",
-          "effect": "IMMOBILIZED"
+          "effect": "CONFUSION",
+          "num_stacks": 3
         }
       ],
-      "skill_key": "Net Shot",
+      "skill_key": "Static Shot",
       "strike_on_tick_list": [
         [
-          540
+          660
         ],
         [
-          360
+          440
         ]
       ],
       "tags": [
         "MISSILE"
       ],
-      "weapon_type": "rifle"
+      "weapon_type": "pistol"
     },
     {
       "cast_duration": [
-        578,
-        385
+        840,
+        560
       ],
       "cooldown": [
-        14000,
-        11200
+        12000,
+        9600
       ],
       "damage_coefficient": 1,
       "executable": true,
-      "skill_key": "Overcharged Shot",
+      "on_strike_effect_applications": [
+        {
+          "base_duration_ms": 6000,
+          "direction": "OUTGOING",
+          "effect": "BURNING",
+          "num_stacks": 4
+        }
+      ],
+      "skill_key": "Blowtorch",
       "strike_on_tick_list": [
         [
-          578
+          840
         ],
         [
-          385
+          560
         ]
       ],
       "tags": [
         "MISSILE"
       ],
-      "weapon_type": "rifle"
-    },
-    {
-      "cast_duration": [
-        1386,
-        924
-      ],
-      "cooldown": [
-        18000,
-        14400
-      ],
-      "damage_coefficient": 1.35,
-      "executable": true,
-      "skill_key": "Jump Shot",
-      "strike_on_tick_list": [
-        [
-          693,
-          1386
-        ],
-        [
-          462,
-          924
-        ]
-      ],
-      "weapon_type": "rifle"
+      "weapon_type": "pistol"
     },
     {
       "cast_duration": [
@@ -939,7 +968,8 @@
         ]
       ],
       "tags": [
-        "MISSILE"
+        "MISSILE",
+		"EXPLOSION"
       ],
       "weapon_type": "kit_conjure"
     },
@@ -976,7 +1006,8 @@
         ]
       ],
       "tags": [
-        "MISSILE"
+        "MISSILE",
+		"EXPLOSION"
       ],
       "weapon_type": "kit_conjure"
     },
@@ -1013,7 +1044,8 @@
         ]
       ],
       "tags": [
-        "MISSILE"
+        "MISSILE",
+		"EXPLOSION"
       ],
       "weapon_type": "kit_conjure"
     },
@@ -1050,7 +1082,8 @@
         ]
       ],
       "tags": [
-        "MISSILE"
+        "MISSILE",
+		"EXPLOSION"
       ],
       "weapon_type": "kit_conjure"
     },
@@ -1087,10 +1120,244 @@
         ]
       ],
       "tags": [
-        "MISSILE"
+        "MISSILE",
+		"EXPLOSION"
       ],
       "weapon_type": "kit_conjure"
     },
+    {
+      "cast_duration": [
+        0,
+        0
+      ],
+      "equip_bundle": "Bomb Kit",
+      "executable": true,
+      "skill_key": "Bomb Kit"
+    },
+	
+	{
+      "cast_duration": [
+        1000,
+        1000
+      ],
+      "strike_on_tick_list": [
+        [
+          1000
+        ],
+        [
+		  1000
+        ]
+      ],
+      "damage_coefficient": 1.2,
+      "executable": false,
+      "skill_key": "Bomb Proc",
+      "weapon_type": "kit_conjure",
+      "tags": [
+		"EXPLOSION"
+      ]
+    },
+    {
+      "cast_duration": [
+        900,
+        600
+      ],
+      "executable": true,
+      "required_bundle": "Bomb Kit",
+      "skill_key": "Bomb",
+      "weapon_type": "kit_conjure",
+      "child_skill_keys": [
+        "Bomb Proc"
+      ]
+    },
+	
+	{
+      "cast_duration": [
+        1000,
+        1000
+      ],
+      "strike_on_tick_list": [[1000],[1000]],
+	  "on_strike_effect_applications": [
+        {
+          "base_duration_ms": 4000,
+          "direction": "OUTGOING",
+          "effect": "BURNING",
+          "num_stacks": 4
+        }
+      ],
+      "damage_coefficient": 0.25,
+      "executable": false,
+      "skill_key": "Fire Bomb Proc",
+      "weapon_type": "kit_conjure",
+      "tags": [
+		"EXPLOSION"
+      ]
+    },
+    {
+      "cast_duration": [
+        900,
+        600
+      ],
+      "cooldown": [
+        8000,
+        6800
+      ],
+      "executable": true,
+      "required_bundle": "Bomb Kit",
+      "skill_key": "Fire Bomb",
+      "weapon_type": "kit_conjure",
+      "child_skill_keys": [
+        "Fire Bomb Proc"
+      ]
+    },
+	
+	{
+      "cast_duration": [
+        1000,
+        1000
+      ],
+      "strike_on_tick_list": [[1000],[1000]],
+	  "on_strike_effect_applications": [
+        {
+          "base_duration_ms": 8000,
+          "direction": "OUTGOING",
+          "effect": "CONFUSION",
+          "num_stacks": 6
+        }
+      ],
+      "damage_coefficient": 0.6,
+      "executable": false,
+      "skill_key": "Concussion Bomb Proc",
+      "weapon_type": "kit_conjure",
+      "tags": [
+		"EXPLOSION"
+      ]
+    },
+    {
+      "cast_duration": [
+        900,
+        600
+      ],
+      "cooldown": [
+        16000,
+        12800
+      ],
+      "executable": true,
+      "required_bundle": "Bomb Kit",
+      "skill_key": "Concussion Bomb",
+      "weapon_type": "kit_conjure",
+      "child_skill_keys": [
+        "Concussion Bomb Proc"
+      ]
+    },
+	
+	{
+      "cast_duration": [
+        0,
+        0
+      ],
+      "equip_bundle": "Flamethrower",
+      "executable": true,
+      "skill_key": "Flamethrower"
+    },
+	
+	{
+      "cast_duration": [
+        1200,
+        800
+      ],
+      "cooldown": [
+        6000,
+        4800
+      ],
+      "damage_coefficient": 0.25,
+      "executable": true,
+      "on_strike_effect_applications": [
+        {
+          "base_duration_ms": 4000,
+          "direction": "OUTGOING",
+          "effect": "BURNING",
+		  "num_stacks": 3
+        }
+      ],
+      "required_bundle": "Flamethrower",
+      "skill_key": "Flame Blast",
+      "strike_on_tick_list": [
+        [
+          1200
+        ],
+        [
+          800
+        ]
+      ],
+      "tags": [
+        "MISSILE",
+		"EXPLOSION"
+      ],
+      "weapon_type": "kit_conjure"
+    },
+	{
+      "cast_duration": [
+        600,
+        400
+      ],
+      "cooldown": [
+        15000,
+        12000
+      ],
+      "damage_coefficient": 0.0,
+      "executable": true,
+      "on_strike_effect_applications": [
+        {
+          "base_duration_ms": 5000,
+          "direction": "OUTGOING",
+          "effect": "BURNING",
+		  "num_stacks": 1
+        }
+      ],
+      "required_bundle": "Flamethrower",
+      "skill_key": "Air Blast",
+      "strike_on_tick_list": [
+        [
+          600
+        ],
+        [
+          400
+        ]
+      ],
+      "weapon_type": "kit_conjure"
+    },
+	{
+      "cast_duration": [
+        540,
+        360
+      ],
+      "cooldown": [
+        25000,
+        20000
+      ],
+      "damage_coefficient": 0.9,
+      "executable": true,
+      "on_strike_effect_applications": [
+        {
+          "base_duration_ms": 2000,
+          "direction": "OUTGOING",
+          "effect": "BURNING",
+		  "num_stacks": 9
+        }
+      ],
+      "required_bundle": "Flamethrower",
+      "skill_key": "Napalm",
+      "strike_on_tick_list": [
+        [
+          540
+        ],
+        [
+          360
+        ]
+      ],
+      "weapon_type": "kit_conjure"
+    },
+	
     {
       "cast_duration": [
         0,
@@ -1118,7 +1385,8 @@
         ]
       ],
       "tags": [
-        "MISSILE"
+        "MISSILE",
+		"EXPLOSION"
       ],
       "weapon_type": "kit_conjure"
     },
@@ -1152,7 +1420,8 @@
         ]
       ],
       "tags": [
-        "MISSILE"
+        "MISSILE",
+		"EXPLOSION"
       ],
       "weapon_type": "kit_conjure"
     },
@@ -1186,7 +1455,8 @@
         ]
       ],
       "tags": [
-        "MISSILE"
+        "MISSILE",
+		"EXPLOSION"
       ],
       "weapon_type": "kit_conjure"
     },
@@ -1220,7 +1490,8 @@
         ]
       ],
       "tags": [
-        "MISSILE"
+        "MISSILE",
+		"EXPLOSION"
       ],
       "weapon_type": "kit_conjure"
     },
@@ -1239,9 +1510,13 @@
           0
         ]
       ],
+      "tags": [
+		"EXPLOSION"
+      ],
       "weapon_type": "empty_handed"
     },
     {
+      "attribute_damage_to_skill": "Explosive Entrance",
       "cast_duration": [
         0,
         0
@@ -1259,6 +1534,9 @@
         [
           0
         ]
+      ],      
+	  "tags": [
+	    "EXPLOSION"
       ],
       "weapon_type": "empty_handed"
     },
@@ -1280,8 +1558,8 @@
       "counter_modifiers": [
         {
           "condition": {
-            "only_applies_on_finished_casting": true,
-            "only_applies_on_finished_casting_skill": "Dodge"
+            "only_applies_on_begun_casting": true,
+            "only_applies_on_begun_casting_skill": "Dodge"
           },
           "counter_key": "Endurance",
           "operation": "subtract",
@@ -1295,108 +1573,6 @@
     },
     {
       "cast_duration": [
-        1020,
-        680
-      ],
-      "cooldown": [
-        12000,
-        9600
-      ],
-      "damage_coefficient": 3,
-      "executable": true,
-      "skill_key": "Throw Mine",
-      "strike_on_tick_list": [
-        [
-          1020,
-          1020
-        ],
-        [
-          680,
-          680
-        ]
-      ],
-      "tags": [
-        "MISSILE"
-      ],
-      "weapon_type": "empty_handed"
-    },
-    {
-      "cast_duration": [
-        0,
-        0
-      ],
-      "cooldown": [
-        999999,
-        999999
-      ],
-      "damage_coefficient": 3,
-      "executable": false,
-      "skill_key": "Throw Mine Precast",
-      "strike_on_tick_list": [
-        [
-          0,
-          0
-        ],
-        [
-          0,
-          0
-        ]
-      ],
-      "weapon_type": "empty_handed"
-    },
-    {
-      "cast_duration": [
-        0,
-        0
-      ],
-      "cooldown": [
-        2000,
-        2000
-      ],
-      "flat_damage": 595,
-      "skill_key": "Rifle Turret Attack",
-      "strike_on_tick_list": [
-        [
-          0
-        ],
-        [
-          0
-        ]
-      ],
-      "weapon_type": "main_hand"
-    },
-    {
-      "cast_duration": [
-        0,
-        0
-      ],
-      "cooldown": [
-        6800,
-        5440
-      ],
-      "damage_coefficient": 1,
-      "skill_key": "Surprise Shot",
-      "strike_on_tick_list": [
-        [
-          0
-        ],
-        [
-          0
-        ]
-      ],
-      "tags": [
-        "MISSILE"
-      ],
-      "weapon_type": "main_hand"
-    },
-    {
-      "TODO": "This little shit here",
-      "executable": true,
-      "skill_key": "Rifle Turret",
-      "weapon_type": "empty_handed"
-    },
-    {
-      "cast_duration": [
         939,
         626
       ],
@@ -1405,16 +1581,20 @@
         24000
       ],
       "damage_coefficient": 0,
-      "executable": true,
+      "executable": false,
       "skill_key": "A.E.D.",
       "weapon_type": "empty_handed"
     }
   ],
   "weapons": [
-    {
-      "position": "two_handed",
-      "set": "set_1",
-      "type": "rifle"
-    }
+	{
+		"type": "pistol",
+		"position": "main_hand",
+		"set": "set_1"
+	}, {
+		"type": "pistol",
+		"position": "off_hand",
+		"set": "set_1"
+	}
   ]
 }
