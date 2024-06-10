@@ -2,6 +2,7 @@
 #include <fstream>
 
 #include "combat_loop.hpp"
+#include "mru_cache.hpp"
 #include "server_tcp.hpp"
 
 #include "configuration/build.hpp"
@@ -29,6 +30,14 @@ int main(int argc, char** argv) {
     parser.add_argument("--server")
         .default_value(std::string{"127.0.0.1:54321"})
         .help("Server mode with hostname:port configuration.");
+    parser.add_argument("--cache-size")
+        .default_value(4096)
+        .scan<'i', int>()
+        .help("Cache size in MiB. Only applicable in server mode.");
+    parser.add_argument("--average-registry-size")
+        .default_value(64)
+        .scan<'i', int>()
+        .help("Average registry size in MiB. Only applicable in server mode.");
     parser.add_argument("--encounter")
         .default_value(std::string{"resources/encounter.json"})
         .help("Path to encounter file. Only applicable in default mode.");
@@ -61,6 +70,10 @@ int main(int argc, char** argv) {
         const std::string& hostname = server_configuration.substr(0, delimiter_index);
         int port = std::stoi(
             server_configuration.substr(delimiter_index + 1, server_configuration.size()));
+        const auto cache_size_MiB = parser.get<int>("--cache-size");
+        const auto average_registry_size_in_MiB = parser.get<int>("--average-registry-size");
+        auto& registry_cache = gw2combat::mru_cache_t<registry_t>::instance();
+        registry_cache.resize(cache_size_MiB, average_registry_size_in_MiB);
         start_server_tcp(hostname, port);
     }
     return 0;
@@ -129,6 +142,7 @@ configuration::encounter_t convert_encounter(
     converted_encounter.require_afk_skills = encounter_local.require_afk_skills;
     converted_encounter.audit_offset = encounter_local.audit_offset;
     converted_encounter.weapon_strength_mode = encounter_local.weapon_strength_mode;
+    converted_encounter.critical_strike_mode = encounter_local.critical_strike_mode;
     converted_encounter.enable_caching = false;
     return converted_encounter;
 }

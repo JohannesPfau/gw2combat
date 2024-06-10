@@ -88,7 +88,8 @@ auto simulate(const parsed_request_t& request) -> http::message_generator {
 
     std::string response_body;
     try {
-        const auto encounter = nlohmann::json::parse(request_body).get<configuration::encounter_t>();
+        const auto encounter =
+            nlohmann::json::parse(request_body).get<configuration::encounter_t>();
         response_body = combat_loop(encounter, encounter.enable_caching);
     } catch (const std::exception& err) {
         spdlog::error("error: {}", err.what());
@@ -121,7 +122,7 @@ auto handle_request(const http_request&& request) -> http::message_generator {
     const parsed_request_t parsed_request{request};
 
     const std::string& path = parsed_request.path();
-    spdlog::info("Received request for {}", path);
+    spdlog::debug("Received request for {}", path);
 
     // spdlog::debug("Path: {}", path);
     // spdlog::debug("Content-Type: {}", headers.find("Content-Type")->value());
@@ -155,7 +156,8 @@ class session_t : public std::enable_shared_from_this<session_t> {
     }
 
     void read_request() {
-        req_ = {};
+        req_.get().clear();
+        req_.body_limit(16 * 1024 * 1024);  // 16MiB
         stream_.expires_after(std::chrono::seconds(30));
         http::async_read(stream_,
                          buffer_,
@@ -169,10 +171,10 @@ class session_t : public std::enable_shared_from_this<session_t> {
             return do_close();
         }
         if (ec) {
-            spdlog::error("on_read: {}", ec.message());
+            spdlog::error("on_read: {}, {}", ec.value(), ec.message());
             return;
         }
-        send_response(handle_request(std::move(req_)));
+        send_response(handle_request(std::move(req_.get())));
     }
 
     void send_response(http::message_generator&& msg) {
@@ -188,11 +190,15 @@ class session_t : public std::enable_shared_from_this<session_t> {
                   std::size_t bytes_transferred) {
         boost::ignore_unused(bytes_transferred);
         if (ec) {
-            spdlog::error("on_write: {}", ec.message());
+            if (ec != boost::asio::error::connection_reset &&
+                ec != boost::asio::error::broken_pipe) {
+                spdlog::error("on_write: {}, {}", ec.value(), ec.message());
+            }
             return;
         }
         if (!keep_alive) {
-            return do_close();
+            do_close();
+            return;
         }
         read_request();
     }
@@ -201,15 +207,16 @@ class session_t : public std::enable_shared_from_this<session_t> {
         boost::beast::error_code ec;
         ec = stream_.socket().shutdown(tcp::socket::shutdown_send, ec);
         if (ec) {
-            spdlog::error("do_close: {}", ec.message());
-            std::exit(1);
+            if (ec != boost::asio::error::broken_pipe) {
+                spdlog::error("do_close: {}, {}", ec.value(), ec.message());
+            }
         }
     }
 
    private:
     boost::beast::tcp_stream stream_;
     boost::beast::flat_buffer buffer_;
-    http::request<http::string_body> req_;
+    http::request_parser<http::string_body> req_;
 };
 
 class connection_listener_t : public std::enable_shared_from_this<connection_listener_t> {

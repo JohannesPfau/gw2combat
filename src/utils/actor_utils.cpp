@@ -89,6 +89,21 @@ entity_t add_skill_to_actor(const configuration::skill_t& skill,
     utils::add_owner_based_component<std::vector<configuration::effect_removal_t>,
                                      component::is_effect_removal_t>(
         skill.effect_removals, actor_entity, registry);
+    for (auto& skill_trigger : skill.skill_triggers) {
+        utils::add_owner_based_component<configuration::skill_trigger_t,
+                                         component::is_skill_trigger>(
+            skill_trigger, actor_entity, registry);
+    }
+    for (auto& skill_trigger : skill.unchained_skill_triggers) {
+        utils::add_owner_based_component<configuration::skill_trigger_t,
+                                         component::is_unchained_skill_trigger>(
+            skill_trigger, actor_entity, registry);
+    }
+    for (auto& skill_trigger : skill.source_actor_skill_triggers) {
+        utils::add_owner_based_component<configuration::skill_trigger_t,
+                                         component::is_source_actor_skill_trigger>(
+            skill_trigger, actor_entity, registry);
+    }
 
     for (auto& child_skill : skill.child_skill_keys) {
         auto& child_skill_configuration = utils::get_skill_configuration(
@@ -141,14 +156,14 @@ void enqueue_child_skills(entity_t parent_actor,
     auto child_actor = utils::create_temporary_rotation_child_actor(
         parent_actor, child_name, registry.get<component::team>(parent_actor).id, registry);
 
-    actor::rotation_t rotation;
+    auto& rotation = registry.emplace<component::rotation_component>(
+        child_actor, component::rotation_component{{}, 0, 0, false, {}});
     for (auto& skill : skills) {
         auto& skill_configuration = utils::get_skill_configuration(skill, parent_actor, registry);
         utils::add_skill_to_actor(skill_configuration, child_actor, registry);
-        rotation.skill_casts.emplace_back(actor::skill_cast_t{skill_configuration.skill_key, 0});
+        rotation.queued_rotation.emplace_back(
+            actor::skill_cast_t{skill_configuration.skill_key, 0});
     }
-    registry.emplace<component::rotation_component>(
-        child_actor, component::rotation_component{rotation, 0, false});
 
     spdlog::info("[{}] {}: spawned {}",
                  utils::get_current_tick(registry),
@@ -160,6 +175,13 @@ void enqueue_child_skill(const actor::skill_t& skill, entity_t parent_actor, reg
     std::vector<actor::skill_t> skills;
     skills.emplace_back(skill);
     enqueue_child_skills(parent_actor, "Temporary " + skill + " Entity", skills, registry);
+}
+
+void enqueue_source_actor_child_skill(const actor::skill_t& skill,
+                                      entity_t source_actor,
+                                      registry_t& registry) {
+    auto& rotation = registry.get<component::rotation_component>(source_actor);
+    rotation.queued_rotation.emplace_back(actor::skill_cast_t{skill, 0});
 }
 
 entity_t add_effect_to_actor(actor::effect_t effect,
@@ -445,13 +467,15 @@ void finish_casting_skill(entity_t skill_entity, entity_t actor_entity, registry
     auto& skill_configuration = registry.get<component::is_skill>(skill_entity).skill_configuration;
     if (!(skill_configuration.skill_key == "Weapon Swap" &&
           registry.any_of<component::bundle_component>(actor_entity))) {
-        put_skill_on_cooldown_for_actor(skill_entity, skill_configuration, actor_entity, registry);
         auto owner_entity = utils::get_owner(actor_entity, registry);
         if (actor_entity != owner_entity) {
             auto owner_actor_skill_entity =
                 utils::get_skill_entity(skill_configuration.skill_key, owner_entity, registry);
             put_skill_on_cooldown_for_actor(
                 owner_actor_skill_entity, skill_configuration, owner_entity, registry);
+        } else {
+            put_skill_on_cooldown_for_actor(
+                skill_entity, skill_configuration, actor_entity, registry);
         }
     }
     // spdlog::info("[{}] {}: finished casting skill {}",

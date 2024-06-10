@@ -43,6 +43,10 @@ namespace gw2combat {
 
 void clear_temporary_components(registry_t& registry) {
     registry.clear<component::actor_created,
+                   component::already_performed_rotation,
+                   component::already_performed_animation,
+                   component::already_finished_casting_skill,
+                   component::is_afk,
                    component::equipped_bundle,
                    component::dropped_bundle,
                    component::relative_attributes,
@@ -98,9 +102,20 @@ void destroy_marked_entities(registry_t& registry) {
 void tick(registry_t& registry) {
     system::setup_combat_stats(registry);
 
-    system::perform_rotations(registry);
+    while (true) {
+        bool repeat = false;
+        repeat |= system::perform_rotations(registry);
+        repeat |= system::progress_animations(registry);
+        if (!repeat) {
+            break;
+        }
+    }
 
-    system::progress_animations(registry);
+    registry
+        .view<component::is_actor>(
+            entt::exclude<component::owner_component, component::animation_component>)
+        .each([&](entity_t actor_entity) { registry.emplace<component::is_afk>(actor_entity); });
+
     system::progress_casting_skills(registry);
     system::progress_cooldowns(registry);
     system::progress_durations(registry);
@@ -305,16 +320,16 @@ std::string combat_loop(const configuration::encounter_t& encounter, bool enable
             registry.ctx().get<tick_t>() += 1;
             tick(registry);
         }
+        result = utils::to_string(system::get_audit_report(registry, encounter.audit_offset));
     } catch (std::exception& e) {
         spdlog::error("Exception: {}", e.what());
-        return utils::to_string(
-            system::get_audit_report(registry, encounter.audit_offset, e.what()));
+        result =
+            utils::to_string(system::get_audit_report(registry, encounter.audit_offset, e.what()));
     }
 
-    result = utils::to_string(system::get_audit_report(registry, encounter.audit_offset));
     auto cache_key = convert_encounter_to_cache_key(encounter);
     if (!registry_cache.contains(cache_key)) {
-        registry_cache.put(convert_encounter_to_cache_key(encounter), std::move(registry));
+        registry_cache.put(cache_key, std::move(registry));
     }
     return result;
 }

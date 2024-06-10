@@ -1,7 +1,7 @@
 #include <cfenv>
 #include <fstream>
 
-#include "combat_loop.hpp"
+#include "mru_cache.hpp"
 #include "server_http.hpp"
 
 #include "configuration/build.hpp"
@@ -29,12 +29,18 @@ int main(int argc, char** argv) {
     parser.add_argument("--server")
         .default_value(std::string{"127.0.0.1:54321"})
         .help("Server mode with hostname:port configuration.");
-    parser.add_argument("--encounter")
-        .default_value(std::string{"resources/encounter.json"})
-        .help("Path to encounter file. Only applicable in default mode.");
-    parser.add_argument("--audit-path")
-        .default_value(std::string{"audit.json"})
-        .help("Path to audit file. Only applicable in default mode.");
+    parser.add_argument("--cache-size")
+        .default_value(4096)
+        .scan<'i', int>()
+        .help("Cache size in MiB.");
+    parser.add_argument("--average-registry-size")
+        .default_value(64)
+        .scan<'i', int>()
+        .help("Average registry size in MiB.");
+    parser.add_argument("--threads")
+        .scan<'i', int>()
+        .default_value(1)
+        .help("Number of threads to use.");
 
     try {
         parser.parse_args(argc, argv);
@@ -47,12 +53,17 @@ int main(int argc, char** argv) {
     const auto& server_configuration = parser.get<std::string>("--server");
     auto delimiter_index = server_configuration.find(':');
     const std::string& hostname = server_configuration.substr(0, delimiter_index);
-    int port = std::stoi(
-        server_configuration.substr(delimiter_index + 1, server_configuration.size()));
+    int port =
+        std::stoi(server_configuration.substr(delimiter_index + 1, server_configuration.size()));
+    const auto cache_size_MiB = parser.get<int>("--cache-size");
+    const auto average_registry_size_in_MiB = parser.get<int>("--average-registry-size");
+    const auto threads = parser.get<int>("threads");
+    auto& registry_cache = gw2combat::mru_cache_t<registry_t>::instance();
+    registry_cache.resize(cache_size_MiB, average_registry_size_in_MiB);
     http_server_config_t config{
-            .server_host = hostname,
-            .server_port = static_cast<unsigned short>(port),
-            .threads = 1,
+        .server_host = hostname,
+        .server_port = static_cast<unsigned short>(port),
+        .threads = threads,
     };
     start_server_http(config);
     return 0;
@@ -121,6 +132,7 @@ configuration::encounter_t convert_encounter(
     converted_encounter.require_afk_skills = encounter_local.require_afk_skills;
     converted_encounter.audit_offset = encounter_local.audit_offset;
     converted_encounter.weapon_strength_mode = encounter_local.weapon_strength_mode;
+    converted_encounter.critical_strike_mode = encounter_local.critical_strike_mode;
     converted_encounter.enable_caching = false;
     return converted_encounter;
 }
