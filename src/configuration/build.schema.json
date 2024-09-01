@@ -247,7 +247,8 @@
                 "rifle",
                 "shortbow",
                 "staff",
-                "aquatic"
+                "aquatic",
+                "spear"
             ]
         },
         "weapon_position": {
