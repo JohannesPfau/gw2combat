@@ -4,11 +4,12 @@
 #include "skill_utils.hpp"
 
 #include "component/actor/combat_stats.hpp"
+#include "component/actor/static_attributes.hpp"
 #include "component/counter/is_counter.hpp"
+#include "component/damage/strikes_pipeline.hpp"
 #include "component/effect/is_effect.hpp"
 #include "component/effect/is_unique_effect.hpp"
 #include "component/effect/source_actor.hpp"
-#include "component/actor/static_attributes.hpp"
 #include "component/equipment/bundle.hpp"
 #include "component/equipment/weapons.hpp"
 #include "component/temporal/cooldown_component.hpp"
@@ -239,6 +240,17 @@ namespace gw2combat::utils {
                 return {.satisfied = false, .reason = "health pct not in threshold"};
             }
         }
+        if (target_entity && condition.threshold->target_health_pct_subject_to_threshold &&
+            *condition.threshold->target_health_pct_subject_to_threshold) {
+            double target_max_health = registry.get<component::static_attributes>(*target_entity)
+                                           .attribute_value_map.at(actor::attribute_t::MAX_HEALTH);
+            double target_current_health =
+                registry.get<component::combat_stats>(*target_entity).health;
+            double target_current_health_pct = target_current_health / target_max_health;
+            if (!threshold_satisfied(target_current_health_pct)) {
+                return {.satisfied = false, .reason = "target health pct not in threshold"};
+            }
+        }
         if (condition.threshold->counter_value_subject_to_threshold) {
             bool found = false;
             int counter_value;
@@ -370,6 +382,7 @@ namespace gw2combat::utils {
     entity_t entity,
     entity_t target_entity,
     bool is_critical,
+    const component::strike_t& strike,
     const configuration::skill_t& source_skill_configuration,
     registry_t& registry) {
     return condition.only_applies_on_strikes && *condition.only_applies_on_strikes &&
@@ -378,8 +391,8 @@ namespace gw2combat::utils {
            (!condition.only_applies_on_strikes_by_skill ||
             *condition.only_applies_on_strikes_by_skill == source_skill_configuration.skill_key) &&
            (!condition.only_applies_on_strikes_by_skill_with_tag ||
-            utils::skill_has_tag(source_skill_configuration,
-                                 *condition.only_applies_on_strikes_by_skill_with_tag)) &&
+            utils::strike_has_tag(strike,
+                                  *condition.only_applies_on_strikes_by_skill_with_tag)) &&
            stage_independent_conditions_satisfied(condition, entity, target_entity, registry)
                .satisfied;
 }

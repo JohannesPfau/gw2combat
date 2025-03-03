@@ -11,6 +11,7 @@
 #include "component/actor/relative_attributes.hpp"
 #include "component/actor/rotation_component.hpp"
 #include "component/actor/skills_actions_component.hpp"
+#include "component/actor/skills_ticks_tracker_component.hpp"
 #include "component/actor/static_attributes.hpp"
 #include "component/damage/effects_pipeline.hpp"
 #include "component/damage/incoming_damage.hpp"
@@ -20,7 +21,6 @@
 #include "component/equipment/bundle.hpp"
 #include "component/lifecycle/destroy_entity.hpp"
 #include "component/skill/ammo.hpp"
-#include "component/skill/is_skill.hpp"
 #include "component/temporal/animation_component.hpp"
 #include "component/temporal/cooldown_component.hpp"
 #include "component/temporal/duration_component.hpp"
@@ -32,7 +32,9 @@
 #include "system/dispatch_strikes_and_effects.hpp"
 #include "system/effects.hpp"
 #include "system/encounter.hpp"
+#include "system/hooks.hpp"
 #include "system/rotation.hpp"
+#include "system/skill.hpp"
 #include "system/temporal.hpp"
 
 #include "utils/condition_utils.hpp"
@@ -100,6 +102,13 @@ void destroy_marked_entities(registry_t& registry) {
     }
 }
 
+void mark_afk_actors(registry_t& registry) {
+    registry
+        .view<component::is_actor>(
+            entt::exclude<component::owner_component, component::animation_component>)
+        .each([&](entity_t actor_entity) { registry.emplace<component::is_afk>(actor_entity); });
+}
+
 void tick(registry_t& registry) {
     auto& encounter =
         registry.get<component::encounter_configuration_component>(utils::get_singleton_entity())
@@ -115,61 +124,33 @@ void tick(registry_t& registry) {
         }
     }
 
-    registry
-        .view<component::is_actor>(
-            entt::exclude<component::owner_component, component::animation_component>)
-        .each([&](entity_t actor_entity) { registry.emplace<component::is_afk>(actor_entity); });
+    mark_afk_actors(registry);
 
+    system::progress_casting_skill_ticks(registry);
     system::progress_casting_skills(registry);
     system::progress_cooldowns(registry);
     system::progress_durations(registry);
 
+    system::perform_skill_ticks(registry);
     system::perform_skills(registry);
 
-    registry.view<component::is_skill, component::ammo_gained>().each(
-        [&](entity_t skill_entity, const component::is_skill& is_skill) {
-            auto actor_entity = utils::get_owner(skill_entity, registry);
-            auto side_effect_condition_fn = [&](const configuration::condition_t& condition) {
-                return utils::on_ammo_gain_conditions_satisfied(
-                    condition, actor_entity, is_skill.skill_configuration, registry);
-            };
-            utils::apply_side_effects(registry, actor_entity, side_effect_condition_fn);
-        });
-    registry.view<component::begun_casting_skills>().each(
-        [&](entity_t actor_entity, component::begun_casting_skills& begun_casting_skills) {
-            for (auto casting_skill_entity : begun_casting_skills.skill_entities) {
-                auto& skill_configuration =
-                    registry.get<component::is_skill>(casting_skill_entity).skill_configuration;
-                auto side_effect_condition_fn = [&](const configuration::condition_t& condition) {
-                    return utils::on_begun_casting_conditions_satisfied(
-                        condition, actor_entity, skill_configuration, registry);
-                };
-                utils::apply_side_effects(registry, actor_entity, side_effect_condition_fn);
-            }
-        });
-    registry.view<component::is_actor>(entt::exclude<component::owner_component>)
-        .each([&](entity_t actor_entity) {
-            auto side_effect_condition_fn = [&](const configuration::condition_t& condition) {
-                return utils::independent_conditions_satisfied(
-                           condition, actor_entity, std::nullopt, registry)
-                    .satisfied;
-            };
-            utils::apply_side_effects(registry, actor_entity, side_effect_condition_fn);
-        });
+    system::on_ammo_gained_hooks(registry);
+    system::on_begun_casting_skills_hooks(registry);
+    system::on_every_tick_hooks(registry);
+
+    if (!registry.view<component::outgoing_strikes_component>().empty()) {
+        system::calculate_relative_attributes(registry);
+    }
 
     system::dispatch_strikes(registry);
-
-    if (!registry.view<component::incoming_strikes_component>().empty()) {
-        system::calculate_relative_attributes(registry);
-    }
-
     system::apply_strikes(registry);
-    system::dispatch_effects(registry);
+    system::on_strike_hooks(registry);
 
-    if (!registry.view<component::incoming_effects_component>().empty()) {
+    if (!registry.view<component::outgoing_effects_component>().empty()) {
         system::calculate_relative_attributes(registry);
     }
 
+    system::dispatch_effects(registry);
     system::apply_effects(registry);
 
     system::buffer_damage_for_effects_with_no_duration(registry);
@@ -186,6 +167,7 @@ void tick(registry_t& registry) {
 
     system::audit(registry);
 
+    system::cleanup_skill_ticks_tracker(registry);
     system::cleanup_skill_actions(registry);
     destroy_marked_entities(registry);
     clear_temporary_components(registry);
@@ -217,8 +199,10 @@ bool continue_combat_loop(registry_t& registry, const configuration::encounter_t
                     !registry.any_of<component::rotation_component>(entity)) {
                     continue;
                 }
-                if (registry.any_of<component::skills_actions_component,
-                                    component::finished_skills_actions_component>(entity)) {
+                if (registry.any_of<component::skills_ticks_tracker_component,
+                                    component::skills_actions_component,
+                                    component::finished_skills_actions_component,
+                                    component::destroy_skills_ticks_tracker_component>(entity)) {
                     everyone_out_of_rotation = false;
                     break;
                 }
